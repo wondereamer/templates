@@ -1,0 +1,148 @@
+{% extends 'sites/base.html' %}
+{% block title %}
+论坛
+{% endblock %}
+{% block content %}
+    <div id="main-content">
+        <!-- -->
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1>Hello, world!</h1>
+                        <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                        <p>
+                        <a class="btn btn-danger btn-lg" href="/forum/{{ forum.pk }}/topic/add/"
+                                role="button">发表话题</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ol class="breadcrumb">
+                        <li><a href="javascript:void(0);">社区</a></li>
+                        <li><a href="javascript:void(0);">最新动态</a></li>
+                        <li class="active">业界动态</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+        <div class="container">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">全部</button>
+                            <button type="button" class="btn btn-default">产品评测</button>
+                            <button type="button" class="btn btn-default">话题讨论</button>
+                            <button type="button" class="btn btn-default">求助&问题</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            类别：
+                            <a class="btn btn-default" role="button">全部</a>
+                            <a class="btn btn-default" role="button">健康医疗</a>
+                            <a class="btn btn-default" role="button">数码电子</a>
+                            <a class="btn btn-default" role="button">智能家居</a>
+                            <a class="btn btn-default" role="button">娱乐生活</a>
+                            <a class="btn btn-default" role="button">户外休闲</a>
+                        </p>
+                        <p>
+                            时间：
+                            <a class="btn btn-default" role="button">全部</a>
+                            <a class="btn btn-default" role="button">一天之内</a>
+                            <a class="btn btn-default" role="button">一周之内</a>
+                            <a class="btn btn-default" role="button">一个月内</a>
+                            <a class="btn btn-default" role="button">近一年内</a>
+                        </p>
+                        <p>
+                            排序：
+                            <a class="btn btn-default" role="button">默认</a>
+                            <a class="btn btn-default" role="button">发帖时间</a>
+                            <a class="btn btn-default" role="button">回复最多</a>
+                            <a class="btn btn-default" role="button">收藏最多</a>
+                            <a class="btn btn-default" role="button">最赞主题</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+        <div class="container">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>发布者</td>
+                                <td>主题</td>
+                                <td>最后回应</td>
+                                <td>回复数</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for topic in topics %}
+                            <tr>
+                                <td>
+                                    <a class="btn">
+                                        <img class="img-circle img-responsive" src="../legacy/img/avatar_default_small.jpg"></a>
+                                    </a>
+                                </td>
+                                <td>
+                                    <h4><b>
+                                            <a href="/forum/topic/{{ topic.id  }}">[置顶] {{ topic.name }}</a>
+                                    </b></h4>
+
+                                    <p>太火鸟动态 | 小鹿笛子 于2014-09-09发表</p>
+                                    <p>
+
+                                    </p>
+                                </td>
+                                <td>
+                                    <a class="btn">
+                                        <img class="img-circle img-responsive" src="../legacy/img/avatar_default_small.jpg"></a>
+                                    </a>
+                                    回复于3天前
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-lg">
+                                        4
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

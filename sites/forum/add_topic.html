@@ -1,0 +1,84 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block head %}
+    <style>
+    	body{
+    		padding-top: 70px;
+    	}
+    	.btn-bg{
+    		background: #C7254E;
+    	}
+    </style>
+{% endblock %}
+{% block title %}
+发帖
+{% endblock %}
+{% block content %}
+ <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li> <a href="{% url 'djangobb:index' %}">社区 </a></li>
+                <li>{% link forum %} </li>
+                <li class="active">发表话题</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <span class="font-size-2em">填写基本信息</span>                                 
+                <a><span class="glyphicon glyphicon-question-sign"></span></a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                	<form action="" method="post">
+                        {% csrf_token %}
+                		<input type="hidden" name="forum_id" id="topic-category" value="{{ forum.id  }}" />
+	                    <p class="font-size-1_2em">类别</p>
+	                    <div id="category" class="form-group">
+	                        <input class="btn btn-bg" type="button" name="industry" data-value="{{ forum.id  }}" value="{{ forum.name  }}" />
+                            {% for rforum in related_forums %}
+                                <input class="btn" type="button" name="inspiration" data-value="{{ rforum.id  }}" value="{{ rforum.name }}" />
+                            {% endfor %}
+	                    </div>
+	                    <p class="font-size-1_2em">标题</p>
+	                    <div class="form-group">
+	                        <input class="form-control" placeholder="标题" name="name"/>
+	                    </div>
+	                    <p class="font-size-1_2em">描述</p>
+	                    <div class="form-group">
+	                        <textarea class="form-control" rows="6" placeholder="请输入描述" name="body"></textarea>                       
+	                    </div>
+	                    <p class="font-size-1_2em">标签</p>
+	                    <div class="form-group">
+	                        <input class="form-control" placeholder="标签" />
+	                    </div>                  
+	                    <p>
+	                        <span class="pull-right">
+                                <a class="btn btn-default" href="{{ forum.get_absolute_url  }}">取消</a>
+                                <input type="submit" class="btn btn-info" name="some_name" value="确认提交"/>
+	                        </span>
+	                    </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	$(function(){
+//		类别点击效果及传值开始
+		$("#category input").click(function(){
+			$(this).addClass('btn-bg').siblings().removeClass('btn-bg');
+			var iValue=$(this).attr('data-value');
+			$('#topic-category').attr('value',iValue);
+		})
+//		类别点击效果及传值结束
+	})
+</script>
+{% endblock %}

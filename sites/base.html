@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "UTF-8">
+    <title>{% block title %}BBS{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 载入Compass处理后的css文件 -->
+    <link href="/css/main.css" rel="stylesheet" />
+    {% block head  %}{% endblock  %}
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js"></script>
+    <style type="text/css" media="screen">
+    body {
+        padding-top:70px
+    }
+    </style>
+</head>
+
+<body>
+<!--头部导航栏结束-->
+{% include "sites/header.html"  %}
+{% block content %}{% endblock %}
+{% include "sites/footer.html"  %}
+
+</body>
+</html>

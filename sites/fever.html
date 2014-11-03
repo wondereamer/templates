@@ -1,0 +1,91 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block title %}
+投票
+{% endblock %}
+{% block content %}
+    <div id="main-content">
+        <!-- -->
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1>为什么创意这么重要?</h1>
+                        <p>Bla bla bla....</p>
+                        <p>
+                            <a class="btn btn-danger btn-lg" role="button" href="/idea/add/">提交创意</a>
+                            <a class="btn btn-primary btn-lg" role="button">查看帮助</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+        <div class="container">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">正在投票</button>
+                            <button type="button" class="btn btn-default">已经结束</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            分类：
+                            <a class="btn btn-danger" role="button">全部</a>
+                            {% for c in cats %}
+                                <a class="btn btn-default" role="button" href="/fever/{{ c.id }}/">{{ c.name }}</a>
+                            {% endfor %}
+                        </p>
+                        <p>
+                            排序：
+                            <a class="btn btn-danger" role="button">最新</a>
+                            <a class="btn btn-danger" role="button">投票</a>
+                            <a class="btn btn-danger" role="button">评论</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -->
+        <div class="container" id="product-three-columns">
+            {% for  product in product_list %}
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="/fever_product/{{  product.id }}/">
+                            <img class="img-responsive" src="{{ product.photo_intros.all.0.image.url | media_path }}" />
+                        </a> 
+                    </div>
+                    <div class="panel-footer">
+                        <h3>Title</h3>
+                        <h5>description .........................................</h5>
+                        <hr />
+                        <p>00 00 00 00</p>
+                        <p>11 votes</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

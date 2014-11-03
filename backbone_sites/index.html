@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主页展示</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- 载入Compass处理后的css文件 -->
+<link href="css/main.css" rel="stylesheet" />
+<style>
+    body{ padding-top: 50px; }
+</style>
+
+</head>
+<body>
+
+<div class="wrap">
+    <!--头部导航栏开始-->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button id="collapsed-navbar" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--logo-->
+                <a class="navbar-brand" href="javascript:void(0);">
+                    <img alt="Brand" src="" />
+                </a>
+                <!--logo-->
+            </div>
+            <!--导航栏items区域开始-->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" id="navbar-top">
+                    <li class="active" id="btn-home">
+                    	<a href="javascript:void(0);">
+                    		<span class="glyphicon glyphicon-home"></span>
+                    		主页
+                    	</a>
+                    </li>
+                    <li class="" id="btn-pre-sale">
+                    	<a href="#preSale">
+                    		<span class="glyphicon glyphicon-dashboard"></span>
+                    		预售
+                    	</a>
+                    </li>
+                    <li class="" id="btn-shop">
+                    	<a href="#sale">
+                    		<span class="glyphicon glyphicon-shopping-cart"></span>
+                    		商店
+                    	</a>
+                    </li>
+                    <li class="" id="btn-vote">
+                    	<a href="#fever">
+                    		<span class="glyphicon glyphicon-heart"></span>
+                    		投票
+                    	</a>
+                    </li>
+                    <li class="" id="btn-bbs">
+                    	<a href="#bbs">
+                    		<span class="glyphicon glyphicon-tree-deciduous"></span>
+                    		社区
+                    	</a>
+                    </li>
+                </ul>
+                <!--导航栏items区域结束-->
+                <!--导航栏搜索框form表单开始-->
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="请输入搜索内容">
+                    </div>
+                    <button type="submit" class="btn btn-info">搜索</button>
+                </form>
+                <!--导航栏搜索框form表单结束-->
+                <ul class="nav navbar-nav navbar-right">
+				{% if user.is_authenticated %}
+                	<li id="btn-shopping-cart" class="dropdown" style="position: relative;" data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="您的购物车里还没有商品，赶快选购吧！">
+                    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    		<span class="glyphicon glyphicon-shopping-cart"></span>
+                    		购物车
+                    		<b class="caret"></b>
+                    	</a>
+                    	<div class="panel panel-default panel-cart" style="display: none; position: absolute; top: 50px; left: -370px;">
+	                    	<div class="panel-body">
+				                <table class="table table-hover" style="width: 428px;">
+								   <thead>
+								      <tr>
+								      	 <th></th>
+								         <th>产品信息</th>
+								         <th>数量</th>
+								         <th>小计</th>
+								         <th></th>
+								      </tr>
+								   </thead>
+								   <tbody>
+								      <tr style="height: 73px;">
+								      	 <td style="width: 64px;"><a
+                                                 href="#"><img class="img-circle" src="/img/cc.jpg" alt="" style="width: 50px;height: 50px;" /></a></td>
+								         <td style="width: 140px;"><a href="#">COCO面条数据线 七彩鞋带时尚</a></td>
+								         <td style="width: 47px;">1</td>
+								         <td style="width: 45px;">39</td>
+								         <td style="width: 140px;"><a href="#"><span class="glyphicon glyphicon-trash pull-right"></span></a></td>
+								      </tr>
+								      <tr style="height: 73px;">
+								      	 <td style="width: 64px;"><a href="#"><img class="img-circle" src="img/cc.jpg" alt="" style="width: 50px;height: 50px;" /></a></td>
+								         <td style="width: 140px;"><a href="#">COCO面条数据线 多功能多彩</a></td>
+								         <td style="width: 47px;">1</td>
+								         <td style="width: 45px;">39</td>
+								         <td style="width: 140px;"><a href="#"><span class="glyphicon glyphicon-trash pull-right"></span></a></td>
+								      </tr>
+								      <tr style="height: 73px;">
+								      	 <td colspan="4">
+								      	 	<p>共计：<span style="color: red;">2</span>&nbsp;件产品</p>
+								      	 	<p>总计：<span style="color: red;">78</span>&nbsp;元</p>
+								      	 </td>
+								      	 <td>
+								      	 	<a href="#" class="btn btn-success pull-right">去结算</a>
+								      	 </td>
+								      </tr>
+								   </tbody>
+								</table>
+							</div>
+						</div>
+                    </li>                    
+                    <!--登录后用户中心区域开始/默认隐藏-->
+                    <li id="" class="dropdown">
+                    	<a href="accounts/login" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" data-close-others="false">
+                    		<span class="glyphicon glyphicon-user"></span>
+                              {{ user.username  }}
+                    		<b class="caret"></b>
+                    	</a>
+                		<ul class="dropdown-menu">
+                			<li><a href="">账户设置</a></li>
+                			<li class="divider"></li>
+                			<li><a href="">查看个人资料</a></li>
+                			<li class="divider"></li>
+                			<li><a href="">我的订单</a></li>
+                			<li class="divider"></li>
+                			<li><a href="">帮助</a></li>
+                			<li class="divider"></li>
+                			<li><a href="">退出</a></li>
+                		</ul>                    	
+                    </li>
+                {% else  %}
+                    <!--登录后用户中心区域结束-->
+                    <li id="btn-login">
+                    	<a href="accounts/login">
+                    		<span class="glyphicon glyphicon-user"></span>
+                    		登录
+                    	</a>
+                    </li>
+                    <li id="btn-register">
+                    	<a href="accounts/register">注册</a>                    	
+                    </li>
+                {% endif  %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--头部导航栏结束-->
+    <div id="main-content">
+        <!--预售商品区域区域开始-->
+        <div class="container" id="product-carousel">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="img/first-slide.svg" alt="...">
+                        <div class="carousel-caption">
+                            很好啊
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="img/second-slide.svg" alt="...">
+                        <div class="carousel-caption">
+                            ...
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="img/third-slide.svg" alt="...">
+                        <div class="carousel-caption">
+                            ...
+                        </div>
+                    </div>
+                </div>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>        
+        <!--预售商品区域结束--><br />
+        <!--热卖商品区域开始-->
+        <div class="container" id="shop_products_view">
+            <h3>热卖商品</h3>
+
+            <!--<div id="SaleProductTemplate"></div>-->
+
+            <script id="SaleProductTemplate" type="text/template">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img class="img-responsive" src="<%= coverImage %>" />
+                        </div>
+                        <div class="panel-footer">
+                            <h6><%= title %></h6>
+                        </div>
+                    </div>
+                </div>
+            </script>
+
+        </div>
+    </div>
+</div>
+<br />
+<div class="footer hidden-xs">
+    <!-- -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h3><b>关于XXX</b></h3>
+                <h4><a href="">关于我们</a></h4>
+                <h4>联系我们</h4>
+                <h4>成功案例</h4>
+                <h4>加入我们</h4>
+            </div>
+            <div class="col-md-3">
+                <h3><b>服务</b></h3>
+                <h4>创意征集</h4>
+                <h4>新品试用</h4>
+                <h4>投票规则</h4>
+            </div>
+            <div class="col-md-3">
+                <h3><b>帮助中心</b></h3>
+                <h4>如何工作</h4>
+                <h4>售后工作</h4>
+                <h4>常见问题</h4>
+                <h4>服务条款</h4>
+            </div>
+            <div class="col-md-3">
+                <h3><b>关注我们</b></h3>
+                <p>
+                    <a class="btn">
+                        <img class="img-rounded img-responsive"  src="../legacy/img/avatar_default_small.jpg"/>
+                    </a>
+                    <a class="btn">
+                        <img class="img-rounded img-responsive"  src="../legacy/img/avatar_default_small.jpg"/>
+                    </a>
+                    <a class="btn">
+                        <img class="img-rounded img-responsive"  src="../legacy/img/avatar_default_small.jpg"/>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/lib/jquery.min.js"></script>
+<script src="/js/lib/bootstrap.min.js"></script>
+<script src="/js/lib/bootstrap-hover-dropdown.min.js"></script>
+<script src="js/lib/underscore-min.js"></script>
+<script src="js/lib/backbone-min.js"></script> 
+<script src="js/models/SaleProduct.js"></script> 
+<script src="js/collections/SaleProducts.js"></script> 
+<script src="js/views/ItemView.js"></script> 
+<script src="js/views/ListView.js"></script> 
+<script src="/js/router.js"></script>
+
+<script>
+	$(function(){
+        // 如果没有触发路由，则加载数据。
+        // 否这让路由响应函数加载数据。
+        if(!RooterTriggered)    
+            console.log("ok");
+		//头部nav导航栏选中效果
+		$("#navbar-top li").click(function(){
+			$(this).addClass("active").siblings("li").removeClass("active");
+		});
+		// 购物车提示信息弹框
+		/*$('#btn-shopping-cart').hover(function(){ //已有商品加入购物车的提示框
+			$('.panel-cart').toggle();
+		});
+		//用户中心hover下拉效果
+		$('.dropdown-toggle').dropdownHover(options);*/
+	})
+</script>
+
+</body>
+</html>
