@@ -10,8 +10,40 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('index', {
             url: '/index',
             views: {
+                 '': {
+                     templateUrl: 'views/window.html',
+                     controller: function($scope) {}
+                 },
+            }
+        })
+        .state('category', {
+            url: '/category',
+            views: {
+                 '': {
+                     templateUrl: 'views/category.html',
+                     controller: function($scope) {}
+                 },
+                 'type-nav@category':{
+                 	templateUrl: 'views/type-nav.html'
+                 },
+                 'products-list@category':{
+                 	templateUrl: 'views/products-list.html'
+                 }
+            }
+        })
+        .state('product-detail', {
+            url: '/product-detail',
+            views: {
                  "": {
-                     templateUrl: 'views/home.html',
+                     templateUrl: 'views/product-detail.html'
+                 },
+            }
+        })
+        .state('sale', {
+            url: '/sale',
+            views: {
+                 "": {
+                     templateUrl: 'views/sale.html',
                      controller: function($scope) {}
                  },
             }
@@ -24,8 +56,4 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/presale',
             template: '<h4>presale</h4>'
         })
-        .state('sale', {
-            url: '/sale',
-            template: '<h4>sale</h4>'
-        });
 });
