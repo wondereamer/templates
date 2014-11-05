@@ -28,6 +28,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  },
                  'products-list@category':{
                  	templateUrl: 'views/products-list.html'
+                 },
+                 'footer@category':{
+                 	templateUrl:'views/footer.html'
+                 }
+            }
+        })
+        .state('login', {
+            url: '/login',
+            views: {
+                 '': {
+                     templateUrl: 'views/login.html'
+                 },
+                 'footer@login':{
+                 	templateUrl: 'views/footer.html'
                  }
             }
         })
