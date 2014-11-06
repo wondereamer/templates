@@ -60,7 +60,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                                  '<div ideasaleitem></div>'  + 
                             '</div>'   + 
                         '</div>',
-             controller: "SaleController",
+             controller: "SaleController"
         })
         .state('fever', {
             url: '/fever',
