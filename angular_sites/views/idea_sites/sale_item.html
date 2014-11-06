@@ -1,0 +1,18 @@
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <a href="/shop_product/{{  product.id }}/">
+                <!--<img class="img-responsive" src="{{ product.photo_intros.all.0.image.url | media_path }}" />-->
+            </a> 
+        </div>
+        <div class="panel-footer">
+            <h3>产品描述</h3>
+            <h5>产品的详细介绍</h5>
+            <hr />
+            <div class="row center-block">
+                <span class="pull-left">{[ item.price ]}</span>
+                <span class="pull-right">{[ item.like ]}</span>
+            </div>
+        </div>
+    </div>
+</div>

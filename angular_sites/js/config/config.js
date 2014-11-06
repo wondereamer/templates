@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ui.router']);
+var app = angular.module('app', ['ui.router', 'restangular']);
 app.config(function($interpolateProvider) {
   $interpolateProvider.startSymbol('{[');
   $interpolateProvider.endSymbol(']}'); 
@@ -41,12 +41,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('sale', {
             url: '/sale',
-            views: {
-                 "": {
-                     templateUrl: 'views/sale.html',
-                     controller: function($scope) {}
-                 },
-            }
+             template:'<div ideashopgridview>'  +
+                            '<div ng-repeat="item in items">' + 
+                                 '<div ideasaleitem></div>'  + 
+                            '</div>'   + 
+                        '</div>',
+             controller: "SaleController",
         })
         .state('fever', {
             url: '/fever',
