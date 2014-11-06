@@ -14,6 +14,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
                      templateUrl: 'views/window.html',
                      controller: function($scope) {}
                  },
+                 'login':{
+                 	templateUrl: 'views/login.html'
+                 }
+            }
+        })
+//      .state('login', {
+//          url: '/login',
+//          views: {
+//               '': {
+//                   templateUrl: 'views/login.html'
+//               }
+//               
+//          }
+//      })
+        .state('register', {
+            url: '/register',
+            views: {
+                 '': {
+                     templateUrl: 'views/register.html'
+                 }
+                 
             }
         })
         .state('category', {
@@ -34,17 +55,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  }
             }
         })
-        .state('login', {
-            url: '/login',
-            views: {
-                 '': {
-                     templateUrl: 'views/login.html'
-                 },
-                 'footer@login':{
-                 	templateUrl: 'views/footer.html'
-                 }
-            }
-        })
+        
         .state('product-detail', {
             url: '/product-detail',
             views: {

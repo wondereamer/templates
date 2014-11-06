@@ -106,16 +106,11 @@
                 {% else  %}
                     <li id="btn-login">
                     <!--<a href="/accounts/login">-->
-                        <a ui-sref="login">
-                            <span class="glyphicon glyphicon-user"></span>
-                                                                                    登录
-                        </a>
+                        <a data-toggle="modal" data-target="#login" style="cursor: pointer;">登录</a>
+                        
                     </li>
                     <li id="btn-register">
-                        <a ui-sref="ttt">
-                            <span class="glyphicon glyphicon-user"></span>
-                            注册
-                        </a>
+                        <a data-toggle="modal" data-target="#register" style="cursor: pointer;">注册</a>
                     </li>
                 {% endif %}
             </ul>
@@ -125,6 +120,94 @@
 
 <div ui-view></div>
 
+<!--登录弹出框区域开始-->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="#" role="form">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="loginLabel">
+						登录异想
+					</h3>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" style="padding: 10% 15% 20%;width: 100%;">
+						<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
+						<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
+					</div>
+					<div class="form-group" style="padding: 0 5%;width: 100%;">
+						<input class="form-control" type="text" placeholder="邮箱/手机号" style="width: 100%;"/>
+						<br />
+						<input class="form-control" type="text" placeholder="密码" style="width: 100%;"/>
+					</div>
+					<div class="checkbox" style="padding: 0 5%;">
+				      	<label>
+				      		<input type="checkbox"> 自动登录
+				      	</label>
+				      	<a href="#" style="float: right;">忘记密码？</a>
+				   	</div>
+				</div>
+				<div class="modal-footer">
+					<div class="form-group" style="padding: 0 5%;width: 100%;text-align: center;">
+						<input class="btn btn-lg btn-success btn-block" type="button" value="登录"/>
+						<br />
+						<span>已有账号？<a data-toggle="modal" data-target="#register" style="cursor: pointer;">立即注册</a></span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--登录弹出框区域开始-->
+
+<!--注册弹出框区域开始-->
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="#" role="form">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="registerLabel">
+						注册异想
+					</h3>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" style="padding: 10% 15% 20%;width: 100%;">
+						<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
+						<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
+					</div>
+					<div class="form-group input-group" style="padding: 0 5%;width: 100%;">
+						<input class="form-control" type="text" placeholder="手机号码" style="width: 100%;"/>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">获取验证码</button>
+						</span>
+					</div>
+					<div class="form-group form-inline" style="padding: 0 5%;width: 100%;">
+						<input class="form-control" type="text" placeholder="验证码" style="width: 25%;"/>
+						<label style="padding-left: 10px;padding-top: 6px;font-weight: 400;">请输入手机收到的验证码。</label>
+					</div>
+					<div class="form-group" style="padding: 0 5%;width: 100%;">
+						<input class="form-control" type="text" placeholder="密码" style="width: 100%;"/>
+						<br />
+						<input class="form-control" type="text" placeholder="确认密码" style="width: 100%;"/>
+					</div>
+					<div class="checkbox" style="padding: 0 5%;">
+				      <label>
+				      <input type="checkbox"> 同意异想服务协议
+				      </label>
+				   </div>
+				</div>
+				<div class="modal-footer">
+					<div class="form-group" style="padding: 3% 5%;width: 100%;">
+						<input class="btn btn-lg btn-success btn-block" type="button" value="确认注册"/>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--注册弹出框区域开始-->
 <!--javascript-->
 <script src="js/lib/jquery.min.js"></script>
 <script src="js/lib/bootstrap.min.js"></script>
