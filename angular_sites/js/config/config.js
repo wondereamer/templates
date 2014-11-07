@@ -13,30 +13,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  '': {
                      templateUrl: 'views/window.html',
                      controller: function($scope) {}
-                 },
-                 'login':{
-                 	templateUrl: 'views/login.html'
                  }
             }
         })
-//      .state('login', {
-//          url: '/login',
-//          views: {
-//               '': {
-//                   templateUrl: 'views/login.html'
-//               }
-//               
-//          }
-//      })
-        .state('register', {
-            url: '/register',
-            views: {
-                 '': {
-                     templateUrl: 'views/register.html'
-                 }
-                 
-            }
-        })
+
         .state('category', {
             url: '/category',
             views: {
@@ -80,5 +60,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('presale', {
             url: '/presale',
             template: '<h4>presale</h4>'
+        })
+        .state('user-center', {
+            url: '/user-center',
+            templateUrl: 'views/user-center.html'
+        })
+        .state('user-setting', {
+            url: '/user-setting',
+            views: {
+            	'': {
+            		templateUrl: 'views/user-setting.html'
+            	},
+            	'user-setting-form@user-setting': {
+            		templateUrl: 'views/user-setting-form.html'
+            	}
+            }
+        })
+        .state('user-setting-form', {
+            url: '/user-setting',
+            templateUrl: 'views/user-setting-form.html'
+        })
+        .state('user-info-form', {
+            url: '/user-setting',
+            templateUrl: 'views/user-info-form.html'
         })
 });
