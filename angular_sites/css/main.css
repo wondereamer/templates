@@ -47,3 +47,17 @@ body {
 .front-color-lightgray {
     color: lightgray;
 }
+/*链接样式初始化*/
+a{
+	color: #333;
+	text-decoration: none;
+}
+a:hover{
+	color: #f36;
+	text-decoration: none;
+}
+/*全局P标签样式*/
+p{
+	color: #999;
+	font-size: 0.75em;
+}
