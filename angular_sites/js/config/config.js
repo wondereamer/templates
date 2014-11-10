@@ -79,6 +79,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('presale', {
             url: '/presale',
-            template: '<h4>presale</h4>'
+        /*template: '<h4>presale</h4>'*/
+            templateUrl: 'views/text.html'
         })
 });
