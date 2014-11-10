@@ -38,11 +38,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         
         .state('product-detail', {
             url: '/product-detail',
-            views: {
-                 "": {
-                     templateUrl: 'views/product-detail.html'
-                 },
-            }
+            templateUrl: 'views/product-detail.html'
         })
         .state('sale', {
             url: '/sale',
@@ -61,24 +57,38 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/presale',
             template: '<h4>presale</h4>'
         })
+//      用户中心
         .state('user-center', {
             url: '/user-center',
             templateUrl: 'views/user-center.html'
         })
-        .state('user-setting-center', {
-            url: '/user-setting',
-            views: {
-            	'': {
-            		templateUrl: 'views/user-setting-center.html'
-            	},
-            	'user-setting-type@user-setting-center': {
-            		templateUrl: 'views/user-setting-type.html'
-            	}
-            }
-        })
-        .state('user-setting-form', {
-            url: '/user-setting',
-            templateUrl: 'views/user-setting-form.html'
-        })
-
+//      用户设置中心
+       .state('user-setting-center',{
+       		url: '/user-setting-center',
+       		templateUrl: 'views/user-setting-center.html'
+       })
+       .state('user-setting-center.setting',{
+       		url: '/setting',
+       		templateUrl: 'views/user-setting-list.html'
+       })
+       .state('user-setting-center.info',{
+       		url: '/info',
+       		templateUrl: 'views/user-info-list.html'
+       })
+       .state('user-setting-center.address',{
+       		url: '/address',
+       		templateUrl: 'views/user-address-list.html'
+       })
+       .state('user-setting-center.order',{
+       		url: '/order',
+       		templateUrl: 'views/user-order-list.html'
+       })
+       .state('user-setting-center.coupon',{
+       		url: '/coupon',
+       		templateUrl: 'views/user-coupon-list.html'
+       })
+       .state('user-setting-center.service',{
+       		url: '/service',
+       		templateUrl: 'views/user-service-list.html'
+       })
 });
