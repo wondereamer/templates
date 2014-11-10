@@ -65,14 +65,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/user-center',
             templateUrl: 'views/user-center.html'
         })
-        .state('user-setting', {
+        .state('user-setting-center', {
             url: '/user-setting',
             views: {
             	'': {
-            		templateUrl: 'views/user-setting.html'
+            		templateUrl: 'views/user-setting-center.html'
             	},
-            	'user-setting-form@user-setting': {
-            		templateUrl: 'views/user-setting-form.html'
+            	'user-setting-type@user-setting-center': {
+            		templateUrl: 'views/user-setting-type.html'
             	}
             }
         })
@@ -80,8 +80,5 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/user-setting',
             templateUrl: 'views/user-setting-form.html'
         })
-        .state('user-info-form', {
-            url: '/user-setting',
-            templateUrl: 'views/user-info-form.html'
-        })
+
 });
