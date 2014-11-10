@@ -94,15 +94,15 @@
                 		<ul class="dropdown-menu">
                 			<li><a ui-sref="user-center">个人中心</a></li>
                 			<li class="divider"></li>
-                			<li><a ui-sref="user-setting-center">账户设置</a></li>
+                			<li><a ui-sref="user-setting-center.setting">账户设置</a></li>
                 			<li class="divider"></li>
-                			<li><a href="">查看个人资料</a></li>
+                			<li><a ui-sref="user-setting-center.info">查看个人资料</a></li>
                 			<li class="divider"></li>
-                			<li><a href="">我的订单</a></li>
+                			<li><a ui-sref="user-setting-center.order">我的订单</a></li>
                 			<li class="divider"></li>
-                			<li><a href="">帮助</a></li>
+                			<li><a ui-sref="">帮助</a></li>
                 			<li class="divider"></li>
-                			<li><a href="">退出</a></li>
+                			<li><a ui-sref="">退出</a></li>
                 		</ul>                    	
                     </li>
                     <!--登录后用户中心区域结束-->
@@ -147,33 +147,30 @@
 					</div>
 					<div class="form-group" style="padding: 0 5%;width: 100%;">
 						<input
-							class="form-control"
-							name="userName"
-							type="text"
-							placeholder="手机号"
-							ng-maxlength="11"
-							ng-minlength="11"
-							ng-model="userName"
+							class="form-control input-lg"
+							name="email"
+							type="email"
+							placeholder="邮箱"
+							ng-model="user.email"
 							required
 							style="width: 100%;"/>
-						<span ng-show="login.userName.$dirty && login.userName.$invalid">
-							<span ng-show="login.userName.$error.minlength" class="help-block">输入的手机号码小于11位</span>
-							<span ng-show="login.userName.$error.maxlength" class="help-block">输入的手机号码大于11位</span>
+						<span ng-show="login.email.$dirty && login.email.$invalid">
+							<span ng-show="login.email.$error.email" style="color: red;">输入正确的邮箱</span>
 						</span>
 						<br />
 						<input
-							class="form-control"
+							class="form-control input-lg"
 							name="password"
 							type="text"
-							placeholder="密码"
+							placeholder="密码(6~12)"
 							ng-maxlength="12"
 							ng-minlength="6"
-							ng-model="password"
+							ng-model="user.password"
 							required
 							style="width: 100%;"/>
 						<span ng-show="login.password.$dirty && login.password.$invalid">
-							<span ng-show="login.password.$error.minlength" class="help-block">输入的手机号码小于6位</span>
-							<span ng-show="login.password.$error.maxlength" class="help-block">输入的手机号码大于12位</span>
+							<span ng-show="login.password.$error.minlength" style="color: red;">输入的密码少于6位</span>
+							<span ng-show="login.password.$error.maxlength" style="color: red;">输入的密码超过12位</span>
 						</span>
 					</div>
 					<div class="checkbox" style="padding: 0 5%;">
@@ -212,28 +209,18 @@
 						<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
 						<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
 					</div>
-					<div class="form-group input-group" style="padding: 0 5%;width: 100%;">
+					<div class="form-group" style="padding: 0 5%;width: 100%;">
 						<input
 							class="form-control"
-							type="text"
-							name="phoneNumber"
-							placeholder="手机号码"
-							ng-minlength="11"
-							ng-maxlength="11"
-							ng-model="phoneNumber"
+							name="email"
+							type="email"
+							placeholder="邮箱"
+							ng-model="user.email"
 							required
 							style="width: 100%;"/>
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">获取验证码</button>
+						<span ng-show="register.email.$dirty && register.email.$invalid">
+							<span ng-show="register.email.$error.email" style="color: red;">输入正确的邮箱</span>
 						</span>
-					</div>
-					<span ng-show="register.phoneNumber.$dirty && register.phoneNumber.$invalid" style="display: block; padding: 0 5%;width: 100%;">
-						<span ng-show="register.phoneNumber.$error.minlength" class="help-block">输入的手机号码小于11位</span>
-						<span ng-show="register.phoneNumber.$error.maxlength" class="help-block">输入的手机号码大于11位</span>
-					</span>
-					<div class="form-group form-inline" style="padding: 0 5%;width: 100%;">
-						<input class="form-control" type="text" placeholder="验证码" style="width: 25%;"/>
-						<label style="padding-left: 10px;padding-top: 6px;font-weight: 400;">请输入手机收到的验证码。</label>
 					</div>
 					<div class="form-group" style="padding: 0 5%;width: 100%;">
 						<input
@@ -247,8 +234,8 @@
 							required
 							style="width: 100%;"/>
 						<span ng-show="register.password01.$dirty && register.password01.$invalid">
-							<span ng-show="register.password01.$error.minlength" class="help-block">输入的手机号码小于6位</span>
-							<span ng-show="register.password01.$error.maxlength" class="help-block">输入的手机号码大于12位</span>
+							<span ng-show="register.password01.$error.minlength" style="color: red;">输入的密码少于6位</span>
+							<span ng-show="register.password01.$error.maxlength" style="color: red;">输入的密码超过12位</span>
 						</span>
 						<br />
 						<input
@@ -262,8 +249,8 @@
 							required
 							style="width: 100%;"/>
 						<span ng-show="register.password02.$dirty && register.password02.$invalid">
-							<span ng-show="register.password02.$error.minlength" class="help-block">输入的手机号码小于6位</span>
-							<span ng-show="register.password02.$error.maxlength" class="help-block">输入的手机号码大于12位</span>
+							<span ng-show="register.password02.$error.minlength" style="color: red;">输入的密码少于6位</span>
+							<span ng-show="register.password02.$error.maxlength" style="color: red;">输入的密码超过12位</span>
 						</span>
 					</div>
 					<div class="checkbox" style="padding: 0 5%;">
