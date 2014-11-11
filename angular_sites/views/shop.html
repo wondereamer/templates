@@ -1,0 +1,29 @@
+<!--轮播图区域开始-->
+<div class="container">
+	<div ui-view="carousel"></div>
+</div>
+<!--轮播图区域结束-->
+<br />
+<!--分类导航栏开始-->
+<div class="container">
+	<div ui-view="type-nav"></div>
+</div>
+<!--分类导航栏结束-->
+<!--产品删选区域开始-->
+<div class="container">
+	<div ui-view="product-filter"></div>
+</div>
+<!--产品删选区域结束-->
+<!--产品展示区域开始-->
+</span>
+<div class="container" ng-controller="productListCtrl">
+	<div class="row">
+		<div ui-view="product-list"></div>
+	</div>
+</div>
+<!--产品展示区域结束-->
+<!--页脚区域开始-->
+<div class="footer hidden-xs">
+	<div ui-view="footer"></div>
+</div>
+<!--页脚区域结束-->

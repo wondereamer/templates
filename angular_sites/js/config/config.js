@@ -16,21 +16,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  }
             }
         })
-
-        .state('category', {
-            url: '/category',
+//		商店
+        .state('shop', {
+            url: '/shop',
             views: {
                  '': {
-                     templateUrl: 'views/category.html',
+                     templateUrl: 'views/shop.html',
                      controller: function($scope) {}
                  },
-                 'type-nav@category':{
+                 'carousel@shop':{
+                 	templateUrl: 'views/carousel.html'
+                 },
+                 'type-nav@shop':{
                  	templateUrl: 'views/type-nav.html'
                  },
-                 'products-list@category':{
-                 	templateUrl: 'views/products-list.html'
+                 'product-filter@shop':{
+                 	templateUrl:'views/product-filter.html'
                  },
-                 'footer@category':{
+                 'product-list@shop':{
+                 	templateUrl: 'views/idea_sites/sale-item.html'
+                 },
+                 'footer@shop':{
                  	templateUrl:'views/footer.html'
                  }
             }
@@ -53,10 +59,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/fever',
             template: '<h4>fever</h4>'
         })
+//      预售
         .state('presale', {
             url: '/presale',
-        /*template: '<h4>presale</h4>'*/
-            templateUrl: 'views/text.html'
+            views: {
+            	'':{
+            		templateUrl: 'views/presale.html'
+            	},
+            	'presale-list@presale':{
+            		templateUrl: 'views/idea_sites/presale-item.html'
+            	}
+            }
+            
         })
 //      用户中心
         .state('user-center', {

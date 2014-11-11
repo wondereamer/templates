@@ -9,3 +9,18 @@ app.controller('SaleController', ['$scope','Restangular', function($scope, Resta
         return $scope.testData;         
     };
 }]);
+
+app.controller('productListCtrl',function($scope,$http){
+	$http.get('/data/products.json')
+	.success(function(response){
+		$scope.list=response;
+	});
+});
+
+app.controller('registerCtrl',function($scope){
+	$scope.submitted=true;
+	$scope.registerForm=function(){
+		
+		alert('注册成功');
+	};
+});
