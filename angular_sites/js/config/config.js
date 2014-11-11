@@ -55,9 +55,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
                         '</div>',
              controller: "SaleController"
         })
+//      投票
         .state('fever', {
             url: '/fever',
-            template: '<h4>fever</h4>'
+            views:{
+            	'':{
+            		templateUrl: 'views/fever.html'
+            	},
+            	'fever-type@fever':{
+            		templateUrl: 'views/fever-type.html'
+            	},
+            	'fever-list@fever':{
+            		templateUrl: 'views/idea_sites/fever-item.html'
+            	}
+            }
         })
 //      预售
         .state('presale', {
