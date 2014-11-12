@@ -4,6 +4,12 @@ app.config(function($interpolateProvider) {
   $interpolateProvider.endSymbol(']}'); 
 });
 
+app.config(function($httpProvider) {
+    // 只在启动时运行一次，所以不能在此设置csrf, 因为此时标志还未被服务器设置。
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+});
+
+
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/index');
     $stateProvider

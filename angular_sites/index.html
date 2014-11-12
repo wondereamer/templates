@@ -25,8 +25,12 @@
     <script language="javascript" src="js/lib/underscore.min.js"></script>
     <script language="javascript" src="js/lib/restangular.min.js"></script>
     <script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
+    <script language="javascript" src="js/config/config.js"></script>
+    <script language="javascript" src="js/controllers/main.js"></script>
+    <script language="javascript" src="js/directives/my_directive.js"></script>
+    <script language="javascript" src="js/services/serv.js"></script>
 </head>
-<body>
+<body ng-controller="ApplicationController">
 <!--头部导航栏开始-->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -124,10 +128,6 @@
 <div ui-view></div>
 
 
-<script language="javascript" src="js/config/config.js"></script>
-<script language="javascript" src="js/controllers/main.js"></script>
-<script language="javascript" src="js/directives/my_directive.js"></script>
-<script language="javascript" src="js/services/serv.js"></script>
 
 <!--登录弹出框区域开始-->
 <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
