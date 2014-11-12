@@ -117,4 +117,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
        		url: '/service',
        		templateUrl: 'views/user-service-list.html'
        })
+//     激活账号
+	   .state('activate-account',{
+	   		url: '/activate-account',
+	   		templateUrl: 'views/activate-account.html'
+	   })
 });

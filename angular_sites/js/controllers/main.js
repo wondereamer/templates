@@ -20,7 +20,6 @@ app.controller('productListCtrl',function($scope,$http){
 app.controller('registerCtrl',function($scope){
 	$scope.submitted=true;
 	$scope.registerForm=function(){
-		
-		alert('注册成功');
+		alert('注册成功。');
 	};
 });
