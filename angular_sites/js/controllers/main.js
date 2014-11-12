@@ -10,7 +10,6 @@ app.controller('SaleController', ['$scope','Restangular', function($scope, Resta
     };
 }]);
 
-
 app.controller('FormController', function ($scope, $location, $rootScope, $http, AUTH_EVENTS, AuthService) {
     $scope.test = "ooooo";
     $scope.login = function(user){ 
@@ -44,4 +43,18 @@ app.controller('FormController', function ($scope, $location, $rootScope, $http,
             alert(res.data);
           });
     };
+
+
+app.controller('productListCtrl',function($scope,$http){
+	$http.get('/data/products.json')
+	.success(function(response){
+		$scope.list=response;
+	});
+});
+
+app.controller('registerCtrl',function($scope){
+	$scope.submitted=true;
+	$scope.registerForm=function(){
+		alert('注册成功。');
+	};
 });

@@ -23,3 +23,10 @@ app.directive("ideasaleitem", function() {
         templateUrl:"views/idea_sites/sale_item.html"
     }
 });
+
+app.directive("registerFeedback",function(){
+	return {
+		restrict: "AE",
+		template: "<span style="color:green;">注册成功，请点击：http://www.baidu.com 进行邮箱验证</span>",
+	}
+})
