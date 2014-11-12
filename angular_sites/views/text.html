@@ -1,0 +1,72 @@
+<script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="js/lib/croppic/croppic.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    theme: "modern",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    toolbar2: "print preview media | forecolor backcolor emoticons",
+    image_advtab: true,
+    templates: [
+        {title: 'Test template 1', content: 'Test 1'},
+        {title: 'Test template 2', content: 'Test 2'}
+    ],
+    language:'zh_CN',
+    file_browser_callback: function(field_name, url, type, win) {
+        if(type=='image') $('#my_form input').click();
+    }
+});
+</script>
+
+<form id=""  name="data" action="/tiny/" method="post" accept-charset="utf-8">
+                    {% csrf_token %}
+    <textarea name="tiny" style="width:100%"></textarea>
+<p><input type="submit" value="提交"/></p>
+</form>
+
+
+<iframe id="form_target" name="form_target" style="display:none"></iframe>
+
+<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+    <input name="docfile" type="file" onchange="$('#my_form').submit();this.value='';">
+</form>
+
+<div id="avatar">avatar</div>
+<script type="text/javascript" charset="utf-8">
+    var cropperHeader = new Croppic('avatar');
+</script>
+
+
+<form name="loginForm" ng-controller="FormController" ng-submit="login(credential)" novalidate> 
+  <label for="username">Username:</label>
+  <input type="text" id="username"
+         ng-model="credential.username">
+  <label for="password">Password:</label>
+  <input type="password" id="password"
+         ng-model="credential.password">
+  <button type="submit">Login</button>
+</form>
+
+
+<form name="registerForm" ng-controller="FormController" ng-submit="register(user)" novalidate> 
+  <label for="username">Username:</label>
+  <input type="text" id="username"
+         ng-model="user.username">
+  <input type="text" id="email"
+         ng-model="user.email">
+  <label for="password">Password:</label>
+  <input type="password" id="password1"
+         ng-model="user.password1">
+  <label for="password2">Password(agian):</label>
+  <input type="password" id="password2"
+         ng-model="user.password2">
+  <button type="submit">Login</button>
+</form>
+
+<div ng-if="currentUser">Welcome, {[ currentUser.name ]}</div>
