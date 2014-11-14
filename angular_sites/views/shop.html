@@ -15,7 +15,6 @@
 </div>
 <!--产品删选区域结束-->
 <!--产品展示区域开始-->
-</span>
 <div class="container" ng-controller="productListCtrl">
 	<div class="row">
 		<div ui-view="product-list"></div>
@@ -23,7 +22,11 @@
 </div>
 <!--产品展示区域结束-->
 <!--页脚区域开始-->
-<div class="footer hidden-xs">
-	<div ui-view="footer"></div>
+<div class="footer" style="background-color: #333333;color: #f3f3f3;">
+	<div class="container">
+		<div class="row" style="height: 200px;">
+			<div ui-view="footer"></div>
+		</div>
+	</div>
 </div>
 <!--页脚区域结束-->

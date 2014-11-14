@@ -43,7 +43,7 @@ app.controller('FormController', function ($scope, $location, $rootScope, $http,
             alert(res.data);
           });
     };
-
+});
 
 app.controller('productListCtrl',function($scope,$http){
 	$http.get('/data/products.json')

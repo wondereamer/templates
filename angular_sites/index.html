@@ -19,6 +19,7 @@
     </style>
     <!--javascript-->
     <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/jquery.goup.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-hover-dropdown.min.js"></script>
     <script language="javascript" src="js/lib/angular/angular.min.js"></script>
@@ -48,44 +49,44 @@
             <ul class="nav navbar-nav" id="navbar-top">
                 <li ui-sref-active="active" class="" id="btn-home">
                 	<a ui-sref="index">
-                		<span class="glyphicon glyphicon-home"></span>
+                		<!--<span class="glyphicon glyphicon-home"></span>-->
                 		主页
                 	</a>
                 </li>
                 <li ui-sref-active="active" class="" id="btn-pre-sale">
-                	<a ui-sref="presale" >
-                		<span class="glyphicon glyphicon-dashboard"></span>
-                		预售
+                	<a ui-sref="idea" >
+                		<!--<span class="glyphicon glyphicon-dashboard"></span>-->
+                		发现创意
+                	</a>
+                </li>
+                <li ui-sref-active="active" class="" id="btn-vote">
+                	<a ui-sref="submit-idea" >
+                		<!--<span class="glyphicon glyphicon-heart"></span>-->
+                		发起我的创意
                 	</a>
                 </li>
                 <li ui-sref-active="active" id="btn-shop">
                 	<a ui-sref="shop" >
-                		<span class="glyphicon glyphicon-shopping-cart"></span>
+                		<!--<span class="glyphicon glyphicon-shopping-cart"></span>-->
                 		商店
                 	</a>
                 </li>
-                <li ui-sref-active="active" class="" id="btn-vote">
-                	<a ui-sref="fever" >
-                		<span class="glyphicon glyphicon-heart"></span>
-                		投票
-                	</a>
-                </li>
-                <li ui-sref-active="active" class="" id="btn-bbs">
+                <li ui-sref-active="active" id="btn-bbs">
                 	<a href="/forum/">
-                		<span class="glyphicon glyphicon-tree-deciduous"></span>
+                		<!--<span class="glyphicon glyphicon-tree-deciduous"></span>-->
                 		社区
                 	</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control input-sm" placeholder="Search">
+                    <input type="text" class="form-control input-sm" placeholder="请输入关键字">
                 </div>
-                <button type="submit" class="btn btn-info btn-sm">Submit</button>
+                <button type="submit" class="btn btn-success btn-sm">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                     <!--登录后用户中心区域开始/默认隐藏-->
-                    <li id="" class="dropdown" style="display: -none;">
+                    <li id="" class="dropdown" style="display: none;">
                     	<a href="javascript:void()" class="dropdown-toggle" data-hover="dropdown" data-close-others="false">
                     		<span class="glyphicon glyphicon-user"></span>
                             username
@@ -187,7 +188,7 @@
 				</div>
 				<div class="modal-footer" style="padding: 20px 40px;">
 					<div class="form-group" style="text-align: center;">
-						<input class="btn btn-lg btn-success btn-block" type="submit" value="登录" />
+						<input class="btn btn-lg btn-success btn-block" id="login-btn" type="button" value="登录" />
 						<br />
 						<span>已有账号？<a data-toggle="modal" data-target="#register" style="cursor: pointer;">立即注册</a></span>
 					</div>
@@ -318,5 +319,21 @@
 <script language="javascript" src="js/controllers/main.js"></script>
 <script language="javascript" src="js/directives/my_directive.js"></script>
 <script language="javascript" src="js/services/serv.js"></script>
+<script>
+$(function(){
+    $("#login-btn").click(function(){
+      $("#login").modal("toggle");
+    });
+    
+	//回到顶部调用
+	$.goup({
+		trigger: 300,
+		bottomOffset: 150,
+		locationOffset: 50,
+		title: 'Top',
+		titleAsText: false
+	});
+});
+</script>
 </body>
 </html>
