@@ -18,7 +18,7 @@ app.controller('ApplicationController', ['$scope', 'USER_ROLES', 'AuthService', 
   $scope.userRoles = USER_ROLES;
   $scope.isAuthorized = AuthService.isAuthorized;
   $scope.setCurrentUser = function (user) {
-    $scope.currentUser = user;
+      $scope.currentUser = user;
   };
 }]);
 
@@ -43,6 +43,7 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
     };
 
     $scope.logout = function () {
+        /// @todo remove Session
         AuthService.logout().then(function (user) {
             $scope.setCurrentUser(null);
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
@@ -74,10 +75,32 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
     };
 }]);
 
-app.controller('personalController', ['$scope', function($scope) {
-    $scope.modify_auth = function(user){ 
-         
+app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
+    /** 修改账户信息 */
+    $scope.modifyAuth = function(user){ 
+        console.log("修改帐号信息,参数：");
+        console.log(user);
+        $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
+        return $http
+          .post('/accounts/update/auth/', $.param(user))
+          .then(function (res) {
+              /// @todo 验证邮箱的唯一性。
+              alert("修改成功！");
+          }, function(res){ 
+          });
     };
+    /**  获取账户信息 */
+    $scope.getAuth = function(){ 
+        console.log("获取帐号信息。。");
+        return $http
+          .get('/accounts/update/auth/' + Session.userId)
+          .then(function (res) {
+              /// @todo 验证邮箱的唯一性。
+              console.log(res.data);
+          }, function(res){ 
+              /*alert("个人帐号获取失败!") */
+          });
+    }
 }]);
 
 app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){

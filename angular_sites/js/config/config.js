@@ -97,7 +97,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 //      用户设置中心
        .state('user-setting-center',{
        		url: '/user-setting-center',
-       		templateUrl: 'views/user-setting-center.html'
+       		templateUrl: 'views/user-setting-center.html',
+            controller: 'personalController'
        })
        .state('user-setting-center.setting',{
        		url: '/setting',
