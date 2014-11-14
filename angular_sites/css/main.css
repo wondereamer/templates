@@ -51,6 +51,11 @@ body {
 a{
 	color: #333;
 	text-decoration: none;
+	cursor: pointer;
+}
+.footer a{
+	color: #f3f3f3;
+	text-decoration: none;
 }
 a:hover{
 	color: #f36;

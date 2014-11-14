@@ -22,6 +22,42 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  }
             }
         })
+//      发现创意
+        .state('idea', {
+            url: '/idea',
+            views:{
+            	'':{
+            		templateUrl: 'views/idea.html'
+            	},
+            	'carousel@idea':{
+            		templateUrl: 'views/carousel.html'
+            	},
+            	'idea-type@idea':{
+            		templateUrl: 'views/idea-type.html'
+            	},
+            	'idea-list@idea':{
+            		templateUrl: 'views/idea_sites/idea-item.html'
+            	},
+            	'footer@idea':{
+            		templateUrl: 'views/footer.html'
+            	}
+            }
+        })
+//      发起创意
+		.state('submit-idea', {
+            url: '/submit-idea',
+            views:{
+            	'':{
+            		templateUrl: 'views/submit-idea.html'
+            	},
+            	'carousel@submit-idea':{
+            		templateUrl: 'views/carousel.html'
+            	},
+            	'footer@submit-idea':{
+            		templateUrl: 'views/footer.html'
+            	}
+            }
+        })
 //		商店
         .state('shop', {
             url: '/shop',
@@ -46,48 +82,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  	templateUrl:'views/footer.html'
                  }
             }
-        })
-        
-        .state('product-detail', {
-            url: '/product-detail',
-            templateUrl: 'views/product-detail.html'
-        })
-        .state('sale', {
-            url: '/sale',
-             template:'<div ideashopgridview>'  +
-                            '<div ng-repeat="item in items">' + 
-                                 '<div ideasaleitem></div>'  + 
-                            '</div>'   + 
-                        '</div>',
-             controller: "SaleController"
-        })
-//      投票
-        .state('fever', {
-            url: '/fever',
-            views:{
-            	'':{
-            		templateUrl: 'views/fever.html'
-            	},
-            	'fever-type@fever':{
-            		templateUrl: 'views/fever-type.html'
-            	},
-            	'fever-list@fever':{
-            		templateUrl: 'views/idea_sites/fever-item.html'
-            	}
-            }
-        })
-//      预售
-        .state('presale', {
-            url: '/presale',
-            views: {
-            	'':{
-            		templateUrl: 'views/presale.html'
-            	},
-            	'presale-list@presale':{
-            		templateUrl: 'views/idea_sites/presale-item.html'
-            	}
-            }
-            
         })
 //      用户中心
         .state('user-center', {
@@ -129,4 +123,56 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	   		url: '/activate-account',
 	   		templateUrl: 'views/activate-account.html'
 	   })
+//		商品详情
+        .state('product-detail', {
+            url: '/product-detail',
+            views:{
+            	'':{
+            		templateUrl: 'views/product-detail.html'
+            	},
+            	'footer@product-detail':{
+            		templateUrl: 'views/footer.html'
+            	}
+            }
+        })
+        .state('product-detail.describe',{
+        	url:'/idea-detail-describe',
+        	templateUrl:'views/product-detail-describe.html'
+        })
+        .state('product-detail.buy',{
+        	url:'/idea-detail-buy',
+        	templateUrl:'views/product-detail-buy.html'
+        })
+        .state('product-detail.comment',{
+        	url:'/idea-detail-comment',
+        	templateUrl:'views/product-detail-comment.html'
+        })
+        .state('product-detail.question',{
+        	url:'/idea-detail-question',
+        	templateUrl:'views/product-detail-question.html'
+        })
+//		创意详情
+        .state('idea-detail', {
+            url: '/idea-detail',
+            views:{
+            	'':{
+            		templateUrl: 'views/idea-detail.html'
+            	},
+            	'footer@idea-detail':{
+            		templateUrl: 'views/footer.html'
+            	}
+            }
+        })
+        .state('idea-detail.describe',{
+        	url:'/idea-detail-describe',
+        	templateUrl:'views/idea-detail-describe.html'
+        })
+        .state('idea-detail.spit',{
+        	url:'/idea-detail-sipt',
+        	templateUrl:'views/idea-detail-spit.html'
+        })
+        .state('idea-detail.question',{
+        	url:'/idea-detail-question',
+        	templateUrl:'views/idea-detail-question.html'
+        })
 });
