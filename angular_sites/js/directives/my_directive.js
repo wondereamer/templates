@@ -27,6 +27,6 @@ app.directive("ideasaleitem", function() {
 app.directive("registerFeedback",function(){
 	return {
 		restrict: "AE",
-		template: "<span style="color:green;">注册成功，请点击：http://www.baidu.com 进行邮箱验证</span>",
+		template: '<span style="color:green;">注册成功，请点击：http://www.baidu.com 进行邮箱验证</span>'
 	}
 })

@@ -10,24 +10,53 @@ app.controller('SaleController', ['$scope','Restangular', function($scope, Resta
     };
 }]);
 
-app.controller('FormController', function ($scope, $location, $rootScope, $http, AUTH_EVENTS, AuthService) {
-    $scope.test = "ooooo";
-    $scope.login = function(user){ 
-        alert($scope.user.password);
-    };
+/** 定义全局变量的区域，通常与Body挂钩。 */
+app.controller('ApplicationController', ['$scope', 'USER_ROLES', 'AuthService', function ($scope,
+                                               USER_ROLES,
+                                               AuthService) {
+  $scope.currentUser = null;
+  $scope.userRoles = USER_ROLES;
+  $scope.isAuthorized = AuthService.isAuthorized;
+  $scope.setCurrentUser = function (user) {
+    $scope.currentUser = user;
+  };
+}]);
+
+/**  登录，注销，注册 */
+app.controller('authController', ['$scope', '$location', '$rootScope', '$http', 
+              'AUTH_EVENTS', 'AuthService', function ($scope, $location, $rootScope, $http, AUTH_EVENTS, AuthService) {
     $scope.credentials = {
-        username: 'wdj',
-        password: ''
+        username: 'admin',
+        password: 'wdj123'
     };
+
     $scope.login = function (credentials) {
         AuthService.login(credentials).then(function (user) {
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            $("#login").modal("toggle");
             $scope.setCurrentUser(user);
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             $location.path('/');
         }, function () {
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-            alert("登录失败！");
+            alert("错误的用户名或密码");
         });
+    };
+
+    $scope.logout = function () {
+        AuthService.logout().then(function (user) {
+            $scope.setCurrentUser(null);
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            $location.path('/');
+        });
+        /*AuthService.login(credentials).then(function (user) {*/
+        /*$("#login").modal("toggle");*/
+        /*$scope.setCurrentUser(user);*/
+        /*$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);*/
+        /*$location.path('/');*/
+        /*}, function () {*/
+        /*$rootScope.$broadcast(AUTH_EVENTS.loginFailed);*/
+        /*alert("错误的用户名或密码");*/
+        /*});*/
     };
     /**
      * 注册用户
@@ -43,18 +72,25 @@ app.controller('FormController', function ($scope, $location, $rootScope, $http,
             alert(res.data);
           });
     };
+}]);
 
+app.controller('personalController', ['$scope', function($scope) {
+    $scope.modify_auth = function(user){ 
+         
+    };
+}]);
 
-app.controller('productListCtrl',function($scope,$http){
+app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
 	$http.get('/data/products.json')
 	.success(function(response){
 		$scope.list=response;
 	});
-});
+}]);
 
-app.controller('registerCtrl',function($scope){
+app.controller('registerCtrl', ['$scope', function($scope){
 	$scope.submitted=true;
 	$scope.registerForm=function(){
 		alert('注册成功。');
 	};
-});
+}]);
+

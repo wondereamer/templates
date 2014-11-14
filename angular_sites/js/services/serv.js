@@ -65,7 +65,17 @@ app.factory('AuthService', function ($http, Session) {
       });
   };
  
+  authService.logout = function () {
+    $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
+    return $http
+    .post('/accounts/logout/')
+    .then(function (res) {
+        return true;
+    });
+  };
+
   authService.isAuthenticated = function () {
+
     return !!Session.userId;
   };
    /** 授权验证 */
@@ -80,14 +90,3 @@ app.factory('AuthService', function ($http, Session) {
   return authService;
 });
 
-/** 全局变量，通常与Body挂钩。 */
-app.controller('ApplicationController', function ($scope,
-                                               USER_ROLES,
-                                               AuthService) {
-  $scope.currentUser = null;
-  $scope.userRoles = USER_ROLES;
-  $scope.isAuthorized = AuthService.isAuthorized;
-  $scope.setCurrentUser = function (user) {
-    $scope.currentUser = user;
-  };
-})
