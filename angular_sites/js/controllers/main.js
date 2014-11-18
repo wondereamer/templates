@@ -77,6 +77,9 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
 
 app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
     /** 修改账户信息 */
+   $scope.user={
+   		name:'张三'
+   }
     $scope.modifyAuth = function(user){ 
         console.log("修改帐号信息,参数：");
         console.log(user);
@@ -90,12 +93,13 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
           });
     };
     /**  获取账户信息 */
-    $scope.getAuth = function(){ 
+    $scope.getAuth = function(){
         console.log("获取帐号信息。。");
         return $http
           .get('/accounts/update/auth/' + Session.userId)
           .then(function (res) {
               /// @todo 验证邮箱的唯一性。
+              
               console.log(res.data);
           }, function(res){ 
               /*alert("个人帐号获取失败!") */

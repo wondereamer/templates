@@ -11,6 +11,7 @@
     <!--载入sale-item的css样式-->
     <link rel="stylesheet" href="/css/sale-item.css" />
     <link rel="stylesheet" href="/css/fever-item.css" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
     
     <style type="text/css" media="screen">
     body {
@@ -22,6 +23,7 @@
     <script src="js/lib/jquery.goup.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-hover-dropdown.min.js"></script>
+    <script src="js/lib/bootstrap-wysiwyg.js"></script>
     <script language="javascript" src="js/lib/angular/angular.min.js"></script>
     <script language="javascript" src="js/lib/angular-ui-router.min.js"></script>
     <script language="javascript" src="js/lib/underscore.min.js"></script>
@@ -60,7 +62,7 @@
                 	</a>
                 </li>
                 <li ui-sref-active="active" class="" id="btn-vote">
-                	<a ui-sref="submit-idea" >
+                	<a ui-sref="submit-idea-center" >
                 		<!--<span class="glyphicon glyphicon-heart"></span>-->
                 		发起我的创意
                 	</a>
@@ -86,7 +88,7 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <!--登录后用户中心区域开始/默认隐藏-->
-                <li ng-show="currentUser" id="" class="dropdown" style="display: -none;">
+                <li nng-show="currentUser" id="" class="dropdown" style="display: -none;">
                     <a href="javascript:void()" class="dropdown-toggle" data-hover="dropdown" data-close-others="false">
                         <span class="glyphicon glyphicon-user"></span>
                         {[ currentUser.username ]}
