@@ -44,20 +44,35 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
 //      发起创意
-		.state('submit-idea', {
-            url: '/submit-idea',
+		.state('submit-idea-center', {
+            url: '/submit-idea-center',
             views:{
             	'':{
-            		templateUrl: 'views/submit-idea.html'
+            		templateUrl: 'views/submit-idea-center.html'
             	},
-            	'carousel@submit-idea':{
+            	'carousel@submit-idea-center':{
             		templateUrl: 'views/carousel.html'
             	},
-            	'footer@submit-idea':{
+            	'submit-idea-course@submit-idea-center':{
+            		templateUrl: 'views/submit-idea-course.html'
+            	},
+            	'footer@submit-idea-center':{
             		templateUrl: 'views/footer.html'
             	}
             }
         })
+		.state('submit-idea-center.submit-idea-step1',{
+       		url: '/submit-idea-step1',
+       		templateUrl: 'views/submit-idea-step1.html'
+       })
+		.state('submit-idea-center.submit-idea-step2',{
+       		url: '/submit-idea-step2',
+       		templateUrl: 'views/submit-idea-step2.html'
+       })
+		.state('submit-idea-center.submit-idea-step3',{
+       		url: '/submit-idea-step3',
+       		templateUrl: 'views/submit-idea-step3.html'
+       })
 //		商店
         .state('shop', {
             url: '/shop',
