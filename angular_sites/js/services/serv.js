@@ -57,7 +57,7 @@ app.factory('AuthService', function ($http, Session) {
   authService.login = function (credentials) {
     $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
     return $http
-      .post('/accounts/login/', $.param(credentials))
+      .post('/accounts/api/login/', $.param(credentials))
       .then(function (res) {
         Session.create(res.data.id, res.data.user.id,
                        res.data.user.role);
@@ -68,7 +68,7 @@ app.factory('AuthService', function ($http, Session) {
   authService.logout = function () {
     $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
     return $http
-    .post('/accounts/logout/')
+    .post('/accounts/api/logout/')
     .then(function (res) {
         return true;
     });

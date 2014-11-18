@@ -2,12 +2,7 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<form role="form" ng-controller="personalController" ng-submit="modifyAuth(user)" >
-			<h3 class="page-header">用户名 <small>(昵称)</small></h3>
-			<div class="row">
-				<div class="col-md-6">
-					<input class="form-control" type="text" placeholder="请输入昵称" ng-model="user.username"/>
-				</div>
-			</div>
+            <h3 class="page-header">用户{[ currentUser.username ]}</h3>
 			<h3 class="page-header">修改密码</h3>
 			<div class="row">
 				<div class="col-md-6">
@@ -19,11 +14,11 @@
 			<div class="row">
 				<div class="col-md-6">
 					<label for="" style="font-weight: 400;">修改密码</label>
-					<input class="form-control" type="text" placeholder="请输入新密码" ng-model="user.password1" />									
+					<input class="form-control" type="text" placeholder="请输入新密码" ng-model="user.password" />									
 				</div>
 				<div class="col-md-6">
 					<label for="" style="font-weight: 400;">确认密码</label>
-					<input class="form-control" type="text" placeholder="请再次输入新密码" ng-model="user.password2"/>									
+					<input class="form-control" type="text" placeholder="请再次输入新密码" ng-model="user.passwordRepeat"/>									
 				</div>
 			</div>
 			<br />
