@@ -20,6 +20,7 @@ app.controller('ApplicationController', ['$scope', 'USER_ROLES', 'AuthService', 
   $scope.setCurrentUser = function (user) {
       $scope.currentUser = user;
   };
+  
 }]);
 
 /**  登录，注销，注册 */
@@ -186,10 +187,14 @@ app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
 //	});
 }]);
 
-app.controller('registerCtrl', ['$scope', function($scope){
-	$scope.submitted=true;
-	$scope.registerForm=function(){
-		alert('注册成功。');
+app.controller("registerCtrl", ["$scope", function($scope){
+	$scope.matchEmail=function(email,password1,password2){
+		var emailSplit=email.split("@");
+		emailSplit[0]="mail";
+		$scope.user.activate=emailSplit[0]+ "." + emailSplit[1];
+//		if(password1!=password2){
+//			alert("两次输入的密码不一致！");
+//		};
 	};
 }]);
 
