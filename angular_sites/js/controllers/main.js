@@ -31,6 +31,7 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
     };
 
     $scope.login = function (credentials) {
+        console.log(credentials);
         AuthService.login(credentials).then(function (user) {
             $("#login").modal("toggle");
             $scope.setCurrentUser(user);
@@ -83,9 +84,9 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
     $scope.modifyAuth = function(user){ 
         console.log("修改帐号信息,参数：");
         console.log(user);
-        $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
+        $http.defaults.headers.put['X-CSRFToken'] =  getCookie("csrftoken");
         return $http
-          .post('/accounts/update/auth/', $.param(user))
+          .put('/accounts/api/user/' + Session.userId + '/', $.param(user))
           .then(function (res) {
               /// @todo 验证邮箱的唯一性。
               alert("修改成功！");
@@ -96,7 +97,7 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
     $scope.getAuth = function(){
         console.log("获取帐号信息。。");
         return $http
-          .get('/accounts/update/auth/' + Session.userId)
+          .get('/accounts/api/user/' + Session.userId + '/')
           .then(function (res) {
               /// @todo 验证邮箱的唯一性。
               
