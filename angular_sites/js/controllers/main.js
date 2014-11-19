@@ -20,6 +20,7 @@ app.controller('ApplicationController', ['$scope', 'USER_ROLES', 'AuthService', 
   $scope.setCurrentUser = function (user) {
       $scope.currentUser = user;
   };
+  
 }]);
 
 /**  登录，注销，注册 */
@@ -29,10 +30,16 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
         username: 'admin',
         password: 'wdj123'
     };
-
+	$scope.user = {
+		username: '张三是张三',
+		email: '12345678@qq.com',
+		password1: '123456',
+		password2: '123456'
+	}
     $scope.login = function (credentials) {
         console.log(credentials);
-        AuthService.login(credentials).then(function (user) {
+        AuthService.login(credentials)
+        .then(function (user) {
             $("#login").modal("toggle");
             $scope.setCurrentUser(user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -65,22 +72,27 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
      * @param {对象} user 用户信息，包括：用户名，邮箱，密码。
      */
     $scope.register = function(user) { 
+    	console.log(user);
         $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
         return $http
-          .post('/accounts/register/', $.param(user))
+          .post('/accounts/api/register/', $.param(user))
           .then(function (res) {
               /// @todo 返回数据
               /*return res.data.user;*/
-            alert(res.data);
-          });
+            $("#register").modal("toggle");
+      		$("#activate").modal(); 
+          	var emailSplit=user.email.split("@");
+			emailSplit[0]="mail";
+			user.activate=emailSplit[0]+ "." + emailSplit[1];
+            alert(res.data.user);
+          }),function(res){
+          	alert("无法连接至网络");
+          };
     };
 }]);
 
 app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
     /** 修改账户信息 */
-   $scope.user={
-   		name:'张三'
-   }
     $scope.modifyAuth = function(user){ 
         console.log("修改帐号信息,参数：");
         console.log(user);
@@ -181,16 +193,5 @@ app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
 		"sales":"259"
 		}
 	];
-//	$http.get('/data/products.json')
-//	.success(function(response){
-//		$scope.list=response;
-//	});
-}]);
-
-app.controller('registerCtrl', ['$scope', function($scope){
-	$scope.submitted=true;
-	$scope.registerForm=function(){
-		alert('注册成功。');
-	};
 }]);
 
