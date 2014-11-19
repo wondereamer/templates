@@ -1,0 +1,36 @@
+<!--分类导航栏开始-->
+<div class="container">
+	<div ui-view="type-nav"></div>
+</div>
+<!--分类导航栏结束-->
+
+<!--产品删选区域开始-->
+<div class="container">
+	<div ui-view="product-filter"></div>
+</div>
+<!--产品删选区域结束-->
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2 class="page-header">最新商品</h2>
+			<div ui-view="product-list">这用于最新产品列表展示</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<ul class="pagination">
+				<li><a href="#">&laquo;</a></li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+			  	<li><a href="#">4</a></li>
+			  	<li><a href="#">5</a></li>
+			  	<li><a href="#">&raquo;</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

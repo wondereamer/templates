@@ -85,12 +85,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  'carousel@shop':{
                  	templateUrl: 'views/carousel.html'
                  },
-                 'type-nav@shop':{
-                 	templateUrl: 'views/type-nav.html'
-                 },
-                 'product-filter@shop':{
-                 	templateUrl:'views/product-filter.html'
-                 },
                  'product-list@shop':{
                  	templateUrl: 'views/idea_sites/sale-item.html'
                  },
@@ -98,6 +92,40 @@ app.config(function($stateProvider, $urlRouterProvider) {
                  	templateUrl:'views/footer.html'
                  }
             }
+        })
+        .state('shop.product-new',{
+        	url:'/product-new',
+        	views:{
+        		'':{
+        			templateUrl:'views/product-new.html'
+        		},
+        		'type-nav@shop.product-new':{
+                 	templateUrl: 'views/type-nav.html'
+                },
+                'product-filter@shop.product-new':{
+                 	templateUrl: 'views/product-filter.html'
+                },
+        		'product-list@shop.product-new':{
+                 	templateUrl: 'views/idea_sites/sale-item.html'
+                 }
+        	}
+        })
+        .state('shop.product-hot',{
+        	url:'/product-hot',
+        	views:{
+        		'':{
+        			templateUrl:'views/product-hot.html'
+        		},
+        		'type-nav@shop.product-hot':{
+                 	templateUrl: 'views/type-nav.html'
+                },
+                'product-filter@shop.product-hot':{
+                 	templateUrl: 'views/product-filter.html'
+                },
+        		'product-list@shop.product-hot':{
+                 	templateUrl: 'views/idea_sites/sale-item.html'
+                 }
+        	}
         })
 //      用户中心
         .state('user-center', {

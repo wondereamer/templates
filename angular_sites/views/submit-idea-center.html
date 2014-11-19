@@ -50,9 +50,11 @@
 <!--轮播图区域结束-->
 <div class="wrap" style="background-color: #f8f8f8;width: 100%;padding-top: 100px;">
 	<div class="container">
-		<div ui-view>
-			<div ui-view="submit-idea-course"></div>
-		</div>
+		<form action="" role="from" name="ideaForm" ng-controller="submitIdeaController" ng-submit="submitIdea(idea)">
+			<div ui-view>
+				<div ui-view="submit-idea-course"></div>
+			</div>
+		</form>
 	</div>
 </div>
 

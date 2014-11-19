@@ -52,32 +52,50 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <p class="font-size-1_2em">类别</p>
-                <p>
-                    <a class="btn btn-default">健康医疗</a>
-                    <a class="btn btn-default">数码电子</a>
-                    <a class="btn btn-default">智能家居</a>
-                    <a class="btn btn-default">娱乐生活</a>
-                    <a class="btn btn-default">户外休闲</a>
-                </p>
+            	<div class="form-group">
+	                <h4>类别</h4>
+	                <div>
+	                    <label class="radio-inline">
+	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="健康医疗" ng-checked="true"/>
+	                    	健康医疗
+	                    </label>
+	                    <label class="radio-inline">
+	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="数码电子" />
+	                    	数码电子
+	                    </label>
+	                    <label class="radio-inline">
+	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="电影音乐" />
+	                    	电影音乐
+	                    </label>
+	                    <label class="radio-inline">
+	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="娱乐生活" />
+	                    	娱乐生活
+	                    </label>
+	                    <label class="radio-inline">
+	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="户外休闲" />
+	                    	户外休闲
+	                    </label>
+	                </div>
+            	</div>
                 <p class="font-size-1_2em">标题</p>
                 <div class="form-group">
-                    <input class="form-control" placeholder="标题" />
+                    <input class="form-control" ng-model="idea.title" placeholder="标题" />
                 </div>
                 <p class="front-color-lightgray">给你的创意起个名字</p>
                 <p class="font-size-1_2em">创意简介</p>
                 <div class="form-group">
-                    <textarea class="form-control" rows="6">
+                    <textarea class="form-control" rows="6" ng-model="idea.introduction">
                     </textarea>
                 </div>
                 <p class="front-color-lightgray">给你30秒的时间，你该如何描述你的创意</p>
                 <p class="font-size-1_2em">标签</p>
                 <div class="form-group">
-                    <input class="form-control" placeholder="标签" />
+                    <input class="form-control" ng-model="idea.label" placeholder="标签" />
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" />
-                    <span class="font-size-1_2em">授权</span>
+                	<label class="radio-inline">
+                    	<input type="radio" ng-model="idea.empower" value="yes"/>授权
+                    </label>
                 </div>
                 <p>
                     <span class="pull-right">
