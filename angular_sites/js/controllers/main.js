@@ -1,126 +1,124 @@
-app.controller('SaleController', ['$scope','Restangular', function($scope, Restangular) {
-    $scope.testData = [
-        {price:'1000', like:'300'},
-        {price:'2000', like:'400'}
-    ];
-    $scope.loadData = function(){ 
-        var User = Restangular.all('users');
-        var allUsers = User.getList();
-        return $scope.testData;         
-    };
-}]);
-
 /** 定义全局变量的区域，通常与Body挂钩。 */
-app.controller('ApplicationController', ['$scope', 'USER_ROLES', 'AuthService', function ($scope,
-                                               USER_ROLES,
-                                               AuthService) {
-  $scope.currentUser = null;
-  $scope.userRoles = USER_ROLES;
-  $scope.isAuthorized = AuthService.isAuthorized;
-  $scope.setCurrentUser = function (user) {
-      $scope.currentUser = user;
-  };
-  
+app.controller('ApplicationController', ['$scope', '$http', 'USER_ROLES', 'AuthService', function ($scope,$http,USER_ROLES,AuthService) {
+	$scope.currentUser = null;
+	$scope.userRoles = USER_ROLES;
+	$scope.isAuthorized = AuthService.isAuthorized;
+	$scope.setCurrentUser = function(user) {
+		$scope.currentUser = user;
+	};
+	//获取商店首页商品
+	$scope.getShop = function() {
+		console.log("获取商品中。。。");
+		return $http
+			.get('/shop/')
+			.then(function(i) {
+				alert("获取成功");
+			}, function(i) {
+				alert("获取失败");
+			});
+	};
 }]);
 
 /**  登录，注销，注册 */
-app.controller('authController', ['$scope', '$location', '$rootScope', '$http', 
-              'AUTH_EVENTS', 'AuthService', function ($scope, $location, $rootScope, $http, AUTH_EVENTS, AuthService) {
-    $scope.credentials = {
-        username: 'admin',
-        password: 'wdj123'
-    };
+app.controller('authController',['$scope','$location','$rootScope','$http','AUTH_EVENTS','AuthService',
+	function ($scope, $location, $rootScope, $http, AUTH_EVENTS, AuthService) {
+	$scope.credentials = {
+		username: 'admin',
+		password: 'wdj123'
+	};
 	$scope.user = {
 		username: '张三是张三',
 		email: '12345678@qq.com',
 		password1: '123456',
 		password2: '123456',
 	}
-    $scope.login = function (credentials) {
-        console.log(credentials);
-        AuthService.login(credentials)
-        .then(function (user) {
-            $("#login").modal("toggle");
-            $scope.setCurrentUser(user);
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            $location.path('/');
-        }, function () {
-            $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-            alert("错误的用户名或密码");
-        });
-    };
+	$scope.login = function(credentials) {
+		console.log(credentials);
+		AuthService.login(credentials)
+			.then(function(user) {
+				$("#login").modal("toggle");
+				$scope.setCurrentUser(user);
+				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+				$location.path('/');
+			}, function() {
+				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+				alert("错误的用户名或密码");
+			});
+	};
 
-    $scope.logout = function () {
-        /// @todo remove Session
-        AuthService.logout().then(function (user) {
-            $scope.setCurrentUser(null);
-            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-            $location.path('/');
-        });
-        /*AuthService.login(credentials).then(function (user) {*/
-        /*$("#login").modal("toggle");*/
-        /*$scope.setCurrentUser(user);*/
-        /*$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);*/
-        /*$location.path('/');*/
-        /*}, function () {*/
-        /*$rootScope.$broadcast(AUTH_EVENTS.loginFailed);*/
-        /*alert("错误的用户名或密码");*/
-        /*});*/
-    };
-    /**
-     * 注册用户
-     * @param {对象} user 用户信息，包括：用户名，邮箱，密码。
-     */
-    $scope.register = function(user) { 
-    	console.log(user);
-        $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
-        return $http
-          .post('/accounts/api/register/', $.param(user))
-          .then(function (res) {
-              /// @todo 返回数据
-              /*return res.data.user;*/
-            $("#register").modal("toggle");
-      		$("#activate").modal(); 
-          	var emailSplit=user.email.split("@");
-			emailSplit[0]="mail";
-			user.activate=emailSplit[0]+ "." + emailSplit[1];
-            alert(res.data.user);
-          }),function(res){
-          	alert("无法连接至网络");
-          };
-    };
+	$scope.logout = function() {
+		/// @todo remove Session
+		AuthService.logout().then(function(user) {
+			$scope.setCurrentUser(null);
+			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+			$location.path('/');
+		});
+		/*AuthService.login(credentials).then(function (user) {*/
+		/*$("#login").modal("toggle");*/
+		/*$scope.setCurrentUser(user);*/
+		/*$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);*/
+		/*$location.path('/');*/
+		/*}, function () {*/
+		/*$rootScope.$broadcast(AUTH_EVENTS.loginFailed);*/
+		/*alert("错误的用户名或密码");*/
+		/*});*/
+	};
+	/**
+	 * 注册用户
+	 * @param {对象} user 用户信息，包括：用户名，邮箱，密码。
+	 */
+    $scope.register = function(user) {
+	if (!user.agree) {
+		alert("请同意服务协议");
+	} else {
+		console.log(user);
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		return $http
+			.post('/accounts/api/register/', $.param(user))
+			.then(function(res) {
+				/// @todo 返回数据
+				/*return res.data.user;*/
+				$("#register").modal("toggle");
+				$("#activate").modal();
+				var emailSplit = user.email.split("@");
+				emailSplit[0] = "mail";
+				user.activate = emailSplit[0] + "." + emailSplit[1];
+				alert(res.data.user);
+			}, function(res) {
+				alert("无法连接至网络");
+			});
+	};
+};
 }]);
 
 app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
-    /** 修改账户信息 */
-    $scope.modifyAuth = function(user){ 
-        console.log("修改帐号信息,参数：");
-        console.log(user);
-        $http.defaults.headers.put['X-CSRFToken'] =  getCookie("csrftoken");
-        return $http
-          .put('/accounts/api/user/' + Session.userId + '/', $.param(user))
-          .then(function (res) {
-              /// @todo 验证邮箱的唯一性。
-              alert("修改成功！");
-          }, function(res){ 
-          });
-    };
-    /**  获取账户信息 */
-    $scope.getAuth = function(){
-        console.log("获取帐号信息。。");
-        return $http
-          .get('/accounts/api/user/' + Session.userId + '/')
-          .then(function (res) {
-              /// @todo 验证邮箱的唯一性。
-              
-              console.log(res.data);
-          }, function(res){ 
-              /*alert("个人帐号获取失败!") */
-          });
-    }
+	/** 修改账户信息 */
+	$scope.modifyAuth = function(user) {
+		console.log("修改帐号信息,参数：");
+		console.log(user);
+		$http.defaults.headers.put['X-CSRFToken'] = getCookie("csrftoken");
+		return $http
+			.put('/accounts/api/user/' + Session.userId + '/', $.param(user))
+			.then(function(res) {
+				/// @todo 验证邮箱的唯一性。
+				alert("修改成功！");
+			}, function(res) {});
+	};
+	/**  获取账户信息 */
+	$scope.getAuth = function() {
+		console.log("获取帐号信息。。");
+		return $http
+			.get('/accounts/api/user/' + Session.userId + '/')
+			.then(function(res) {
+				/// @todo 验证邮箱的唯一性。
+				console.log(res.data);
+			}, function(res) {
+				/*alert("个人帐号获取失败!") */
+			});
+	}
 }]);
 
-app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
+app.controller('shopController', ['$scope', '$http', function($scope,$http){
 	$scope.product=[
 		{
 		"img":"../img/01-233.jpg",
@@ -193,6 +191,7 @@ app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
 		"sales":"259"
 		}
 	];
+	
 }]);
 //发起创意步骤
 app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
@@ -206,14 +205,15 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 	};
 	$scope.submitIdea=function(idea){
 		console.log(idea);
-        $http.defaults.headers.post['X-CSRFToken'] =  getCookie("csrftoken");
-        return $http
-          .post('/accounts/api/submitIdea/', $.param(idea))
-          .then(function (response) {
-              /// @todo 返回数据
-              /*return res.data.user;*/
-          }),function(response){
-          	alert("提交失败");
-          };
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		return $http
+			.post('/accounts/api/submitIdea/', $.param(idea))
+			.then(function(response) {
+				/// @todo 返回数据
+			}),
+			function(response) {
+				alert("提交失败");
+			};
 	}
 }]);
+
