@@ -34,7 +34,7 @@ app.controller('authController', ['$scope', '$location', '$rootScope', '$http',
 		username: '张三是张三',
 		email: '12345678@qq.com',
 		password1: '123456',
-		password2: '123456'
+		password2: '123456',
 	}
     $scope.login = function (credentials) {
         console.log(credentials);
@@ -198,7 +198,6 @@ app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
 app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 	$scope.idea={
 		type:"健康医疗",
-		empower:"no",
 		title:"生活是官方说法更加广泛",
 		introduction:"事实告诉我们，能够真正服务于生活的创意才是我们要寻找的好设计。为此我们建立了一个投票环节，在这里，你所喜欢、支持的创意都有可能制作成产品并成功上市。一个好创意诞生很不容易，希望你们成为优秀的评审团。",
 		label:"生活创意",

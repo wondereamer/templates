@@ -234,7 +234,7 @@
 								required
 							/>
 							<span class="glyphicon glyphicon-ok form-control-feedback"
-	                              ng-show="registerForm.userName.$dirty && register.registerForm.$valid"
+	                              ng-show="registerForm.userName.$dirty && registerForm.userName.$valid"
 	                              style="color: green;">
 							</span>
 							<span ng-show="registerForm.userName.$dirty && registerForm.userName.$invalid">
@@ -286,23 +286,22 @@
 								name="password2"
 								type="password"
 								placeholder="确认密码"
-								ng-maxlength="12"
-								ng-minlength="6"
 								ng-model="user.password2"
 								required
 							/>
 							<span class="glyphicon glyphicon-ok form-control-feedback"
-	                              ng-show="register.password2.$dirty && register.password2.$valid"
+	                              ng-show="registerForm.password1.$dirty && registerForm.password1.$valid && user.password1 == user.password2"
 	                              style="color: green;">
 							</span>
-							<span ng-show="registerForm.password2.$dirty && registerForm.password2.$invalid">
-								<span ng-show="registerForm.password2.$error.minlength" style="color: red;">输入的密码少于6位</span>
-								<span ng-show="registerForm.password2.$error.maxlength" style="color: red;">输入的密码超过12位</span>
+							<span
+								ng-show="registerForm.password2.$dirty && registerForm.password1.$valid && user.password1 != user.password2"
+								 style="color: red;">
+								两次输入的密码不一致。
 							</span>
 						</div>
 						<div class="checkbox">
-						    <label>
-						    	<input type="checkbox" checked="checked"> 同意异想服务协议
+						    <label class="checkbox-inline">
+						    	<input type="checkbox" name="agree" ng-model="user.agree"/> 同意异想服务协议
 						    </label>
 					    </div>
 					</div>
