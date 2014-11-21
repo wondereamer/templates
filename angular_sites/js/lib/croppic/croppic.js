@@ -162,10 +162,9 @@
                     contentType: false,
                     processData: false,
                     type: 'POST'
-				}).always(function(data){
-					response = jQuery.parseJSON(data);
+				}).always(function(response){
+                    /*response = jQuery.parseJSON(data);*/
 					if(response.status=='success'){
-						
 						that.imgInitW = that.imgW = response.width;
 						that.imgInitH = that.imgH = response.height;
 						
@@ -184,6 +183,7 @@
 					}
 					
 					if(response.status=='error'){
+                        console.log("error");
 						that.obj.append('<p style="width:100%; height:100%; text-align:center; line-height:'+that.objH+'px;">'+response.message+'</p>');
 						that.hideLoader();
 						setTimeout( function(){ that.reset(); },2000)
