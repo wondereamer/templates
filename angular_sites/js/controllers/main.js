@@ -120,6 +120,18 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
     }
 }]);
 
+app.controller('shopController', ['$scope', '$http', function($scope, $http) {
+    $scope.getLatest = function(){ 
+        console.log("fetch shop products");
+        $http.get('/shop/')
+          .then(function (res) {
+              console.log(res.data);
+          }, function(res){ 
+              console.log("Failed!");
+          });
+    }
+}]);
+
 app.controller('productListCtrl', ['$scope', '$http', function($scope,$http){
 	$scope.product=[
 		{

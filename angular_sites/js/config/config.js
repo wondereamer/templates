@@ -80,7 +80,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             views: {
                  '': {
                      templateUrl: 'views/shop.html',
-                     controller: function($scope) {}
+                     controller: 'shopController'
                  },
                  'carousel@shop':{
                  	templateUrl: 'views/carousel.html'
