@@ -1,8 +1,7 @@
 {% load forum_extras %}
-<div class="wrap">
 <!--头部导航栏开始-->
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
         <div class="navbar-header">
             <button id="collapsed-navbar" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -18,94 +17,75 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav" id="navbar-top">
-                <li class="active" id="btn-home">
-                	<a href="/">
-                		<span class="glyphicon glyphicon-home"></span>
+                <li ui-sref-active="active" class="" id="btn-home">
+                	<a href="/#/index">
+                		<!--<span class="glyphicon glyphicon-home"></span>-->
                 		主页
                 	</a>
                 </li>
-                <li class="" id="btn-pre-sale">
-                	<a href="/presale/">
-                		<span class="glyphicon glyphicon-dashboard"></span>
-                		预售
+                <li ui-sref-active="active" class="" id="btn-pre-sale">
+                	<a href="/#/idea" >
+                		<!--<span class="glyphicon glyphicon-dashboard"></span>-->
+                		发现创意
                 	</a>
                 </li>
-                <li class="" id="btn-shop">
-                	<a href="/shop/">
-                		<span class="glyphicon glyphicon-shopping-cart"></span>
+                <li ui-sref-active="active" class="" id="btn-vote">
+                	<a href="/#/submit-idea-center" >
+                		<!--<span class="glyphicon glyphicon-heart"></span>-->
+                		发起我的创意
+                	</a>
+                </li>
+                <li ui-sref-active="active" id="btn-shop">
+                	<a href="/#/shop">
+                		<!--<span class="glyphicon glyphicon-shopping-cart"></span>-->
                 		商店
                 	</a>
                 </li>
-                <li class="" id="btn-vote">
-                	<a href="/fever/">
-                		<span class="glyphicon glyphicon-heart"></span>
-                		投票
-                	</a>
-                </li>
-                <li class="" id="btn-bbs">
+                <li ui-sref-active="active" id="btn-bbs">
                 	<a href="/forum/">
-                		<span class="glyphicon glyphicon-tree-deciduous"></span>
+                		<!--<span class="glyphicon glyphicon-tree-deciduous"></span>-->
                 		社区
                 	</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control input-sm" placeholder="请输入关键字">
                 </div>
-                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="submit" class="btn btn-success btn-sm">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-				{% if user.is_authenticated %}
-                    <li id="btn-personal">
-                        <!--用户中心开始-->
-                        <div style="display: -none; top: 10px; right: 10px;" class="dropdown">
-                           <button type="button" class="btn dropdown-toggle" id="user-center" 
-                              data-toggle="dropdown">
-                              {{ user.username  }}
-                              <span class="caret"></span>
-                           </button>
-                           <ul class="dropdown-menu" role="menu" aria-labelledby="user-center">
-                              <li role="presentation" >
-                                 <a role="menuitem" tabindex="-1" href="#">账户设置</a>
-                              </li>
-                              <li role="presentation" class="divider"></li>
-                              <li role="presentation" >
-                              <a role="menuitem" tabindex="-1" href="/accounts/profile/{{ user.username }}">查看个人资料</a>
-                              </li>
-                              <li role="presentation" class="divider"></li>
-                              <li role="presentation">
-                                 <a role="menuitem" tabindex="-1" href="#">我的订单</a>
-                              </li>
-                              <li role="presentation" class="divider"></li>
-                              <li role="presentation">
-                                 <a role="menuitem" tabindex="-1" href="#">帮助</a>
-                              </li>
-                              <li role="presentation" class="divider"></li>
-                              <li role="presentation">
-                                 <a role="menuitem" tabindex="-1" href="/accounts/logout/">退出</a>
-                              </li>
-                           </ul>
-                        </div>
-                        <!--用户中心结束-->
-                    </li>
-                {% else  %}
-                    <li id="btn-login">
-                        <a href="/accounts/login">
-                            <span class="glyphicon glyphicon-user"></span>
-                            登录
-                        </a>
-                    </li>
-                    <li id="btn-register">
-                        <a href="/accounts/register">
-                            <span class="glyphicon glyphicon-user"></span>
-                            注册
-                        </a>
-                    </li>
-                {% endif %}
+                <!--登录后用户中心区域开始/默认隐藏-->
+                <li id="" class="dropdown" style="display: -none;" ng-show="currentUser">
+                    <a href="javascript:void()" class="dropdown-toggle" data-hover="dropdown" data-close-others="false">
+                        <span class="glyphicon glyphicon-user" ng-bind="currentUser.username"></span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" ng-controller="oldController">
+                        <li><a ui-sref="user-center">个人中心</a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="settingClick()">账户设置</a></li>
+                        <li class="divider"></li>
+                        <li><a ui-sref="user-setting-center.info">查看个人资料</a></li>
+                        <li class="divider"></li>
+                        <li><a ui-sref="user-setting-center.order">我的订单</a></li>
+                        <li><a ng-controller="authController" ng-click="logout()" >退出</a></li>
+                        <!--<li><a ng-controller="authController" ng-click="logout()" >退出</a></li>-->
+                                 <!--<a role="menuitem" tabindex="-1" href="/accounts/logout/">退出</a>-->
+                        <li class="divider"></li>
+                        <!--<li><a ui-sref="">帮助</a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a ui-sref="">退出</a></li>-->
+                    </ul>                    	
+                </li>
+                <li id="btn-login" ng-hide="currentUser">
+                    <a data-toggle="modal" data-target="#login" style="cursor: pointer;">登录</a>
+                </li>
+                <li id="btn-register" ng-hide="currentUser">
+                    <a data-toggle="modal" data-target="#register" style="cursor: pointer;">注册</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-</div>
-<br />
+
