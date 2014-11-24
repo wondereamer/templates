@@ -4,6 +4,7 @@
 	<div ui-view="carousel"></div>
 </div>
 <!--轮播图区域结束-->
+
 <!--分类导航栏开始-->
 <div style="width: 100%;padding: 10px 0; border-bottom: 1px solid #ccc;">
 	<div class="container">
@@ -35,7 +36,7 @@
 					<h3>最新商品<small style="color: red;">&nbsp;(New)</small></h3>
 				</div>
 				<div class="col-md-2" style="padding-top: 24px;">
-					<a class="pull-right" ui-sref=".product-new" ng-click="getShopNew()"><span class="badge">More</span>>>></a>
+					<a class="pull-right" ui-sref=".product-new" ng-click="getShopLatest()"><span class="badge">More</span>>>></a>
 				</div>
 			</div>
 		</div>
@@ -69,20 +70,32 @@
 	</div>
 </div>
 <!--页脚区域开始-->
-<div class="footer hidden-sm" style="background-color: #333333;color: #f3f3f3;">
+<div class="footer hidden-sm hidden-xs" style="background-color: #333333;color: #f3f3f3;">
 	<div class="container">
 		<div class="row" style="height: 200px;">
 			<div ui-view="footer"></div>
 		</div>
 	</div>
 </div>
-<div class="footer sr-only">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-20 text-center">
-				深圳市异想创意科技有限公司
-			</div>
-		</div>
-	</div>
-</div>
 <!--页脚区域结束-->
+<!--移动端底部菜单开始-->
+<nav class="navbar navbar-fixed-bottom visible-xs" style="background: #F8F8F8;">
+	<ul class="nav">
+		<li class="col-xs-4 text-center">
+			<a href="" class="bar-active"><span class="glyphicon glyphicon-home"></span><br>首页</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href=""><span class="glyphicon glyphicon-pencil"></span><br>发起</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href=""><span class="glyphicon glyphicon-tasks"></span><br>项目</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href="" class="bar-create"><span class="glyphicon glyphicon-comment"></span><br>消息</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href=""><span class="glyphicon glyphicon-user"></span><br>我的</a>
+		</li>
+	</ul>
+</nav>
+<!--移动端底部菜单结束-->

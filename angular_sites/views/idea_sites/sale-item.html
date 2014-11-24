@@ -5,7 +5,7 @@
 			<a ui-sref="product-detail.describe" target="_blank">
 				<img class="img-responsive" ng-src="{[x.photo_intros]}"/>
 			</a>
-			<p>&yen;<span style="color: red;">&nbsp;{[x.price]}.00</span></p>
+			<p>&yen;<span style="color: red;">&nbsp;{[x.price | filter:2]}</span></p>
 		</div>
 		<div class="sale-item-title">
 			<a ui-sref="product-detail.describe">{[x.brief]}</a>

@@ -66,3 +66,15 @@ p{
 	color: #999;
 	font-size: 12px;
 }
+
+/*商品详情图片TAB切换*/
+ul.pic-list li{
+	opacity: 0.5;
+	border: 1px solid #fff;
+	float: left;
+	margin: 0 5px;
+}
+ul.pic-list li:hover{
+	opacity: 1;
+	border: 1px solid #f36;
+}

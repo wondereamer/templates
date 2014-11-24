@@ -369,9 +369,14 @@ $(function(){
 	$.goup({
 		trigger: 300,
 		bottomOffset: 150,
-		locationOffset: 50,
+		locationOffset: 20,
 		title: 'Top',
 		titleAsText: false
+	});
+	
+	$(".pic-list").click(function(){
+		alert(123);
+//		$("ul.pic-show li").index(this.index).show().siblings("li").hide();
 	});
 });
 </script>
