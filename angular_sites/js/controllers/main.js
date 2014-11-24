@@ -1,5 +1,9 @@
 /** 定义全局变量的区域，通常与Body挂钩。 */
-app.controller('ApplicationController', ['$scope', '$http', 'USER_ROLES', 'AuthService', function ($scope,$http,USER_ROLES,AuthService) {
+app.controller('ApplicationController',
+               ['$scope','$rootScope', '$http', 'USER_ROLES','AUTH_EVENTS', 'AuthService',
+               function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS) {
+
+    // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -17,6 +21,11 @@ app.controller('ApplicationController', ['$scope', '$http', 'USER_ROLES', 'AuthS
 				alert("获取失败");
 			});
 	};
+    // 用来控制传统页面的用户验证。
+    if (user) {
+        $scope.currentUser=user 
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+    };
 }]);
 
 /**  登录，注销，注册 */
@@ -31,7 +40,7 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		email: '12345678@qq.com',
 		password1: '123456',
 		password2: '123456',
-	}
+	};
 	$scope.login = function(credentials) {
 		console.log(credentials);
 		AuthService.login(credentials)
@@ -227,5 +236,12 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 				alert("提交失败");
 			};
 	}
+}]);
+
+app.controller('oldController', ['$scope', '$location', function($scope, $location) {
+    $scope.settingClick = function(){ 
+        window.location.href = '/#/user-setting-center/setting';
+    };
+    
 }]);
 

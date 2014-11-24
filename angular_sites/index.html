@@ -34,6 +34,20 @@
     <script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
 </head>
 <body ng-controller="ApplicationController">
+<!--放在前面，避免个人中心的闪烁出现-->
+<script type="text/javascript" charset="utf-8">
+    {% if user.is_authenticated %}
+        var user = {
+            username:  "{{ user.username }}"
+        };
+    {% else %}
+        var user=null;
+    {% endif %}
+</script>
+<script language="javascript" src="js/config/config.js"></script>
+<script language="javascript" src="js/controllers/main.js"></script>
+<script language="javascript" src="js/directives/my_directive.js"></script>
+<script language="javascript" src="js/services/serv.js"></script>
 <!--头部导航栏开始-->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -91,10 +105,9 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <!--登录后用户中心区域开始/默认隐藏-->
-                <li id="" class="dropdown" style="display: -none;">
+                <li id="" class="dropdown" style="display: -none;" ng-show="currentUser">
                     <a href="javascript:void()" class="dropdown-toggle" data-hover="dropdown" data-close-others="false">
-                        <span class="glyphicon glyphicon-user"></span>
-                        {[ currentUser.username ]}
+                        <span class="glyphicon glyphicon-user" ng-bind="currentUser.username"></span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -341,10 +354,6 @@
 	</div>
 	<!--验证邮箱结束-->
 </div>
-<script language="javascript" src="js/config/config.js"></script>
-<script language="javascript" src="js/controllers/main.js"></script>
-<script language="javascript" src="js/directives/my_directive.js"></script>
-<script language="javascript" src="js/services/serv.js"></script>
 <script>
 $(function(){
 	//登录成功后关闭登陆框
@@ -364,6 +373,7 @@ $(function(){
 		title: 'Top',
 		titleAsText: false
 	});
+    <!--alert('test');-->
 });
 </script>
 </body>

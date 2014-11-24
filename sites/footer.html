@@ -1,48 +1,267 @@
-<div class="footer hidden-xs">
-    <!-- -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h3><b>关于XXX</b></h3>
-                <h4>关于我们</h4>
-                <h4>联系我们</h4>
-                <h4>成功案例</h4>
-                <h4>加入我们</h4>
-            </div>
-            <div class="col-md-3">
-                <h3><b>服务</b></h3>
-                <h4>创意征集</h4>
-                <h4>新品试用</h4>
-                <h4>投票规则</h4>
-            </div>
-            <div class="col-md-3">
-                <h3><b>帮助中心</b></h3>
-                <h4>如何工作</h4>
-                <h4>售后工作</h4>
-                <h4>常见问题</h4>
-                <h4>服务条款</h4>
-            </div>
-            <div class="col-md-3">
-                <h3><b>关注我们</b></h3>
-                <p>
-                    <a class="btn">
-                        <img class="img-rounded img-responsive"  src="/img/avatar_default_small.jpg"/>
-                    </a>
-                    <a class="btn">
-                        <img class="img-rounded img-responsive"  src="/img/avatar_default_small.jpg"/>
-                    </a>
-                    <a class="btn">
-                        <img class="img-rounded img-responsive"  src="/img/avatar_default_small.jpg"/>
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
+
+<!--页脚区域开始-->
+<div class="footer" style="background-color: #333333;color: #f3f3f3;">
+	<div class="container">
+		<div class="row" style="height: 200px;">
+			<div ui-view="footer"></div>
+<div class="col-md-1" style="padding-top: 30px;">
+    <h5><b>关于</b></h5>
+    <a>关于异想</a>
+    <a>联系我们</a>
+    <a>成功案例</a>
+    <a>加入异想</a>
 </div>
-<script>
-	$(function(){
-		$("#navbar-top li").click(function(){
-			$(this).addClass("active").siblings("li").removeClass("active");
-		})
-	})
-</script>
+<div class="col-md-1" style="padding-top: 30px;">
+    <h5><b>服务</b></h5>
+    <a>找回密码</a>
+    <a>常见问题</a>
+    <a>服务协议</a>
+    <a>隐私政策</a>
+</div>
+<div class="col-md-1" style="padding-top: 30px;">
+    <h5><b>合作</b></h5>
+    <a>媒体合作</a>
+    <a>渠道合作</a>
+    <a>友情链接</a>
+</div>
+<div class="col-md-6" style="padding-top: 30px;">
+	<img src="/img/cc.png" alt="" />
+</div>
+<div class="col-md-3" style="padding-top: 30px;">
+    <p><b>关注我们</b></p>
+    <p>
+        <a class="btn">
+            <img class="img-circle img-responsive"  src="/img/01-233.jpg" style="width: 30px;height: 30px;"/>
+        </a>
+        <a class="btn">
+            <img class="img-circle img-responsive"  src="/img/01-233.jpg" style="width: 30px;height: 30px;"/>
+        </a>
+        <a class="btn">
+            <img class="img-circle img-responsive"  src="/img/01-233.jpg" style="width: 30px;height: 30px;"/>
+        </a>
+        <a class="btn">
+            <img class="img-circle img-responsive"  src="/img/01-233.jpg" style="width: 30px;height: 30px;"/>
+        </a>
+    </p>
+</div>
+		</div>
+	</div>
+</div>
+<!--页脚区域结束-->
+
+<div ng-controller="authController">
+	<!--登录弹出框区域开始-->
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true" style="top: 10%;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form class="form-horizontal"  name="loginForm" ng-submit="login(credentials)">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title" id="loginLabel">
+							登录异想
+						</h3>
+					</div>
+					<div class="modal-body" style="padding: 0 40px;">
+						<div class="form-group" style="padding: 15% 15%;">
+							<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
+							<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="userName"
+								type="text"
+								placeholder="用户名"
+								ng-minlength="6"
+								ng-maxlength="25"
+								ng-model="credentials.username"
+								ng-pattern="/^[\u4e00-\u9fa5-_0-9a-zA-Z]+$/"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="loginForm.userName.$dirty && loginForm.userName.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="loginForm.userName.$dirty && loginForm.userName.$invalid">
+								<span ng-show="loginForm.userName.$error.minlength" style="color: red;">请输入6个字符以上</span>
+								<span ng-show="loginForm.userName.$error.maxlength" style="color: red;">请输入25个字符以下</span>
+								<span ng-show="loginForm.userName.$error.pattern" style="color: red;">输入的用户名不合法</span>
+							</span>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="password"
+								type="password"
+								placeholder="密码(6~12)"
+								ng-maxlength="12"
+								ng-minlength="6"
+								ng-model="credentials.password"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="loginForm.password.$dirty && loginForm.password.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+								<span ng-show="loginForm.password.$error.minlength" style="color: red;">输入的密码少于6位</span>
+								<span ng-show="loginForm.password.$error.maxlength" style="color: red;">输入的密码超过12位</span>
+							</span>
+						</div>
+						<div class="checkbox">
+					      	<label>
+					      		<input type="checkbox"> 自动登录
+					      	</label>
+					      	<a href="#" style="float: right;">忘记密码？</a>
+					   	</div>
+					</div>
+					<div class="modal-footer" style="padding: 20px 40px;">
+						<div class="form-group" style="text-align: center;">
+							<input class="btn btn-lg btn-success btn-block " type="submit" value="登录" id="loginBtn"/>
+							<br />
+							<span>已有账号？<a data-toggle="modal" data-target="#register" style="cursor: pointer;">立即注册</a></span>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--登录弹出框区域开始-->
+
+	<!--注册弹出框区域开始-->
+	<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true" style="top: 10%">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form class="form-horizontal" role="form" name="registerForm" ng-submit="register(user)">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title" id="registerLabel">
+							注册异想
+						</h3>
+					</div>
+					<div class="modal-body" style="padding: 0 40px;">
+						<br />
+						<div class="form-group" style="padding: 5% 10%;">
+							<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
+							<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="userName"
+								type="text"
+								placeholder="用户名"
+								ng-minlength="6"
+								ng-maxlength="25"
+								ng-model="user.username"
+								ng-pattern="/^[\u4e00-\u9fa5-_0-9a-zA-Z]+$/"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.userName.$dirty && registerForm.userName.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="registerForm.userName.$dirty && registerForm.userName.$invalid">
+								<span ng-show="registerForm.userName.$error.minlength" style="color: red;">请输入6个字符以上</span>
+								<span ng-show="registerForm.userName.$error.maxlength" style="color: red;">请输入25个字符以下</span>
+								<span ng-show="registerForm.userName.$error.pattern" style="color: red;">输入的用户名不合法</span>
+							</span>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="email"
+								type="email"
+								placeholder="邮箱"
+								ng-model="user.email"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.email.$dirty && registerForm.email.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
+								<span ng-show="registerForm.email.$error.email" style="color: red;">输入正确的邮箱</span>
+							</span>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="password1"
+								type="password"
+								placeholder="密码"
+								ng-maxlength="12"
+								ng-minlength="6"
+								ng-model="user.password1"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.password1.$dirty && registerForm.password1.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="registerForm.password1.$dirty && registerForm.password1.$invalid">
+								<span ng-show="registerForm.password1.$error.minlength" style="color: red;">输入的密码少于6位</span>
+								<span ng-show="registerForm.password1.$error.maxlength" style="color: red;">输入的密码超过12位</span>
+							</span>
+					    </div>
+					   	<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="password2"
+								type="password"
+								placeholder="确认密码"
+								ng-model="user.password2"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.password1.$dirty && registerForm.password1.$valid && user.password1 == user.password2"
+	                              style="color: green;">
+							</span>
+							<span
+								ng-show="registerForm.password2.$dirty && registerForm.password1.$valid && user.password1 != user.password2"
+								 style="color: red;">
+								两次输入的密码不一致。
+							</span>
+						</div>
+						<div class="checkbox">
+						    <label class="checkbox-inline">
+						    	<input type="checkbox" name="agree" ng-model="user.agree"/> 同意异想服务协议
+						    </label>
+					    </div>
+					</div>
+					<div class="modal-footer"  style="padding: 20px 40px;">
+						<br />
+						<div class="form-group">
+							<input class="btn btn-lg btn-success btn-block" id="registerBtn" type="submit" value="确认注册"/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--注册弹出框区域结束-->
+	<!--验证邮箱开始-->
+	<div class="modal fade" id="activate" tabindex="-1" role="dialog" aria-labelledby="activateLabel" aria-hidden="true" style="top: 10%">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form class="form-horizontal" action="#" role="form" name="activate">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title" id="activateLabel" style="color: green;">
+							激活账号
+							<br />
+							<small>请点击一下链接验证邮箱激活</small>
+						</h3>
+					</div>
+					<div class="modal-body" style="">
+						<a href="//{[user.activate]}" target="_blank"><h5>http://{[user.activate]}</h5></a>
+					</div>
+					<div class="modal-footer"  style="padding: 20px 40px;">
+						<a class="btn btn-default" data-dismiss="modal" href="">返回</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--验证邮箱结束-->
+</div>
