@@ -99,9 +99,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         		'':{
         			templateUrl:'views/product-new.html'
         		},
-        		'type-nav@shop.product-new':{
-                 	templateUrl: 'views/type-nav.html'
-                },
                 'product-filter@shop.product-new':{
                  	templateUrl: 'views/product-filter.html'
                 },
@@ -116,9 +113,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         		'':{
         			templateUrl:'views/product-hot.html'
         		},
-        		'type-nav@shop.product-hot':{
-                 	templateUrl: 'views/type-nav.html'
-                },
                 'product-filter@shop.product-hot':{
                  	templateUrl: 'views/product-filter.html'
                 },

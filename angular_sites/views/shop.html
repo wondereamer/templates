@@ -3,19 +3,42 @@
 	<div ui-view="carousel"></div>
 </div>
 <!--轮播图区域结束-->
+<!--分类导航栏开始-->
+<div style="width: 100%;padding: 10px 0; border-bottom: 1px solid #ccc;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-20">
+				<ul class="nav nav-pills shop-type">
+				    <li class="active"><a href="##">全部</a></li>
+				    <li><a href="##">异想家</a></li>
+				 	<li><a href="##">办公文具</a></li>
+				 	<li><a href="##">玩具娱乐</a></li>
+				 	<li><a href="##">生活改良</a></li>
+				 	<li><a href="##">数码科技</a></li>
+				 	<li><a href="##">个性装备</a></li>
+				 	<li><a href="##">户外运动</a></li>
+				 	<li><a href="##">美化装饰</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!--分类导航栏结束-->
 <br />
+
 <div ng-controller="shopController">
 	<div ui-view>
 		<div class="container">
 			<div class="row" style="border-bottom: 1px solid #ccc;">
-				<div class="col-md-10">
+				<div class="col-md-18">
 					<h3>最新商品<small style="color: red;">&nbsp;(New)</small></h3>
 				</div>
 				<div class="col-md-2" style="padding-top: 24px;">
-					<a class="pull-right" ui-sref=".product-new"><span class="badge">More</span>>>></a>
+					<a class="pull-right" ui-sref=".product-new" ng-click="getShopNew()"><span class="badge">More</span>>>></a>
 				</div>
 			</div>
 		</div>
+		
 		<!--产品展示区域开始-->
 		<div class="container">
 			<div class="row">
@@ -23,16 +46,18 @@
 			</div>
 		</div>
 		<!--产品展示区域结束-->
+		
 		<div class="container">
 			<div class="row" style="border-bottom: 1px solid #ccc;padding-top: 50px;">
-				<div class="col-md-10">
+				<div class="col-md-18">
 					<h3>最热商品<small style="color: red;">&nbsp;(Hot)</small></h3>
 				</div>
 				<div class="col-md-2" style="padding-top: 24px;">
-					<a class="pull-right" ui-sref=".product-hot"><span class="badge">More</span>>>></a>
+					<a class="pull-right" ui-sref=".product-hot" ng-click="getShopHot()"><span class="badge">More</span>>>></a>
 				</div>
 			</div>
 		</div>
+		
 		<!--产品展示区域开始-->
 		<div class="container">
 			<div class="row">
@@ -43,10 +68,19 @@
 	</div>
 </div>
 <!--页脚区域开始-->
-<div class="footer" style="background-color: #333333;color: #f3f3f3;">
+<div class="footer hidden-sm" style="background-color: #333333;color: #f3f3f3;">
 	<div class="container">
 		<div class="row" style="height: 200px;">
 			<div ui-view="footer"></div>
+		</div>
+	</div>
+</div>
+<div class="footer sr-only">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-20 text-center">
+				深圳市异想创意科技有限公司
+			</div>
 		</div>
 	</div>
 </div>

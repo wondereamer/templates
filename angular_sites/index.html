@@ -3,14 +3,15 @@
 <head>
 <meta charset = "UTF-8">
 <title>异想</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.custom.min.css" rel="stylesheet">
     <!-- 载入Compass处理后的css文件 -->
-    <link href="/css/main.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
     <!--{% block head  %}{% endblock  %}-->
     
     <!--载入sale-item的css样式-->
-    <link rel="stylesheet" href="/css/sale-item.css" />
-    <link rel="stylesheet" href="/css/fever-item.css" />
+    <link rel="stylesheet" href="css/sale-item.css" />
+    <link rel="stylesheet" href="css/fever-item.css" />
+    <link rel="stylesheet" href="css/shop.css" />
     <!--头像上传截图css-->
     <link rel="stylesheet" href="js/lib/croppic/croppic.css" />
     
@@ -19,19 +20,7 @@
         padding-top:50px
     }
     </style>
-    <!--javascript-->
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/jquery.goup.min.js"></script>
-    <script src="js/lib/bootstrap.min.js"></script>
-    <script src="js/lib/bootstrap-hover-dropdown.min.js"></script>
-    <!--头像上传截图js-->
-    <script src="js/lib/croppic/croppic.js"></script>
     
-    <script language="javascript" src="js/lib/angular/angular.min.js"></script>
-    <script language="javascript" src="js/lib/angular-ui-router.min.js"></script>
-    <script language="javascript" src="js/lib/underscore.min.js"></script>
-    <script language="javascript" src="js/lib/restangular.min.js"></script>
-    <script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
 </head>
 <body ng-controller="ApplicationController">
 <!--头部导航栏开始-->
@@ -105,8 +94,9 @@
                         <li><a ui-sref="user-setting-center.info">查看个人资料</a></li>
                         <li class="divider"></li>
                         <li><a ui-sref="user-setting-center.order">我的订单</a></li>
-                        <li><a ng-controller="authController" ng-click="logout()" >退出</a></li>
                         <li class="divider"></li>
+                        <li><a ng-controller="authController" ng-click="logout()" >退出</a></li>
+                        <!--<li class="divider"></li>-->
                         <!--<li><a ui-sref="">帮助</a></li>-->
                         <!--<li class="divider"></li>-->
                         <!--<li><a ui-sref="">退出</a></li>-->
@@ -341,6 +331,25 @@
 	</div>
 	<!--验证邮箱结束-->
 </div>
+
+<!--javascript-->
+<script src="js/lib/jquery.min.js"></script>
+<script src="js/lib/jquery.goup.min.js"></script>
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/lib/bootstrap-hover-dropdown.min.js"></script>
+<!--头像上传截图js-->
+<script src="js/lib/croppic/croppic.js"></script>
+
+<script language="javascript" src="js/lib/angular/angular.min.js"></script>
+<script language="javascript" src="js/lib/angular-ui-router.min.js"></script>
+<script language="javascript" src="js/lib/underscore.min.js"></script>
+<script language="javascript" src="js/lib/restangular.min.js"></script>
+<script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
+
+
+
+
+
 <script language="javascript" src="js/config/config.js"></script>
 <script language="javascript" src="js/controllers/main.js"></script>
 <script language="javascript" src="js/directives/my_directive.js"></script>

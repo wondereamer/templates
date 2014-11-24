@@ -1,4 +1,4 @@
-<h2>账户设置</h2>
+<h2>安全设置</h2>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<form role="form" ng-controller="personalController" ng-submit="modifyAuth(user)" >
@@ -6,19 +6,25 @@
 			<h3 class="page-header">修改密码</h3>
 			<div class="row">
 				<div class="col-md-6">
-					<label for="" style="font-weight: 400;">当前密码</label>
-					<input class="form-control" type="text" placeholder="请输入旧密码" ng-model="user.password0" />
+					<div class="form-group">
+						<label for="" style="font-weight: 400;">当前密码</label>
+						<input class="form-control" type="password" placeholder="" ng-model="user.password0" />
+					</div>
 				</div>
 			</div>
 			<br />
 			<div class="row">
 				<div class="col-md-6">
-					<label for="" style="font-weight: 400;">修改密码</label>
-					<input class="form-control" type="text" placeholder="请输入新密码" ng-model="user.password" />									
+					<div class="form-group">
+						<label for="" style="font-weight: 400;">修改密码</label>
+						<input class="form-control" type="password" placeholder="" ng-model="user.password" />									
+					</div>
 				</div>
 				<div class="col-md-6">
-					<label for="" style="font-weight: 400;">确认密码</label>
-					<input class="form-control" type="text" placeholder="请再次输入新密码" ng-model="user.passwordRepeat"/>									
+					<div class="form-group">
+						<label for="" style="font-weight: 400;">确认密码</label>
+						<input class="form-control" type="password" placeholder="" ng-model="user.passwordRepeat"/>									
+					</div>
 				</div>
 			</div>
 			<br />

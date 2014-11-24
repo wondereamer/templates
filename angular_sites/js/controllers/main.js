@@ -6,17 +6,22 @@ app.controller('ApplicationController', ['$scope', '$http', 'USER_ROLES', 'AuthS
 	$scope.setCurrentUser = function(user) {
 		$scope.currentUser = user;
 	};
-	//获取商店首页商品
-	$scope.getShop = function() {
-		console.log("获取商品中。。。");
-		return $http
-			.get('/shop/')
-			.then(function(i) {
-				alert("获取成功");
-			}, function(i) {
-				alert("获取失败");
-			});
+	$scope.hot={
+		num_liked :''
 	};
+	//获取商店首页商品
+//	$scope.getShop = function() {
+//		console.log("获取商品中。。。");
+//		return $http
+//			.get('http://120.24.53.101/shop/')
+//			.then(function(res) {
+//				$scope.rr=res.data;
+//				console.log(res.data);
+//				console.log(rr);
+//			}, function(res) {
+//				console.log("获取失败");
+//			});
+//	};
 }]);
 
 /**  登录，注销，注册 */
@@ -92,6 +97,9 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 }]);
 
 app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
+	$scope.user={
+		
+	}
 	/** 修改账户信息 */
 	$scope.modifyAuth = function(user) {
 		console.log("修改帐号信息,参数：");
@@ -191,7 +199,25 @@ app.controller('shopController', ['$scope', '$http', function($scope,$http){
 		"sales":"259"
 		}
 	];
-	
+	$scope.getShopNew=function(){
+		return $http
+		.get('http://120.24.53.101/shop/latest/')
+		.then(function(res){
+			$scope.products=res.data;
+			console.log($scope.products);
+		},function(){
+			console.log("获取成功");
+		});
+	};
+	$scope.getShopHot=function(){
+		return $http
+		.get('http://120.24.53.101/shop/hot/')
+		.then(function(res){
+			console.log(res.data);
+		},function(){
+			console.log("获取成功");
+		});
+	};
 }]);
 //发起创意步骤
 app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
@@ -210,10 +236,37 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 			.post('/accounts/api/submitIdea/', $.param(idea))
 			.then(function(response) {
 				/// @todo 返回数据
-			}),
+				console.log("提交成功");
+			},
 			function(response) {
-				alert("提交失败");
-			};
-	}
+				console.log("提交失败");
+			});
+	};
 }]);
-
+//修改个人信息
+app.controller("userInfoController",["$scope","$http",function($scope,$http){
+	$scope.user={
+		name:"王大锤",
+		sex:"男",
+		job:"WEB前端工程师",
+		city:"深圳",
+		email:"123@126.com",
+		phone:"18623435353",
+		address:"深圳市南山区华侨城创意园",
+		star:"超级英雄",
+		briefing:"我是一个好人"
+	};
+	$scope.changUserInfo=function(user){
+		console.log(user);
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		return $http
+			.post('/accounts/api/abc/')
+			.then(function(dd) {
+				/// @todo 返回数据
+				console.log("修改成功");
+			},
+			function(dd) {
+				console.log("提交失败");
+			});
+	};
+}]);
