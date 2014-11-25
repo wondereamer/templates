@@ -38,13 +38,13 @@
 <body ng-controller="ApplicationController">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
-    {% if user.is_authenticated %}
-        var user = {
-            username:  "{{ user.username }}"
-        };
-    {% else %}
+//  {% if user.is_authenticated %}
+//      var user = {
+//          username:  "{{ user.username }}"
+//      };
+//  {% else %}
         var user=null;
-    {% endif %}
+//  {% endif %}
 </script>
 <script language="javascript" src="js/config/config.js"></script>
 <script language="javascript" src="js/controllers/main.js"></script>
@@ -86,7 +86,7 @@
                 		发起我的创意
                 	</a>
                 </li>
-                <li ui-sref-active="active" id="btn-shop" ng-click="getShop()">
+                <li ui-sref-active="active" id="btn-shop">
                 	<a ui-sref="shop">
                 		<!--<span class="glyphicon glyphicon-shopping-cart"></span>-->
                 		商店
