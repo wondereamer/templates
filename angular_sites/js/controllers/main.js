@@ -25,10 +25,10 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		password: 'wdj123'
 	};
 	$scope.user = {
-		username: '张三是张三',
+		username: 'wwwwww',
 		email: '12345678@qq.com',
-		password1: '123456',
-		password2: '123456',
+		password1: 'wwwwww',
+		password2: 'wwwwww',
 	};
 	$scope.login = function(credentials) {
 		console.log(credentials);
@@ -73,17 +73,13 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		console.log(user);
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		return $http
-			.post('http://120.24.53.101/accounts/api/register/', $.param(user))
+			.post('/accounts/api/register/', $.param(user))
 			.then(function(res) {
-				/// @todo 返回数据
-				/*return res.data.user;*/
-//				alert(res.result);
-//				$("#register").modal("toggle");
-//				$("#activate").modal();
-//				var emailSplit = user.email.split("@");
-//				emailSplit[0] = "mail";
-//				user.activate = emailSplit[0] + "." + emailSplit[1];
-				alert("注册成功");
+				$("#register").modal("toggle");
+				$("#activate").modal();
+				var emailSplit = user.email.split("@");
+				emailSplit[0] = "mail";
+				user.activate = emailSplit[0] + "." + emailSplit[1];
 			}, function(res) {
 				alert("注册失败");
 			});
@@ -124,7 +120,7 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 		$scope.getLatest = function() {
 			console.log("fetch shop products");
-			$http.get('http://120.24.53.101/shop/')
+			$http.get('http://120.24.53.101:8001/shop/')
 				.then(function(res) {
 					$scope.products=res.data.hot;
 					console.log($scope.products);
@@ -136,7 +132,7 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 		
 		$scope.getShopLatest=function(){
 			return $http
-			.get('http://120.24.53.101/shop/latest/')
+			.get('http://120.24.53.101:8001/shop/latest/')
 			.then(function(res){
 				$scope.products=res.data;
 				console.log($scope.products);
@@ -146,7 +142,7 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 		};
 		$scope.getShopHot=function(){
 			return $http
-			.get('http://120.24.53.101/shop/hot/')
+			.get('http://120.24.53.101:8001/shop/hot/')
 			.then(function(res){
 				console.log(res.data);
 			},function(){
