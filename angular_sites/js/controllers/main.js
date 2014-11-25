@@ -4,6 +4,7 @@ app.controller('ApplicationController',
                function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS) {
 
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
+    $scope.urlApi="",
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -118,9 +119,10 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 }]);
 
 app.controller('shopController', ['$scope', '$http',function($scope, $http) {
-		$scope.getLatest = function() {
-			console.log("fetch shop products");
-			$http.get('http://120.24.53.101:8001/shop/')
+		//获取商店首页商品
+		$scope.getShop = function() {
+			console.log("获取商店首页商品");
+			$http.get($scope.urlApi + "/shop/")
 				.then(function(res) {
 					$scope.products=res.data.hot;
 					console.log($scope.products);
@@ -128,27 +130,31 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 					console.log("Failed!");
 				});
 		};
-		$scope.getLatest();
-		
-		$scope.getShopLatest=function(){
+		$scope.getShop();
+		//获取最新商品
+		$scope.getShopLatest = function() {
+			console.log("获取最新商品");
 			return $http
-			.get('http://120.24.53.101:8001/shop/latest/')
-			.then(function(res){
-				$scope.products=res.data;
-				console.log($scope.products);
-			},function(){
-				console.log("获取成功");
-			});
+				.get($scope.urlApi + '/shop/latest/')
+				.then(function(res) {
+					$scope.new = res.data;
+				}, function() {
+					console.log("获取成功");
+				});
 		};
-		$scope.getShopHot=function(){
+		$scope.getShopLatest();
+		//获取最热商品
+		$scope.getShopHot = function() {
+			console.log("获取最热商品");
 			return $http
-			.get('http://120.24.53.101:8001/shop/hot/')
-			.then(function(res){
-				console.log(res.data);
-			},function(){
-				console.log("获取成功");
-			});
+				.get($scope.urlApi + '/shop/hot/')
+				.then(function(res) {
+					$scope.hot = res.data;
+				}, function() {
+					console.log("获取成功");
+				});
 		};
+		$scope.getShopHot();
 	}
 ]);
 

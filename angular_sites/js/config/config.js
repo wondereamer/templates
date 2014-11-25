@@ -96,13 +96,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/product-new',
 			views: {
 				'': {
-					templateUrl: 'views/product-new.html'
+					templateUrl: 'views/product-new.html',
 				},
 				'product-filter@shop.product-new': {
 					templateUrl: 'views/product-filter.html'
 				},
 				'product-list@shop.product-new': {
-					templateUrl: 'views/idea_sites/sale-item.html'
+					templateUrl: 'views/idea_sites/sale-item-new.html'
 				}
 			}
 		})
@@ -110,13 +110,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/product-hot',
 			views: {
 				'': {
-					templateUrl: 'views/product-hot.html'
+					templateUrl: 'views/product-hot.html',
 				},
 				'product-filter@shop.product-hot': {
 					templateUrl: 'views/product-filter.html'
 				},
 				'product-list@shop.product-hot': {
-					templateUrl: 'views/idea_sites/sale-item.html'
+					templateUrl: 'views/idea_sites/sale-item-hot.html'
 				}
 			}
 		})
