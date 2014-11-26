@@ -66,32 +66,8 @@ p{
 	color: #999;
 	font-size: 12px;
 }
-/*适应创意商品展示在大屏的三列布局*/
-@media (min-width: 992px){
-	.idea-item{
-		width:33.3%;
-	}
-}
 
 /*商品详情图片TAB切换*/
-div.pic-show{
-	width: 719px;
-	height: 719px;
-	overflow: hidden;
-	position: relative;
-}
-div.pic-show ul{
-	padding: 0;
-	margin: 0;
-	position: absolute;
-}
-div.pic-show ul li{
-	width: 719px;
-	height: 719px;
-}
-div.pic-show ul li img{
-	width: 100%;
-}
 ul.pic-list li{
 	opacity: 0.5;
 	border: 1px solid #fff;
