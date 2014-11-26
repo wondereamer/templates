@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/fever-item.css" />
     <link rel="stylesheet" href="css/shop.css" />
     <!--头像上传截图css-->
-    <link rel="stylesheet" href="css/croppic.css" />
+    <link rel="stylesheet" href="js/lib/croppic/croppic.css" />
     
     <style type="text/css" media="screen">
     body {
@@ -38,13 +38,13 @@
 <body ng-controller="ApplicationController" style="overflow-y: scroll;">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
-//  {% if user.is_authenticated %}
-//      var user = {
-//          username:  "{{ user.username }}"
-//      };
-//  {% else %}
+    {% if user.is_authenticated %}
+        var user = {
+            username:  "{{ user.username }}"
+        };
+    {% else %}
         var user=null;
-//  {% endif %}
+    {% endif %}
 </script>
 <script language="javascript" src="js/config/config.js"></script>
 <script language="javascript" src="js/controllers/main.js"></script>

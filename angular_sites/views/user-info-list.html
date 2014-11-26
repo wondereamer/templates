@@ -11,19 +11,10 @@
 				</div>
 				<div class="col-md-16">
 					<!--头像上传croppic插件-->
-					<!--<div class="form-group cropHeaderWrapper">
+					<div class="form-group cropHeaderWrapper">
 						<p>设置一个宽度大于400px、小于3M的JPG头像，让小伙伴们迅速认识你.</p>
 						<span class="btn" id="cropContainerHeaderButton">选择图片</span>
 						<div id="croppic"></div>
-					</div>-->
-					<div id="cropContainerModal">
-						<div class="cropControls cropControlsUpload">
-							<i class="cropControlUpload"></i>
-							<i class="cropControlRemoveCroppedImage" style="display: none;"></i>
-						</div>
-						<!--<form class="cropContainerModal_imgUploadForm" style="display: none; visibility: hidden;">
-							<input type="file" name="img">
-						</form>-->
 					</div>
 					<!--头像上传croppic插件-->
 				</div>
@@ -117,30 +108,22 @@
 </div>
 <script>
 	//头像上传截图
-//	var croppicHeaderOptions = {
-//				uploadUrl:'img_save_to_file.php',
-//				cropData:{
-//					"dummyData":1,
-//					"dummyData2":"asdas"
-//				},
-//				cropUrl:'img_crop_to_file.php',
-//				customUploadButtonId:'cropContainerHeaderButton',
-//				modal:false,
-//				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
-//				onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
-//				onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
-//				onImgDrag: function(){ console.log('onImgDrag') },
-//				onImgZoom: function(){ console.log('onImgZoom') },
-//				onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
-//				onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
-//		}	
-//	var cropperHeader = new Croppic('croppic', croppicHeaderOptions);
-	var croppicContainerModalOptions = {
+	var croppicHeaderOptions = {
 				uploadUrl:'img_save_to_file.php',
+				cropData:{
+					"dummyData":1,
+					"dummyData2":"asdas"
+				},
 				cropUrl:'img_crop_to_file.php',
-				modal:true,
-				imgEyecandyOpacity:0.4,
-				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> '
-		}
-	var cropContainerModal = new Croppic('cropContainerModal', croppicContainerModalOptions);
+				customUploadButtonId:'cropContainerHeaderButton',
+				modal:false,
+				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+				onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
+				onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
+				onImgDrag: function(){ console.log('onImgDrag') },
+				onImgZoom: function(){ console.log('onImgZoom') },
+				onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
+				onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
+		}	
+	var cropperHeader = new Croppic('croppic', croppicHeaderOptions);
 </script>
