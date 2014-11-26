@@ -24,6 +24,9 @@
 				cursor: grabbing;
 			}
 			
+			/**/
+			#cropContainerModal{ width:400px; height:400px; position: relative; border:1px solid #ccc;}
+			
 			.cropImgUpload{
 				z-index:2;
 				position:absolute;

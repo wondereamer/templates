@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/fever-item.css" />
     <link rel="stylesheet" href="css/shop.css" />
     <!--头像上传截图css-->
-    <link rel="stylesheet" href="js/lib/croppic/croppic.css" />
+    <link rel="stylesheet" href="css/croppic.css" />
     
     <style type="text/css" media="screen">
     body {
@@ -35,7 +35,7 @@
     <script language="javascript" src="js/lib/restangular.min.js"></script>
     <script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
 </head>
-<body ng-controller="ApplicationController">
+<body ng-controller="ApplicationController" style="overflow-y: scroll;">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
     {% if user.is_authenticated %}
