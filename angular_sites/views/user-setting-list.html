@@ -7,6 +7,36 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="form-group has-feedback">
+						<input
+							class="form-control"
+							name="email"
+							type="email"
+							ng-model="user.email"
+							my-focus
+							required
+						/>
+						<!--失去焦点后验证用户名唯一性开始-->
+						<span 
+							class="glyphicon glyphicon-ok form-control-feedback"
+                  			ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$valid && changePasswordForm.email.$focused==false"
+                  			style="color: green;">
+						</span><!--可用-->
+						<span 
+							class="glyphicon glyphicon-remove form-control-feedback"
+                  			ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$invalid && changePasswordForm.email.$focused==false"
+                  			style="color: red;">
+						</span><!--不可用-->
+						<!--失去焦点后验证用户名唯一性结束-->
+						<span ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$invalid">
+							<span ng-show="changePasswordForm.email.$error.email" style="color: red;">输入正确的邮箱</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-10">
+					<div class="form-group has-feedback">
 						<label for="" style="font-weight: 400;">当前密码</label>
 						<input
 							class="form-control"
@@ -47,7 +77,7 @@
 						/>
 						<span 
 							class="glyphicon glyphicon-ok form-control-feedback"
-                  			ng-show="changePasswordForm.password.$dirty && changePasswordForm.password.$valid && changePasswordForm.password.$focused==false"
+                  			ng-show="changePasswordForm.password.$dirty && changePasswordForm.password.$valid && changePasswordForm.password.$focused==false && user.password != user.password0"
                   			style="color: green;">
 						</span><!--可用-->
 						<span
@@ -74,7 +104,7 @@
 						/>
 						<span 
 							class="glyphicon glyphicon-ok form-control-feedback"
-                  			ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.passwordRepeat.$valid && changePasswordForm.passwordRepeat.$focused==false"
+                  			ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.passwordRepeat.$valid && changePasswordForm.passwordRepeat.$focused==false && user.passwordRepeat == user.password"
                   			style="color: green;">
 						</span><!--可用-->
 						<span
