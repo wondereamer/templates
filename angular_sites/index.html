@@ -54,19 +54,17 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button id="collapsed-navbar" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button id="collapsed-navbar" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             	<span class="sr-only">Toggle navigation</span>
             	<span class="icon-bar"></span>
             	<span class="icon-bar"></span>
             	<span class="icon-bar"></span>
             </button>
-            <!-- -->
             <a class="navbar-brand" href="javascript:void(0);">
                 <img alt="Brand" src="" />
             </a>
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav" id="navbar-top">
                 <li ui-sref-active="active" class="" id="btn-home">
                 	<a ui-sref="index">
@@ -99,13 +97,13 @@
                 	</a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left hidden-xs" role="search">
+            <form class="navbar-form navbar-left hidden-sm hidden-xs" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control input-sm" placeholder="请输入关键字">
                 </div>
                 <button type="submit" class="btn btn-success btn-sm" hidefocus>搜索</button>
             </form>
-            <ul class="nav navbar-nav navbar-right hidden-xs">
+            <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
                 <!--登录后用户中心区域开始/默认隐藏-->
                 <li id="" class="dropdown" ng-show="currentUser">
                     <a href="javascript:void()" class="dropdown-toggle" data-hover="dropdown" data-close-others="false">
@@ -346,6 +344,7 @@
 		</div>
 	</div>
 	<!--注册弹出框区域结束-->
+	
 	<!--验证邮箱开始-->
 	<div class="modal fade" id="activate" tabindex="-1" role="dialog" aria-labelledby="activateLabel" aria-hidden="true" style="top: 10%">
 		<div class="modal-dialog">
@@ -371,6 +370,28 @@
 	</div>
 	<!--验证邮箱结束-->
 </div>
+
+<!--移动端底部菜单开始-->
+<nav class="navbar navbar-fixed-bottom visible-sm visible-xs" style="background: #F8F8F8;">
+	<ul class="nav">
+		<li class="col-xs-4 text-center">
+			<a href="" class="bar-active"><span class="glyphicon glyphicon-home"></span><br>首页</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href=""><span class="glyphicon glyphicon-pencil"></span><br>发起</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href=""><span class="glyphicon glyphicon-tasks"></span><br>项目</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href="" class="bar-create"><span class="glyphicon glyphicon-comment"></span><br>消息</a>
+		</li>
+		<li class="col-xs-4 text-center">
+			<a href=""><span class="glyphicon glyphicon-user"></span><br>我的</a>
+		</li>
+	</ul>
+</nav>
+<!--移动端底部菜单结束-->
 
 <script>
 $(function(){
