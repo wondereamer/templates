@@ -1,12 +1,12 @@
 			#croppic{
-				width: 400px;  /* MANDATORY */
-				height: 400px; /* MANDATORY */
+				width: 300px;  /* MANDATORY */
+				height: 300px; /* MANDATORY */
 				position: relative;  /* MANDATORY */
 				margin: 50px 0 20px;
-				border: 1px solid #000;
+				border: 1px solid #f36;
 				box-sizing: content-box;
 				-moz-box-sizing: content-box;
-				border-radius: 2px;
+				border-radius: 4px;
 				background-image: url(../img/placeholder.png);
 				background-repeat: no-repeat;
 				background-position: center;
@@ -17,7 +17,7 @@
 				color: #FFF;
 				margin: 20px 0 30px;
 				/*padding: 15px 50px;*/
-				width: 400px;
+				width: 300px;
 				display: block;
 				text-align: center;
 				font-weight: 400;

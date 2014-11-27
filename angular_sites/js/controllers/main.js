@@ -12,10 +12,10 @@ app.controller('ApplicationController',
 		$scope.currentUser = user;
 	};
     // 用来控制传统页面的用户验证。
-    if (user) {
-        $scope.currentUser=user 
-        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-    };
+	if (user) {
+		$scope.currentUser = user
+		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+	};
 }]);
 
 /**  登录，注销，注册 */

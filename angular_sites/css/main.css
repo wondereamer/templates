@@ -61,6 +61,13 @@ a:hover{
 	color: #f36;
 	text-decoration: none;
 }
+
+/*去除浏览器按钮，超链接默认边框*/
+/*button[type=submit],input[type=button],input[type=submit]{outline:none;}*//*//IE*/
+/*button[type=submit]:focus,input[type=button]:focus,input[type=submit]:focus{outline:none;}*//*//IE*/
+/*input[type=button]::-moz-focus-inner{outline:0;}*//*//火狐*/
+a{outline:none;}/*//IE文字链接*/
+a:focus{outline: none;}
 /*全局P标签样式*/
 p{
 	color: #999;
