@@ -16,11 +16,23 @@ app.directive("ideashopgridview", function() {
     }
 });
 
-/** 渲染每个项.  */
-app.directive("ideasaleitem", function() {
-    return {
-        restrict:"AE",
-        templateUrl:"views/idea_sites/sale_item.html"
-    }
+//失去焦点是验证表单
+app.directive("myFocus", function() {
+    return{
+    	require: 'ngModel',
+        restrict: "AE",
+        link:function(scope,element,attrs,ngModel){
+        	if(!ngModel) return;
+        	ngModel.$focused = false;
+        	element.bind("focus",function(){
+        		scope.$apply(function() {
+					ngModel.$focused = true;
+				});
+        	}).bind("blur",function(){
+        		scope.$apply(function() {
+					ngModel.$focused = false;
+				});
+        	});
+        }
+    };
 });
-

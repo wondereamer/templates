@@ -7,20 +7,20 @@
     <!-- 载入Compass处理后的css文件 -->
     <link href="css/main.css" rel="stylesheet" />
     <!--{% block head  %}{% endblock  %}-->
-    
+
     <!--载入sale-item的css样式-->
     <link rel="stylesheet" href="css/sale-item.css" />
     <link rel="stylesheet" href="css/fever-item.css" />
     <link rel="stylesheet" href="css/shop.css" />
     <!--头像上传截图css-->
     <link rel="stylesheet" href="js/lib/croppic/croppic.css" />
-    
+
     <style type="text/css" media="screen">
     body {
         padding-top:50px
     }
     </style>
-    
+
     <!--javascript-->
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/jquery.goup.min.js"></script>
@@ -39,11 +39,11 @@
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
     {% if user.is_authenticated %}
-        var user = {
-            username:  "{{ user.username }}"
-        };
+           var user = {
+               username:  "{{ user.username }}"
+           };
     {% else %}
-        var user=null;
+     var user=null;
     {% endif %}
 </script>
 <script language="javascript" src="js/config/config.js"></script>
@@ -55,10 +55,10 @@
     <div class="container">
         <div class="navbar-header">
             <button id="collapsed-navbar" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+            	<span class="sr-only">Toggle navigation</span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
             </button>
             <!-- -->
             <a class="navbar-brand" href="javascript:void(0);">
@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control input-sm" placeholder="请输入关键字">
                 </div>
-                <button type="submit" class="btn btn-success btn-sm">搜索</button>
+                <button type="submit" class="btn btn-success btn-sm" hidefocus>搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right hidden-xs">
                 <!--登录后用户中心区域开始/默认隐藏-->
@@ -122,7 +122,7 @@
                         <li><a ui-sref="user-setting-center.order">我的订单</a></li>
                         <li class="divider"></li>
                         <li><a ng-controller="authController" ng-click="logout()" >退出</a></li>
-                    </ul>                    	
+                    </ul>
                 </li>
                 <li id="btn-login" ng-hide="currentUser">
                     <a data-toggle="modal" data-target="#login" style="cursor: pointer;">登录</a>
@@ -243,12 +243,21 @@
 								ng-maxlength="25"
 								ng-model="user.username"
 								ng-pattern="/^[\u4e00-\u9fa5-_0-9a-zA-Z]+$/"
+								my-focus
 								required
 							/>
-							<span class="glyphicon glyphicon-ok form-control-feedback"
-	                              ng-show="registerForm.userName.$dirty && registerForm.userName.$valid"
-	                              style="color: green;">
-							</span>
+							<!--失去焦点后验证用户名唯一性开始-->
+							<span 
+								class="glyphicon glyphicon-ok form-control-feedback"
+	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && registerForm.userName.$focused==false"
+	                  			style="color: green;">
+							</span><!--可用-->
+							<span 
+								class="glyphicon glyphicon-remove form-control-feedback"
+	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$invalid && registerForm.userName.$focused==false"
+	                  			style="color: red;">
+							</span><!--不可用-->
+							<!--失去焦点后验证用户名唯一性结束-->
 							<span ng-show="registerForm.userName.$dirty && registerForm.userName.$invalid">
 								<span ng-show="registerForm.userName.$error.minlength" style="color: red;">请输入6个字符以上</span>
 								<span ng-show="registerForm.userName.$error.maxlength" style="color: red;">请输入25个字符以下</span>
@@ -262,12 +271,21 @@
 								type="email"
 								placeholder="邮箱"
 								ng-model="user.email"
+								my-focus
 								required
 							/>
-							<span class="glyphicon glyphicon-ok form-control-feedback"
-	                              ng-show="registerForm.email.$dirty && registerForm.email.$valid"
-	                              style="color: green;">
-							</span>
+							<!--失去焦点后验证用户名唯一性开始-->
+							<span 
+								class="glyphicon glyphicon-ok form-control-feedback"
+	                  			ng-show="registerForm.email.$dirty && registerForm.email.$valid && registerForm.email.$focused==false"
+	                  			style="color: green;">
+							</span><!--可用-->
+							<span 
+								class="glyphicon glyphicon-remove form-control-feedback"
+	                  			ng-show="registerForm.email.$dirty && registerForm.email.$invalid && registerForm.email.$focused==false"
+	                  			style="color: red;">
+							</span><!--不可用-->
+							<!--失去焦点后验证用户名唯一性结束-->
 							<span ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
 								<span ng-show="registerForm.email.$error.email" style="color: red;">输入正确的邮箱</span>
 							</span>
@@ -341,7 +359,7 @@
 							<small>请点击一下链接验证邮箱激活</small>
 						</h3>
 					</div>
-					<div class="modal-body" style="">
+					<div class="modal-body">
 						<a href="//{[user.activate]}" target="_blank"><h5>http://{[user.activate]}</h5></a>
 					</div>
 					<div class="modal-footer"  style="padding: 20px 40px;">

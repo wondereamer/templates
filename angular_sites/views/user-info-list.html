@@ -1,7 +1,7 @@
 <h2>设置个人资料</h2>
 <div class="panel panel-default">
 	<div class="panel-body">
-		<h3 class="page-header">设置头像</h3>
+		<h3 class="page-header">设置头像<small>&nbsp;(设置一个宽度大于300px、小于3M的JPG头像，让小伙伴们迅速认识你.)</small></h3>
 		<form role="form" name="userInfoForm" ng-controller="userInfoController" ng-submit="changUserInfo(user)">
 			<div class="row">
 				<div class="col-md-4">
@@ -12,9 +12,8 @@
 				<div class="col-md-16">
 					<!--头像上传croppic插件-->
 					<div class="form-group cropHeaderWrapper">
-						<p>设置一个宽度大于400px、小于3M的JPG头像，让小伙伴们迅速认识你.</p>
-						<span class="btn" id="cropContainerHeaderButton">选择图片</span>
-						<div id="croppic"></div>
+						<div id="croppic" ng-show="showMe"></div>
+						<span class="btn" id="cropContainerHeaderButton" ng-click="showMe=true">选择图片</span>
 					</div>
 					<!--头像上传croppic插件-->
 				</div>
