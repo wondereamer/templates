@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ui.router", "restangular"]);
+var app = angular.module("app", ["ui.router", "restangular","ngAnimate"]);
 app.config(function($interpolateProvider) {
 	$interpolateProvider.startSymbol("{[");
 	$interpolateProvider.endSymbol("]}");
@@ -18,6 +18,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			views: {
 				"": {
 					templateUrl: "views/home.html",
+					controller: function($scope){}
 				},
 			}
 		})
@@ -26,7 +27,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: "/idea",
 			views: {
 				"": {
-					templateUrl: "views/idea.html"
+					templateUrl: "views/idea.html",
+					controller: "feverController"
 				},
 				"carousel@idea": {
 					templateUrl: "views/carousel.html"
@@ -35,7 +37,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 					templateUrl: "views/idea-type.html"
 				},
 				"idea-list@idea": {
-					templateUrl: "views/idea_sites/idea-item.html"
+					templateUrl: "views/idea_sites/fever-item.html"
 				},
 				"footer@idea": {
 					templateUrl: "views/footer.html"
