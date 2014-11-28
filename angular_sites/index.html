@@ -39,8 +39,11 @@
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
     {% if user.is_authenticated %}
+        
         var user = {
-            username:  "{{ user.username }}"
+            username:  "{{ user.username }}",
+            id: "{{ user.id  }}",
+            Role: "admin"
         };
     {% else %}
         var user=null;
@@ -377,7 +380,7 @@ $(function(){
 		title: 'Top',
 		titleAsText: false
 	});
-    <!--alert('test');-->
+
 });
 </script>
 </body>

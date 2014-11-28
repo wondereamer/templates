@@ -434,6 +434,7 @@
 						formData.append( key , that.options.cropData[key] );
 				}
 			}
+            console.log(cropData);
 
 			$.ajax({
                 url: that.options.cropUrl,
@@ -443,8 +444,8 @@
                 contentType: false,
                 processData: false,
                 type: 'POST'
-				}).always(function(data){
-					response = jQuery.parseJSON(data);
+				}).always(function(response){
+                    /*response = jQuery.parseJSON(data);*/
 					if(response.status=='success'){
 						
 						that.imgEyecandy.hide();
