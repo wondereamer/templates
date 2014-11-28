@@ -23,7 +23,6 @@
 
     <!--javascript-->
     <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/jquery.goup.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-hover-dropdown.min.js"></script>
     <!--头像上传截图js-->
@@ -393,17 +392,61 @@
 </nav>
 <!--移动端底部菜单结束-->
 
+<!--返回顶部开始-->
+<div class="back-top" style="position: fixed;right: 3%;bottom: 20%;">
+	<div class="suggest text-center" style="background: #ccc;width: 50px;height: 50px; border-radius: 50px;padding-top: 13px;">
+		<a  data-toggle="modal" data-target="#suggest" title="吐槽建议">
+         <span class="glyphicon glyphicon-comment" style="font-size: 25px;"></span>
+		</a>
+	</div>
+	<br />
+	<div class="go text-center" style="background: #ccc;width: 50px;height: 50px; border-radius: 50px;padding-top: 13px;">
+		<a href="" title="返回顶部"><span class="glyphicon glyphicon-plane" style="font-size: 25px;"></span></a>
+	</div>
+</div>
+<!--返回顶部结束-->
+
+<!--吐槽建议开始-->
+<div class="modal fade" id="suggest" tabindex="-1" role="dialog" aria-labelledby="activateLabel" aria-hidden="true" style="top: 10%">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form class="form-horizontal" action="#" role="form" name="activate">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="activateLabel">
+						吐槽>>>
+						<small>写下你的真心话</small>
+					</h3>
+				</div>
+				<div class="modal-body">
+					<textarea class="form-control" name="" rows="3" cols=""></textarea>
+				</div>
+				<div class="modal-footer"  style="padding: 20px 40px;">
+					<button class="btn btn-success" type="submit">提交</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!--吐槽建议结束-->
+
 <script>
 $(function(){
-	//回到顶部调用
-	$.goup({
-		trigger: 300,
-		bottomOffset: 150,
-		locationOffset: 20,
-		title: 'Top',
-		titleAsText: false
+    //返回顶部
+    $(".back-top").hide();
+	$(window).scroll(function() {
+		if ($(window).scrollTop() > 100) {
+			$(".back-top").fadeIn(500);
+		} else {
+			$(".back-top").fadeOut(500);
+		}
 	});
-    <!--alert('test');-->
+	$(".go").click(function() {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 500);
+		return false;
+	});
 });
 </script>
 </body>
