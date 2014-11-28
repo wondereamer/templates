@@ -1,3 +1,32 @@
+// 确保ajax提交能通过安全验证。
+function getCookie(name) {
+	var cookieValue = null;
+	if (document.cookie && document.cookie != '') {
+		var cookies = document.cookie.split(';');
+		for (var i = 0; i < cookies.length; i++) {
+			var cookie = jQuery.trim(cookies[i]);
+			// Does this cookie string begin with the name we want?
+			if (cookie.substring(0, name.length + 1) == (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
+			}
+		}
+	}
+	return cookieValue;
+};
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+// 登录后刷新，这个设置发挥作用。
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+//
 app.factory('UserService', ['Restangular', function(Restangular) {
 }]);
 
@@ -15,15 +44,16 @@ app.constant('USER_ROLES', {
 	all: '*',
 	admin: 'admin',
 	editor: 'editor',
+    user: 'user',
 	guest: 'guest'
 });
 
 /** 会话服务, 用于保持会话ID。 */
 app.service('Session', function() {
 	this.create = function(sessionId, userId, userRole) {
-		this.id = sessionId;
-		this.userId = userId;
-		this.userRole = userRole;
+		this.id = sessionId;    // int
+		this.userId = userId;       // int
+		this.userRole = userRole;     // str
 	};
 	this.destroy = function() {
 		this.id = null;
@@ -33,21 +63,6 @@ app.service('Session', function() {
 	return this;
 });
 
-function getCookie(name) {
-	var cookieValue = null;
-	if (document.cookie && document.cookie != '') {
-		var cookies = document.cookie.split(';');
-		for (var i = 0; i < cookies.length; i++) {
-			var cookie = jQuery.trim(cookies[i]);
-			// Does this cookie string begin with the name we want?
-			if (cookie.substring(0, name.length + 1) == (name + '=')) {
-				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-				break;
-			}
-		}
-	}
-	return cookieValue;
-};
 
 /** 验证服务。 */
 app.factory('AuthService', function($http, Session) {
@@ -55,6 +70,14 @@ app.factory('AuthService', function($http, Session) {
 	/** 登录验证 */
 	authService.login = function(credentials) {
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+        // 设置ajax 的安全标志, 登录后csrf标志会改变.
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }
+        });
 		return $http
 			.post('/accounts/api/login/', $.param(credentials))
 			.then(function(res) {
@@ -65,7 +88,7 @@ app.factory('AuthService', function($http, Session) {
 	};
 
 	authService.logout = function() {
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		return $http
 			.post('/accounts/api/logout/')
 			.then(function(res) {

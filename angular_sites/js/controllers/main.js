@@ -1,7 +1,7 @@
 /** 定义全局变量的区域，通常与Body挂钩。 */
 app.controller('ApplicationController',
-               ['$scope','$rootScope', '$http', 'USER_ROLES','AUTH_EVENTS', 'AuthService',
-               function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS) {
+               ['$scope','$rootScope', '$http', 'USER_ROLES','AUTH_EVENTS', 'AuthService', 'Session',
+               function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS, Session) {
 
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
     $scope.urlApi="",
@@ -12,10 +12,11 @@ app.controller('ApplicationController',
 		$scope.currentUser = user;
 	};
     // 用来控制传统页面的用户验证。
-	if (user) {
-		$scope.currentUser = user
-		$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-	};
+    if (user) {
+        $scope.currentUser=user 
+        Session.create(0, user.id, user.role);
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+    };
 }]);
 
 /**  登录，注销，注册 */
@@ -27,7 +28,7 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 	};
 	$scope.user = {
 		username: 'wwwwww',
-		email: '12345678@qq.com',
+		email: '33830957@qq.com',
 		password1: 'wwwwww',
 		password2: 'wwwwww',
 	};
@@ -38,7 +39,7 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 				$("#login").modal("toggle");
 				$scope.setCurrentUser(user);
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-				$location.path('/');
+                window.location.href = "/#/index";
 			}, function() {
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 				alert("错误的用户名或密码");
@@ -50,17 +51,9 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		AuthService.logout().then(function(user) {
 			$scope.setCurrentUser(null);
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-			$location.path('/');
+            /*$location.path('/');*/
+            window.location.href = "/#/index";
 		});
-		/*AuthService.login(credentials).then(function (user) {*/
-		/*$("#login").modal("toggle");*/
-		/*$scope.setCurrentUser(user);*/
-		/*$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);*/
-		/*$location.path('/');*/
-		/*}, function () {*/
-		/*$rootScope.$broadcast(AUTH_EVENTS.loginFailed);*/
-		/*alert("错误的用户名或密码");*/
-		/*});*/
 	};
 	/**
 	 * 注册用户

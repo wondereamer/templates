@@ -10,6 +10,9 @@ app.config(function($httpProvider) {
 	$httpProvider.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded";
 });
 
+app.run(function($http) {
+});
+
 app.config(function($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise("/index");
 	$stateProvider
