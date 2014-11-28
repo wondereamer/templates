@@ -4,7 +4,7 @@ app.controller('ApplicationController',
                function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS, Session) {
 
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
-    $scope.urlApi="",
+    $scope.urlApi="";
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -162,6 +162,21 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 		$scope.getShopOne();
 	}
 ]);
+
+app.controller("feverController",["$scope","$http",function($scope,$http){
+	//获取发现创意首页商品
+		$scope.getFever = function() {
+			console.log("获取发现创意首页商品");
+			$http.get($scope.urlApi + "/fever/")
+				.then(function(res) {
+					$scope.fevers=res.data.hot;
+					console.log($scope.fevers);
+				}, function(res) {
+					console.log("Failed!");
+				});
+		};
+		$scope.getFever();
+}]);
 
 //发起创意步骤
 app.controller("submitIdeaController",["$scope","$http",function($scope,$http){

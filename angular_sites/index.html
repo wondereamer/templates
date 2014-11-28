@@ -29,12 +29,13 @@
     <script src="js/lib/croppic/croppic.js"></script>
 
     <script language="javascript" src="js/lib/angular/angular.min.js"></script>
+    <script src="js/lib/angular/angular-animate.min.js"></script>
     <script language="javascript" src="js/lib/angular-ui-router.min.js"></script>
     <script language="javascript" src="js/lib/underscore-min.js"></script>
     <script language="javascript" src="js/lib/restangular.min.js"></script>
     <script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
 </head>
-<body ng-controller="ApplicationController" style="overflow-y: scroll;">
+<body ng-controller="ApplicationController" style="overflow-y: -scroll;">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
     {% if user.is_authenticated %}
