@@ -157,7 +157,7 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 		$scope.getShopHot();
 		//获取第一分类商品
 		$scope.getShopOne = function() {
-			console.log("获取最热商品");
+			console.log("获取第一分类商品");
 			return $http
 				.get($scope.urlApi + '/shop/1/')
 				.then(function(res) {
