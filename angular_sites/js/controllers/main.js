@@ -2,7 +2,6 @@
 app.controller('ApplicationController',
                ['$scope','$rootScope', '$http', 'USER_ROLES','AUTH_EVENTS', 'AuthService', 'Session',
                function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS, Session) {
-
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
     $scope.urlApi="";
 	$scope.currentUser = null;
@@ -37,9 +36,10 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		AuthService.login(credentials)
 			.then(function(user) {
 				$("#login").modal("toggle");
+                alert('ok');
 				$scope.setCurrentUser(user);
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                window.location.href = "/#/index";
+                /*window.location.href = "/#/index";*/
 			}, function() {
 				$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 				alert("错误的用户名或密码");
