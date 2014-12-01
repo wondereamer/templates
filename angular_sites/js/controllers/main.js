@@ -81,10 +81,13 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 	};
 
 	$scope.onlyUserName = function(userName) {
-		console.log(userName);
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		$scope.user={
+			username: "userName"
+		};
+		console.log($scope.user);
 		return $http
-			.post($scope.urlApi + '/accounts/api/unique_user/',$.param(userName))
+			.post($scope.urlApi + '/accounts/api/unique_user/',$.param(user))
 			.then(function() {
 				alert("用户名---可用");
 			}, function() {
