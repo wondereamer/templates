@@ -22,7 +22,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				"": {
 					templateUrl: "views/home.html",
 					controller: function($scope){}
-				},
+				}
 			}
 		})
 		//发现创意
