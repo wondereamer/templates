@@ -81,31 +81,22 @@ p{
 }
 
 /*商品详情图片TAB切换*/
-div.pic-show{
-	width: 719px;
-	height: 719px;
-	overflow: hidden;
-	position: relative;
-}
-div.pic-show ul{
+ul.pic-show{
+  width: 100%;
 	padding: 0;
 	margin: 0;
-	position: absolute;
 }
-div.pic-show ul li{
-	width: 719px;
-	height: 719px;
+ul.pic-show li img{
+  width: 100%;
 }
-div.pic-show ul li img{
-	width: 100%;
-}
-ul.pic-list li{
+ul.pic-list li.default{
+  width: 15%;
 	opacity: 0.5;
 	border: 1px solid #fff;
 	float: left;
 	margin: 0 5px;
 }
-ul.pic-list li:hover{
+ul.pic-list li.img-hover{
 	opacity: 1;
 	border: 1px solid #f36;
 }
@@ -114,21 +105,21 @@ ul.pic-list li:hover{
 /*提交创意动画效果*/
 #submit-idea-form{ position:relative; min-height:800px; overflow:hidden; padding:30px; }
 
-#submit-idea-views.ng-enter,#submit-idea-views.ng-leave{ 
+#submit-idea-views.ng-enter,#submit-idea-views.ng-leave{
 	position:absolute; left:30px; right:30px;
     transition:0.5s all ease;
     -moz-transition:0.5s all ease;
-    -webkit-transition:0.5s all ease; 
+    -webkit-transition:0.5s all ease;
 }
-#submit-idea-views.ng-enter{ 
+#submit-idea-views.ng-enter{
     -webkit-animation:slideInRight 0.5s both ease;
     -moz-animation:slideInRight 0.5s both ease;
-    animation:slideInRight 0.5s both ease; 
+    animation:slideInRight 0.5s both ease;
 }
-#submit-idea-views.ng-leave{ 
+#submit-idea-views.ng-leave{
     -webkit-animation:slideOutLeft 0.5s both ease;
     -moz-animation:slideOutLeft 0.5s both ease;
-    animation:slideOutLeft 0.5s both ease;   
+    animation:slideOutLeft 0.5s both ease;
 }
 
 /**/
@@ -136,7 +127,7 @@ ul.pic-list li:hover{
 @keyframes slideOutLeft {
     to         { transform: translateX(-200%); }
 }
-@-moz-keyframes slideOutLeft {    
+@-moz-keyframes slideOutLeft {
     to         { -moz-transform: translateX(-200%); }
 }
 @-webkit-keyframes slideOutLeft {

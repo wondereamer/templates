@@ -25,13 +25,16 @@ app.directive("myFocus", function() {
         	if(!ngModel) return;
         	ngModel.$focused = false;
         	element.bind("focus",function(){
+                scope.$apply(function() {
+                    ngModel.$focused = true;
+                });
+        	});
+            element.bind("blur",function(){
         		scope.$apply(function() {
 					ngModel.$focused = true;
 				});
-        	}).bind("blur",function(){
-        		scope.$apply(function() {
-					ngModel.$focused = false;
-				});
+                console.log(scope.user.username);
+                scope.onlyUserName(scope.user.username);
         	});
         }
     };

@@ -4,34 +4,20 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-md-12">
-						<div class="pic-show">
-							<ul class="list-unstyled" ng-style="show">
-								<li>
-									<img class="img-responsive" src="img/01-233.jpg"/>
-								</li>
-								<li>
-									<img class="img-responsive" src="img/02-233.jpg"/>
-								</li>
-								<li>
-									<img class="img-responsive" src="img/03-233.jpg"/>
-								</li>
-							</ul>
-						</div>
+					<div class="col-md-12  col-xs-20" ng-controller="shopDetailController">
+						<ul class="list-unstyled pic-show">
+							<li ng-show="index==$index" ng-repeat="img in imgs">
+								<img class="img-responsive" src="{[img.imgSrc]}"/>
+							</li>
+						</ul>
 						<br />
-						<ul class="pic-list list-unstyled">
-							<li class="img-box" ng-mouseenter="show={'top':0}" ng-mouseleave="show={'top':0}">
-								<img class="img-responsive" src="img/01-233.jpg" alt="" style="width: 80px;height: 80px;"/>
-							</li>
-							<li  ng-mouseenter="show={'top':-719}" ng-mouseleave="show={'top':-719}">
-								<img class="img-responsive" src="img/02-233.jpg" alt="" style="width: 80px;height: 80px;"/>
-							</li>
-							<li  ng-mouseenter="show={'top':-1438}" ng-mouseleave="show={'top':-1438}">
-								<img class="img-responsive" src="img/03-233.jpg" alt="" style="width: 80px;height: 80px;"/>
+						<ul class="pic-list list-unstyled" style="width:100%;">
+							<li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="img in imgs">
+								<img class="img-responsive" ng-src="{[img.imgSrc]}" style="width: 100%;"/>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-8 col-xs-20">
 						<h3>GYENNO One智能运动防水手表-黑色</h3>
 						<h4 style="color: red;">&yen;998</h4>
 						<hr />
