@@ -36,15 +36,15 @@
 <body ng-controller="ApplicationController" style="overflow-y: -scroll;">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
- {% if user.is_authenticated %}
-     var user = {
-         username:  "{{ user.username }}",
-         id: "{{ user.id  }}",
-         Role: "admin"
-     };
- {% else %}
+ // {% if user.is_authenticated %}
+ //     var user = {
+ //         username:  "{{ user.username }}",
+ //         id: "{{ user.id  }}",
+ //         Role: "admin"
+ //     };
+ // {% else %}
      var user=null;
- {% endif %}
+ // {% endif %}
 </script>
 <script language="javascript" src="js/config/config.js"></script>
 <script language="javascript" src="js/controllers/main.js"></script>
@@ -240,18 +240,19 @@
 								ng-maxlength="25"
 								ng-model="user.username"
 								ng-pattern="/^[\u4e00-\u9fa5-_0-9a-zA-Z]+$/"
-								my-focus
+								ng-blur="isBlur=disabled, onlyUserName(user.username)"
+								ng-focus="isBlur=true"
 								required
 							/>
 							<!--失去焦点后验证用户名唯一性开始-->
 							<span
 								class="glyphicon glyphicon-ok form-control-feedback"
-	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && registerForm.userName.$focused==false"
+	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && isBlur==true"
 	                  			style="color: green;">
 							</span><!--可用-->
 							<span
 								class="glyphicon glyphicon-remove form-control-feedback"
-	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$invalid && registerForm.userName.$focused==false"
+	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && isBlur==false"
 	                  			style="color: red;">
 							</span><!--不可用-->
 							<!--失去焦点后验证用户名唯一性结束-->

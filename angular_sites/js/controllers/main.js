@@ -3,7 +3,7 @@ app.controller('ApplicationController',
                ['$scope','$rootScope', '$http', 'USER_ROLES','AUTH_EVENTS', 'AuthService', 'Session',
                function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS, Session) {
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
-  $scope.urlApi="";
+  $scope.urlApi="http://120.24.53.101:8001";
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -79,19 +79,21 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 				});
 		};
 	};
-
+	//连接服务器验证用户名唯一性
 	$scope.onlyUserName = function(userName) {
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		$scope.user={
-			username: "userName"
+			username: userName
 		};
 		console.log($scope.user);
 		return $http
-			.post($scope.urlApi + '/accounts/api/unique_user/',$.param(user))
+			.post($scope.urlApi + '/accounts/api/unique_user/', $.param($scope.user))
 			.then(function() {
-				alert("用户名---可用");
+				$scope.isBlur=true;
+				// alert("用户名---可用");
 			}, function() {
-				alert("用户名---不可用");
+				$scope.isBlur=false;
+				// alert("用户名---不可用");
 			});
 	};
 }]);
