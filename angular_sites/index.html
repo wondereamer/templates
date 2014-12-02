@@ -36,15 +36,15 @@
 <body ng-controller="ApplicationController" style="overflow-y: -scroll;">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
- // {% if user.is_authenticated %}
- //     var user = {
- //         username:  "{{ user.username }}",
- //         id: "{{ user.id  }}",
- //         Role: "admin"
- //     };
- // {% else %}
+ {% if user.is_authenticated %}
+     var user = {
+         username:  "{{ user.username }}",
+         id: "{{ user.id  }}",
+         Role: "admin"
+     };
+ {% else %}
      var user=null;
- // {% endif %}
+ {% endif %}
 </script>
 <script language="javascript" src="js/config/config.js"></script>
 <script language="javascript" src="js/controllers/main.js"></script>
@@ -240,19 +240,19 @@
 								ng-maxlength="25"
 								ng-model="user.username"
 								ng-pattern="/^[\u4e00-\u9fa5-_0-9a-zA-Z]+$/"
-								ng-blur="isBlur=disabled, onlyUserName(user.username)"
-								ng-focus="isBlur=true"
+								ng-blur="onlyUserName(user.username)"
+								ng-focus="isUserName=disabled"
 								required
 							/>
 							<!--失去焦点后验证用户名唯一性开始-->
 							<span
 								class="glyphicon glyphicon-ok form-control-feedback"
-	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && isBlur==true"
+	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && isUserName==true"
 	                  			style="color: green;">
 							</span><!--可用-->
 							<span
 								class="glyphicon glyphicon-remove form-control-feedback"
-	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && isBlur==false"
+	                  			ng-show="registerForm.userName.$dirty && registerForm.userName.$valid && isUserName==false"
 	                  			style="color: red;">
 							</span><!--不可用-->
 							<!--失去焦点后验证用户名唯一性结束-->
@@ -263,6 +263,7 @@
 								<span ng-show="registerForm.userName.$error.pattern" style="color: red;">输入的用户名不合法</span>
 							</span>
 						</div>
+
 						<div class="form-group has-feedback">
 							<input
 								class="form-control input-lg"
@@ -270,18 +271,19 @@
 								type="email"
 								placeholder="邮箱"
 								ng-model="user.email"
-								my-focus
+								ng-blur="onlyEmail(user.email)"
+								ng-focus="isEmail=disabled"
 								required
 							/>
 							<!--失去焦点后验证用户名唯一性开始-->
 							<span
 								class="glyphicon glyphicon-ok form-control-feedback"
-	                  			ng-show="registerForm.email.$dirty && registerForm.email.$valid && registerForm.email.$focused==false"
+	                  			ng-show="registerForm.email.$dirty && registerForm.email.$valid && isEmail==true"
 	                  			style="color: green;">
 							</span><!--可用-->
 							<span
 								class="glyphicon glyphicon-remove form-control-feedback"
-	                  			ng-show="registerForm.email.$dirty && registerForm.email.$invalid && registerForm.email.$focused==false"
+	                  			ng-show="registerForm.email.$dirty && registerForm.email.$valid && isEmail==false"
 	                  			style="color: red;">
 							</span><!--不可用-->
 							<!--失去焦点后验证用户名唯一性结束-->
@@ -289,6 +291,7 @@
 								<span ng-show="registerForm.email.$error.email" style="color: red;">输入正确的邮箱</span>
 							</span>
 						</div>
+
 						<div class="form-group has-feedback">
 							<input
 								class="form-control input-lg"
@@ -409,19 +412,19 @@
 <!--返回顶部结束-->
 
 <!--吐槽建议开始-->
-<div class="modal fade" id="suggest" tabindex="-1" role="dialog" aria-labelledby="activateLabel" aria-hidden="true" style="top: 10%">
+<div class="modal fade" id="suggest" tabindex="-1" role="dialog" aria-labelledby="suggestLabel" aria-hidden="true" style="top: 10%">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form class="form-horizontal" action="#" role="form" name="activate">
+			<form class="form-horizontal" role="form" ng-controller="authController" ng-submit="expression">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h3 class="modal-title" id="activateLabel">
+					<h3 class="modal-title" id="suggestLabel">
 						吐槽>>>
 						<small>写下你的真心话</small>
 					</h3>
 				</div>
 				<div class="modal-body">
-					<textarea class="form-control" name="" rows="3" cols=""></textarea>
+					<textarea class="form-control" rows="3" ng-mouseover="user.suggest" c required></textarea>
 				</div>
 				<div class="modal-footer"  style="padding: 20px 40px;">
 					<button class="btn btn-success" type="submit">提交</button>

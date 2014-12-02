@@ -97,31 +97,31 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			}
 		})
 		//全部
-		.state("shop.all", {
-			url: "/all",
+		.state("shop.1", {
+			url: "/1",
 			views: {
 				"": {
 					templateUrl: "views/product-new.html",
 				},
-				"product-filter@shop.all": {
+				"product-filter@shop.1": {
 					templateUrl: "views/product-filter.html"
 				},
-				"product-list@shop.all": {
+				"product-list@shop.1": {
 					templateUrl: "views/idea_sites/sale-item-new.html"
 				}
 			}
 		})
 		//第一分类
-		.state("shop.one", {
-			url: "/one",
+		.state("shop.2", {
+			url: "/2",
 			views: {
 				"": {
 					templateUrl: "views/product-new.html",
 				},
-				"product-filter@shop.one": {
+				"product-filter@shop.2": {
 					templateUrl: "views/product-filter.html"
 				},
-				"product-list@shop.one": {
+				"product-list@shop.2": {
 					templateUrl: "views/idea_sites/sale-item-new.html"
 				}
 			}
