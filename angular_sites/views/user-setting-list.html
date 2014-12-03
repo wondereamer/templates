@@ -12,18 +12,19 @@
 							name="email"
 							type="email"
 							ng-model="user.email"
-							my-focus
+							ng-blur="onlyEmail(user.email)"
+							ng-focus="isEmail=disabled"
 							required
 						/>
 						<!--失去焦点后验证邮箱唯一性开始-->
-						<span 
+						<span
 							class="glyphicon glyphicon-ok form-control-feedback"
-                  			ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$valid && changePasswordForm.email.$focused==false"
+                  			ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$valid && isEmail==true"
                   			style="color: green;">
 						</span><!--可用-->
-						<span 
+						<span
 							class="glyphicon glyphicon-remove form-control-feedback"
-                  			ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$invalid && changePasswordForm.email.$focused==false"
+                  			ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$valid && isEmail==false"
                   			style="color: red;">
 						</span><!--不可用-->
 						<!--失去焦点后验证邮箱唯一性结束-->
@@ -48,7 +49,7 @@
 							my-focus
 							required
 						/>
-						<span 
+						<span
 							class="glyphicon glyphicon-ok form-control-feedback"
                   			ng-show="changePasswordForm.password0.$dirty && changePasswordForm.password0.$valid && changePasswordForm.password0.$focused==false"
                   			style="color: green;">
@@ -75,7 +76,7 @@
 							my-focus
 							required
 						/>
-						<span 
+						<span
 							class="glyphicon glyphicon-ok form-control-feedback"
                   			ng-show="changePasswordForm.password.$dirty && changePasswordForm.password.$valid && changePasswordForm.password.$focused==false && user.password != user.password0"
                   			style="color: green;">
@@ -102,7 +103,7 @@
 							my-focus
 							required
 						/>
-						<span 
+						<span
 							class="glyphicon glyphicon-ok form-control-feedback"
                   			ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.passwordRepeat.$valid && changePasswordForm.passwordRepeat.$focused==false && user.passwordRepeat == user.password"
                   			style="color: green;">

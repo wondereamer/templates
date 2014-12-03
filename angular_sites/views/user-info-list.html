@@ -2,11 +2,11 @@
 <div class="panel panel-default">
 	<div class="panel-body">
 		<h3 class="page-header">设置头像<small>&nbsp;(设置一个宽度大于300px、小于3M的JPG头像，让小伙伴们迅速认识你.)</small></h3>
-		<form role="form" name="userInfoForm" ng-controller="userInfoController" ng-submit="changUserInfo(user)">
+		<form role="form" name="userInfoForm" ng-submit="putUserInfo(user)">
 			<div class="row">
 				<div class="col-md-4">
 					<a href="#">
-						<img class="img-responsive img-circle" ng-src="{[userInfo.avatar]}" alt="头像" />
+						<img class="img-responsive img-circle" ng-src="{[user.avatar]}" title="我的头像" />
 					</a>
 				</div>
 				<div class="col-md-16">
@@ -25,13 +25,13 @@
 				<div class="col-md-10">
 					<div class="form-group">
 						<label for="">姓名：</label>
-						<input class="form-control" type="text" ng-model="userInfo.realname" />
+						<input class="form-control" type="text" ng-model="user.realname" autofocus/>
 					</div>
 				</div>
 				<div class="col-md-10">
 					<div class="form-group">
 						<label for="">性别：</label>
-						<select class="form-control" ng-model="userInfo.sex">
+						<select class="form-control" ng-model="user.sex">
 							<option value="0">女</option>
 							<option value="1">男</option>
 						</select>
@@ -43,13 +43,13 @@
 				<div class="col-md-10">
 					<div class="form-group">
 						<label for="">职业：</label>
-						<input class="form-control" type="text" placeholder="" ng-model="userInfo.job" />
+						<input class="form-control" type="text" placeholder="" ng-model="user.job" />
 					</div>
 				</div>
 				<div class="col-md-10">
 					<div class="form-group">
 						<label for="">城市：</label>
-						<input class="form-control" type="text" placeholder="" ng-model="userInfo.city" />
+						<input class="form-control" type="text" placeholder="" ng-model="user.city" />
 					</div>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 				<div class="col-md-10">
 					<div class="form-group">
 						<label for="">手机：</label>
-						<input class="form-control" type="text" placeholder="" ng-model="userInfo.phone" />
+						<input class="form-control" type="text" placeholder="" ng-model="user.phone" />
 					</div>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 				<div class="col-md-20">
 					<div class="form-group">
 						<label for="">地址：</label>
-						<input class="form-control" type="text" placeholder=""  ng-model="userInfo.address" />
+						<input class="form-control" type="text" placeholder=""  ng-model="user.address" />
 					</div>
 				</div>
 			</div>
@@ -76,7 +76,7 @@
 				<div class="col-md-20">
 					<div class="form-group">
 						<label for="">我的亮点：</label>
-						<textarea class="form-control" rows="2" placeholder="" ng-model="userInfo.highlight" ></textarea>
+						<textarea class="form-control" rows="2" placeholder="" ng-model="user.highlight" ></textarea>
 					</div>
 				</div>
 			</div>
@@ -85,7 +85,7 @@
 				<div class="col-md-20">
 					<div class="form-group">
 						<label for="">个人简介：</label>
-						<textarea class="form-control" rows="6" placeholder="" ng-model="userInfo.intro" ></textarea>
+						<textarea class="form-control" rows="6" placeholder="" ng-model="user.intro" ></textarea>
 					</div>
 				</div>
 			</div>

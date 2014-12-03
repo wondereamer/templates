@@ -132,7 +132,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: "/user-center",
 			templateUrl: "views/user-center.html"
 		})
-		//      用户设置中心
+
+		// 用户设置中心
 		.state("user-setting-center", {
 			url: "/user-setting-center",
 			templateUrl: "views/user-setting-center.html",
@@ -140,11 +141,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state("user-setting-center.setting", {
 			url: "/setting",
-			templateUrl: "views/user-setting-list.html"
+			templateUrl: "views/user-setting-list.html",
+			controller: function($scope){
+				$scope.getAuth();
+			}
 		})
 		.state("user-setting-center.info", {
 			url: "/info",
-			templateUrl: "views/user-info-list.html"
+			templateUrl: "views/user-info-list.html",
+			controller: function($scope){
+				$scope.getUserInfo();
+			}
 		})
 		.state("user-setting-center.address", {
 			url: "/address",
@@ -161,11 +168,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state("user-setting-center.service", {
 			url: "/service",
 			templateUrl: "views/user-service-list.html"
-		})
-		//     激活账号
-		.state("activate-account", {
-			url: "/activate-account",
-			templateUrl: "views/activate-account.html"
 		})
 		//		商品详情
 		.state("product-detail", {

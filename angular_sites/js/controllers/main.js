@@ -136,7 +136,7 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 		console.log(user);
 		$http.defaults.headers.put['X-CSRFToken'] = getCookie("csrftoken");
 		return $http
-			.put('/accounts/api/user/' + Session.userId + '/', $.param(user))
+			.put($scope.urlApi + '/accounts/api/user/' + Session.userId + '/', $.param(user))
 			.then(function(res) {
 				/// @todo 验证邮箱的唯一性。
 				alert("修改成功！");
@@ -146,24 +146,51 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 	$scope.getAuth = function() {
 		console.log("获取帐号信息。。");
 		return $http
-			.get('/accounts/api/user/' + Session.userId + '/')
+			.get($scope.urlApi + '/accounts/api/user/' + Session.userId + '/')
 			.then(function(res) {
-				/// @todo 验证邮箱的唯一性。
+				$scope.user=res.data;
 				console.log(res.data);
 			}, function(res) {
-				/*alert("个人帐号获取失败!") */
+				console.log("个人帐号获取失败!");
 			});
 	};
 	// 获取用户资料
 	$scope.getUserInfo = function() {
-		console.log("获取用户资料中。。");
+		console.log("获取用户资料中...");
 		return $http
-			.get('/accounts/api/profile/' + Session.userId + '/')
+			.get($scope.urlApi + '/accounts/api/profile/' + Session.userId + '/')
 			.then(function(res) {
-				$scope.userInfo=res.data;
+				$scope.user=res.data;
 				console.log($scope.userInfo);
 			}, function(res) {
-				alert("个人帐号获取失败!")
+				console.log("个人资料获取失败!");
+			});
+	};
+	// 提交用户资料
+	$scope.putUserInfo = function(user){
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		console.log(user);
+		return $http
+			.post($scope.urlApi + '/accounts/api/profile/' + Session.userId + '/', $.param(user))
+			.then(function() {
+				console.log("保存成功");
+			}, function() {
+				console.log("提交失败");
+			});
+	};
+	//连接服务器验证邮箱唯一性
+	$scope.onlyEmail = function(userEmail) {
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		var user={
+			email: userEmail
+		};
+		console.log(user);
+		return $http
+			.post($scope.urlApi + '/accounts/api/unique_email/', $.param(user))
+			.then(function() {
+				$scope.isEmail=true;
+			}, function() {
+				$scope.isEmail=false;
 			});
 	};
 }]);
@@ -251,34 +278,6 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 				console.log("提交成功");
 			},
 			function(response) {
-				console.log("提交失败");
-			});
-	};
-}]);
-
-//修改个人信息
-app.controller("userInfoController",["$scope","$http",function($scope,$http){
-	$scope.user={
-		name:"王大锤",
-		sex:"男",
-		job:"WEB前端工程师",
-		city:"深圳",
-		email:"123@126.com",
-		phone:"18623435353",
-		address:"深圳市南山区华侨城创意园",
-		star:"超级英雄",
-		briefing:"我是一个好人"
-	};
-	$scope.changUserInfo=function(user){
-		console.log(user);
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		return $http
-			.post('/accounts/api/abc/')
-			.then(function(dd) {
-				/// @todo 返回数据
-				console.log("修改成功");
-			},
-			function(dd) {
 				console.log("提交失败");
 			});
 	};
