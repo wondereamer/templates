@@ -63,7 +63,8 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 	$scope.register = function(user) {
 		if (!user.agree) {
 			alert("请同意服务协议");
-		} else {
+		}
+		else {
 			console.log(user);
 			$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 			return $http
@@ -79,21 +80,50 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 				});
 		};
 	};
-
-	$scope.onlyUserName = function(userName) {
+	// 用户建议
+	$scope.suggest = function(userSuggest){
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		$scope.user={
-			username: userName
-		};
-		console.log($scope.user);
+		console.log(userSuggest);
 		return $http
-			.post($scope.urlApi + '/accounts/api/unique_user/',$.param($scope.user))
+			.post($scope.urlApi + '/accounts/api/userSuggest/', $.param(userSuggest))
 			.then(function() {
-				alert("用户名---可用");
+				$("#suggest").modal("toggle");
 			}, function() {
-				alert("用户名---不可用");
+				alert("提交失败");
 			});
 	};
+	//连接服务器验证用户名唯一性
+	$scope.onlyUserName = function(userName) {
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		var user={
+			name: userName
+		};
+		console.log(user);
+		return $http
+			.post($scope.urlApi + '/accounts/api/unique_user/', $.param(user))
+			.then(function() {
+				$scope.isUserName=true;
+			}, function() {
+				$scope.isUserName=false;
+			});
+	};
+
+	//连接服务器验证邮箱唯一性
+	$scope.onlyEmail = function(userEmail) {
+		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		var user={
+			email: userEmail
+		};
+		console.log(user);
+		return $http
+			.post($scope.urlApi + '/accounts/api/unique_email/', $.param(user))
+			.then(function() {
+				$scope.isEmail=true;
+			}, function() {
+				$scope.isEmail=false;
+			});
+	};
+
 }]);
 
 app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
@@ -123,7 +153,19 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 			}, function(res) {
 				/*alert("个人帐号获取失败!") */
 			});
-	}
+	};
+	// 获取用户资料
+	$scope.getUserInfo = function() {
+		console.log("获取用户资料中。。");
+		return $http
+			.get('/accounts/api/profile/' + Session.userId + '/')
+			.then(function(res) {
+				$scope.userInfo=res.data;
+				console.log($scope.userInfo);
+			}, function(res) {
+				alert("个人帐号获取失败!")
+			});
+	};
 }]);
 
 app.controller('shopController', ['$scope', '$http',function($scope, $http) {
