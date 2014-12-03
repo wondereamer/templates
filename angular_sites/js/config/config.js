@@ -36,9 +36,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				"carousel@idea": {
 					templateUrl: "views/carousel.html"
 				},
-				"idea-type@idea": {
-					templateUrl: "views/idea-type.html"
-				},
 				"idea-list@idea": {
 					templateUrl: "views/idea_sites/fever-item.html"
 				},
@@ -101,6 +98,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			views: {
 				"": {
 					templateUrl: "views/product-new.html",
+					controller: function($scope){
+						$scope.getShopLatest();
+					}
 				},
 				"product-filter@shop.product-new": {
 					templateUrl: "views/product-filter.html"
@@ -115,6 +115,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			views: {
 				"": {
 					templateUrl: "views/product-hot.html",
+					controller: function($scope){
+						$scope.getShopHot();
+					}
 				},
 				"product-filter@shop.product-hot": {
 					templateUrl: "views/product-filter.html"

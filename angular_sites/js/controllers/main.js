@@ -168,57 +168,53 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 	};
 }]);
 
-app.controller('shopController', ['$scope', '$http',function($scope, $http) {
-		//获取商店首页商品
-		$scope.getShop = function() {
-			console.log("获取商店首页商品");
-			$http.get($scope.urlApi + "/shop/")
-				.then(function(res) {
-					$scope.products=res.data.hot;
-					console.log($scope.products);
-				}, function(res) {
-					console.log("Failed!");
-				});
-		};
-		$scope.getShop();
-		//获取最新商品
-		$scope.getShopLatest = function() {
-			console.log("获取最新商品");
-			return $http
-				.get($scope.urlApi + '/shop/latest/')
-				.then(function(res) {
-					$scope.new = res.data;
-				}, function() {
-					console.log("获取成功");
-				});
-		};
-        /*$scope.getShopLatest();*/
-		//获取最热商品
-		$scope.getShopHot = function() {
-			console.log("获取最热商品");
-			return $http
-				.get($scope.urlApi + '/shop/hot/')
-				.then(function(res) {
-					$scope.hot = res.data;
-				}, function() {
-					console.log("获取成功");
-				});
-		};
-        /*$scope.getShopHot();*/
-		//获取第一分类商品
-		$scope.getShopOne = function() {
-			console.log("获取第一分类商品");
-			return $http
-				.get($scope.urlApi + '/shop/1/')
-				.then(function(res) {
-					$scope.one = res.data;
-				}, function() {
-					console.log("获取成功");
-				});
-		};
-        /*$scope.getShopOne();*/
-	}
-]);
+app.controller('shopController', ['$scope', '$http', function($scope, $http) {
+	//获取商店首页商品
+	$scope.getShop = function() {
+		console.log("获取商店首页商品");
+		$http.get($scope.urlApi + "/shop/")
+			.then(function(res) {
+				$scope.products = res.data.hot;
+				console.log($scope.products);
+			}, function(res) {
+				console.log("Failed!");
+			});
+	};
+	$scope.getShop();
+	//获取最新商品
+	$scope.getShopLatest = function() {
+		console.log("获取最新商品");
+		return $http
+			.get($scope.urlApi + '/shop/latest/')
+			.then(function(res) {
+				$scope.new = res.data;
+			}, function() {
+				console.log("获取成功");
+			});
+	};
+	//获取最热商品
+	$scope.getShopHot = function() {
+		console.log("获取最热商品");
+		return $http
+			.get($scope.urlApi + '/shop/hot/')
+			.then(function(res) {
+				$scope.hot = res.data;
+			}, function() {
+				console.log("获取成功");
+			});
+	};
+	//获取第一分类商品
+	$scope.getShopOne = function() {
+		console.log("获取第一分类商品");
+		return $http
+			.get($scope.urlApi + '/shop/1/')
+			.then(function(res) {
+				$scope.one = res.data;
+			}, function() {
+				console.log("获取成功");
+			});
+	};
+}]);
 
 app.controller("feverController",["$scope","$http",function($scope,$http){
 	//获取发现创意首页商品
