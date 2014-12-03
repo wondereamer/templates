@@ -96,36 +96,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		//全部
-		.state("shop.all", {
-			url: "/all",
-			views: {
-				"": {
-					templateUrl: "views/product-new.html",
-				},
-				"product-filter@shop.all": {
-					templateUrl: "views/product-filter.html"
-				},
-				"product-list@shop.all": {
-					templateUrl: "views/idea_sites/sale-item-new.html"
-				}
-			}
-		})
-		//第一分类
-		.state("shop.one", {
-			url: "/one",
-			views: {
-				"": {
-					templateUrl: "views/product-new.html",
-				},
-				"product-filter@shop.one": {
-					templateUrl: "views/product-filter.html"
-				},
-				"product-list@shop.one": {
-					templateUrl: "views/idea_sites/sale-item-new.html"
-				}
-			}
-		})
 		//第二分类
 		.state("shop.two", {
 			url: "/two",

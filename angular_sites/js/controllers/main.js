@@ -83,11 +83,11 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 	$scope.onlyUserName = function(userName) {
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		$scope.user={
-			username: "userName"
+			username: userName
 		};
 		console.log($scope.user);
 		return $http
-			.post($scope.urlApi + '/accounts/api/unique_user/',$.param(user))
+			.post($scope.urlApi + '/accounts/api/unique_user/',$.param($scope.user))
 			.then(function() {
 				alert("用户名---可用");
 			}, function() {
@@ -150,7 +150,7 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 					console.log("获取成功");
 				});
 		};
-		$scope.getShopLatest();
+        /*$scope.getShopLatest();*/
 		//获取最热商品
 		$scope.getShopHot = function() {
 			console.log("获取最热商品");
@@ -162,7 +162,7 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 					console.log("获取成功");
 				});
 		};
-		$scope.getShopHot();
+        /*$scope.getShopHot();*/
 		//获取第一分类商品
 		$scope.getShopOne = function() {
 			console.log("获取第一分类商品");
@@ -174,7 +174,7 @@ app.controller('shopController', ['$scope', '$http',function($scope, $http) {
 					console.log("获取成功");
 				});
 		};
-		$scope.getShopOne();
+        /*$scope.getShopOne();*/
 	}
 ]);
 

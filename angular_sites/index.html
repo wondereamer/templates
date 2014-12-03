@@ -449,6 +449,27 @@ $(function(){
 		return false;
 	});
 });
+
+app.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider
+		//全部
+    {% for key, value in cats.items %}
+        .state("shop.{{ key }}", {
+            url: "/{{ key }}",
+            views: {
+                "": {
+                    templateUrl: "views/product-new.html",
+                },
+                "product-filter@shop.{{ key }}": {
+                    templateUrl: "views/product-filter.html"
+                },
+                "product-list@shop.{{ key }}": {
+                    templateUrl: "views/idea_sites/sale-item-new.html"
+                }
+            }
+        })
+    {% endfor %}
+});
 </script>
 </body>
 </html>

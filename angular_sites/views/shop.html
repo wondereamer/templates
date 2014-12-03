@@ -10,15 +10,10 @@
 		<div class="row">
 			<div class="col-md-20">
 				<ul class="nav nav-pills shop-type">
-				    <li ui-sref-active="active" ui-sref=".all"><a href="">全部</a></li>
-				    <li ui-sref-active="active" ui-sref=".one"><a href="">异想家</a></li>
-				 	<li ui-sref-active="active" ui-sref=".two"><a href="">办公文具</a></li>
-				 	<li ui-sref-active="active" ui-sref=".three"><a href="">玩具娱乐</a></li>
-				 	<li ui-sref-active="active" ui-sref=".four"><a href="">生活改良</a></li>
-				 	<li ui-sref-active="active" ui-sref=".five"><a href="">数码科技</a></li>
-				 	<li ui-sref-active="active" ui-sref=".six"><a href="">个性装备</a></li>
-				 	<li ui-sref-active="active" ui-sref=".seven"><a href="">户外运动</a></li>
-				 	<li ui-sref-active="active" ui-sref=".eight"><a href="">美化装饰</a></li>
+
+                    {% for key, value in cats.items %}
+                        <li ui-sref-active="active" ui-sref=".{{ key }}"><a href="">{{ value }}</a></li>
+                    {% endfor %}
 				</ul>
 			</div>
 		</div>
