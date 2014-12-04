@@ -100,7 +100,7 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		};
 		console.log(user);
 		return $http
-			.jsonp($scope.urlApi + '/accounts/api/unique_user/?callback=JSON_CALLBACK', $.param(user))
+			.post($scope.urlApi + '/accounts/api/unique_user/', $.param(user))
 			.then(function() {
 				$scope.isUserName=true;
 			}, function() {
@@ -242,6 +242,7 @@ app.controller('shopController', ['$scope', '$http', function($scope, $http) {
 	};
 }]);
 
+
 app.controller("feverController",["$scope","$http",function($scope,$http){
 	//获取发现创意首页商品
 	$scope.getFever = function() {
@@ -255,6 +256,30 @@ app.controller("feverController",["$scope","$http",function($scope,$http){
 			});
 	};
 	$scope.getFever();
+	//获取全部创意商品
+	$scope.getFeverAll = function() {
+		console.log("获取全部创意商品...");
+		return $http
+			.get($scope.urlApi + '/fever/latest/')
+			.then(function(res) {
+				$scope.all = res.data;
+				console.log($scope.all);
+			}, function() {
+				console.log("获取成功");
+			});
+	};
+	//获取分类一创意商品
+	$scope.getFeverOne = function() {
+		console.log("获取分类一创意商品...");
+		return $http
+			.get($scope.urlApi + '/fever/latest/')
+			.then(function(res) {
+				$scope.one = res.data;
+				console.log($scope.one);
+			}, function() {
+				console.log("获取成功");
+			});
+	};
 }]);
 
 //发起创意步骤
@@ -303,10 +328,10 @@ app.controller('shopDetailController', ['$scope','$http', function($scope,$http)
 	$scope.shopProductDetail = function() {
 		console.log("获取商品详情中...");
 		return $http
-			.jsonp($scope.urlApi + "/shop_product/1/?callback=JSON_CALLBACK")
+			.get($scope.urlApi + "/shop_product/1/")
 			.then(function(res) {
-				// $scope.pro=res.data;
-				console.log(res.data);
+				$scope.pro=res.data;
+				console.log($scope.pro);
 			}, function(res) {
 				console.log("获取失败!");
 			});
