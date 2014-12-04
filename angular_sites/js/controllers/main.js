@@ -3,7 +3,7 @@ app.controller('ApplicationController',
                ['$scope','$rootScope', '$http', 'USER_ROLES','AUTH_EVENTS', 'AuthService', 'Session',
                function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS, Session) {
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
-  $scope.urlApi="";
+  	$scope.urlApi="";
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -100,7 +100,7 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		};
 		console.log(user);
 		return $http
-			.post($scope.urlApi + '/accounts/api/unique_user/', $.param(user))
+			.jsonp($scope.urlApi + '/accounts/api/unique_user/?callback=JSON_CALLBACK', $.param(user))
 			.then(function() {
 				$scope.isUserName=true;
 			}, function() {
@@ -127,9 +127,6 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 }]);
 
 app.controller('personalController', ['$scope', '$http', 'Session', function($scope, $http, Session) {
-	$scope.user={
-
-	}
 	/** 修改账户信息 */
 	$scope.modifyAuth = function(user) {
 		console.log("修改帐号信息,参数：");
@@ -139,8 +136,10 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 			.put($scope.urlApi + '/accounts/api/user/' + Session.userId + '/', $.param(user))
 			.then(function(res) {
 				/// @todo 验证邮箱的唯一性。
-				alert("修改成功！");
-			}, function(res) {});
+				console.log("修改成功！");
+			}, function(res) {
+				console.log("修改失败");
+			});
 	};
 	/**  获取账户信息 */
 	$scope.getAuth = function() {
@@ -283,8 +282,8 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 	};
 }]);
 
-// 商店商品详情页tab切换
-app.controller('shopDetailController', ['$scope', function($scope){
+// 商店商品详情页
+app.controller('shopDetailController', ['$scope','$http', function($scope,$http){
 	$scope.imgs=[
 		{
 			imgSrc:"img/01-233.jpg"
@@ -299,6 +298,19 @@ app.controller('shopDetailController', ['$scope', function($scope){
 			imgSrc:"img/04-233.jpg"
 		}
 	];
+	$scope.shopProductDetail = function() {
+		console.log("获取商品详情中...");
+		return $http
+			.jsonp($scope.urlApi + "/shop_product/1/?callback=JSON_CALLBACK")
+			.then(function(res) {
+				// $scope.pro=res.data;
+				console.log(res.data);
+			}, function(res) {
+				console.log("获取失败!");
+			});
+	};
+	$scope.shopProductDetail();
+	// 主图TAB切换
 	$scope.index=0;
 	$scope.imgHover=function($index){
 		$scope.index=$index;

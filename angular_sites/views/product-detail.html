@@ -4,37 +4,23 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-md-12  col-xs-20" ng-controller="shopDetailController">
+					<div class="col-md-12  col-xs-20">
 						<ul class="list-unstyled pic-show">
-							<li ng-show="index==$index" ng-repeat="img in imgs">
-								<img class="img-responsive" src="{[img.imgSrc]}"/>
+							<li ng-show="index==$index" ng-repeat="img in pro.photo_intros">
+								<img class="img-responsive" src="{[img]}"/>
 							</li>
 						</ul>
 						<br />
 						<ul class="pic-list list-unstyled" style="width:100%;">
-							<li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="img in imgs">
-								<img class="img-responsive" ng-src="{[img.imgSrc]}" style="width: 100%;"/>
+							<li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="img in pro.photo_intros">
+								<img class="img-responsive" ng-src="{[img]}" style="width: 100%;"/>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-8 col-xs-20">
-						<h3>GYENNO One智能运动防水手表-黑色</h3>
-						<h4 style="color: red;">&yen;998</h4>
+						<h3>{[pro.title]}</h3>
+						<h4 style="color: red;">&yen;{[pro.price]}</h4>
 						<hr />
-						<!--<div>
-							<ul class="list-group list-inline">
-								<li class="list-group-item">
-									<a href="#">
-										<img class="img-responsive" src="../img/01-233.jpg" width="50px" height="50px"/>
-									</a>
-								</li>
-								<li class="list-group-item">
-									<a href="#">
-										<img class="img-responsive" src="../img/01-233.jpg" width="50px" height="50px"/>
-									</a>
-								</li>
-							</ul>
-						</div>-->
 						<div>
 							<p>好评指数：
 								<i class="glyphicon glyphicon-star"></i>
@@ -48,7 +34,7 @@
 						</div>
 						<div style="margin-bottom: 100px;">
 							<h4 class="page-header">产品简介：</h4>
-							<p>设计上极其简约、全防水、无线充电、卡扣佩戴方式。功能上会自动识别运动种类（散步、快走、跑步等）、检测睡眠质量、智能闹钟和智能唤醒。还可以当做智能手表来接收电话、短信、日程的提醒</p>
+							<p>{[pro.brief]}</p>
 						</div>
 						<div>
 							<!-- JiaThis Button BEGIN -->
@@ -95,7 +81,7 @@
 		</div>
 	</div>
 </div>
-
+<!-- 热门推荐 -->
 <div class="container">
 	<div class="row">
 		<div class="col-md-20">
@@ -127,7 +113,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-md-5">
 							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
 								<div class="img">
@@ -150,7 +136,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-md-5">
 							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
 								<div class="img">
@@ -173,7 +159,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-md-5">
 							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
 								<div class="img">
@@ -204,6 +190,7 @@
 </div>
 
 <br />
+<!-- 页脚 -->
 <div class="footer" style="background-color: #333333;color: #f3f3f3;">
 	<div class="container">
 		<div class="row" style="height: 200px;">
