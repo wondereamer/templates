@@ -330,5 +330,7 @@ app.controller('shopDetailController', ['$scope','$http', function($scope,$http)
 	$scope.imgHover=function($index){
 		$scope.index=$index;
 	};
-}])
+}]);
+
+
 
