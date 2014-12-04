@@ -241,15 +241,17 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 		type:"健康医疗",
 		title:"生活是官方说法更加广泛",
 		introduction:"事实告诉我们，能够真正服务于生活的创意才是我们要寻找的好设计。为此我们建立了一个投票环节，在这里，你所喜欢、支持的创意都有可能制作成产品并成功上市。一个好创意诞生很不容易，希望你们成为优秀的评审团。",
-		label:"生活创意",
-		detail:"设计一款可根据按钮自由伸缩的耳塞装置，避免耳塞在使用后无处安放、使用前各种整理等问题，该装置大小控制在4-7cm范围内，比如5*5cm，越小巧越方便携带，装置的形状可以是云朵、叶子、花瓣等，也可根据个人爱好私人定制形状，装置的一面设置按钮，按钮位置视各个具体形状而定，一般设计在绕线处的轴心位置，轴心处的另一面，也就是装置的另一面，设置成耳塞插头的出口，出口处边缘以外的旁白部分可印制图案或产品标识，私人定制形状可印制个人喜欢图案。",
+		label :"生活创意",
+        detail: "temp",
+    /*detail:"设计一款可根据按钮自由伸缩的耳塞装置，避免耳塞在使用后无处安放、使用前各种整理等问题，该装置大小控制在4-7cm范围内，比如5*5cm，越小巧越方便携带，装置的形状可以是云朵、叶子、花瓣等，也可根据个人爱好私人定制形状，装置的一面设置按钮，按钮位置视各个具体形状而定，一般设计在绕线处的轴心位置，轴心处的另一面，也就是装置的另一面，设置成耳塞插头的出口，出口处边缘以外的旁白部分可印制图案或产品标识，私人定制形状可印制个人喜欢图案。",*/
 		video:"http://v.youku.com/v_show/id_XNjMyMDU2Nzgw.html?from=y1.3-music-new-4344-10220.91968-90792-90602.1-4"
 	};
 	$scope.submitIdea=function(idea){
+        idea.detail = tiny_data();
 		console.log(idea);
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		return $http
-			.post('/accounts/api/submitIdea/', $.param(idea))
+			.post('/submit_idea/', $.param(idea))
 			.then(function(response) {
 				/// @todo 返回数据
 				console.log("提交成功");
