@@ -31,7 +31,6 @@
     <script language="javascript" src="js/lib/angular-ui-router.min.js"></script>
     <script language="javascript" src="js/lib/underscore-min.js"></script>
     <script language="javascript" src="js/lib/restangular.min.js"></script>
-    <script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
 </head>
 <body ng-controller="ApplicationController" style="overflow-y: -scroll;">
 <!--放在前面，避免个人中心的闪烁出现-->
@@ -475,5 +474,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     {% endfor %}
 });
 </script>
+
+
+
+<iframe id="form_target" name="form_target" style="display:none"></iframe>
+
+<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+    <input name="docfile" type="file" onchange="$('#my_form').submit();this.value='';">
+</form>
 </body>
 </html>

@@ -31,7 +31,7 @@
 
             <div class="panel-heading">
                 <div class="col-md-2">
-                    <img class="img-responsive" src="img/avatar_default_small.jpg" />
+                    <img class="img-responsive" src="{{ topic.user.profile.get_client_avatar_url }}" />
                 </div>
                 <div class="col-md-9">
                     <h3>{{ topic.name  }}</h3>
@@ -108,7 +108,7 @@
             {% else  %}
                 <div class="row">    		
                     <div class="col-md-2 col-sm-2">
-                        <img class="img-responsive img-circle pull-right" src="img/avatar_default_small.jpg" />	
+                        <img class="img-responsive img-circle pull-right" src="{{ post.user.profile.get_client_avatar_url  }}" />	
                     </div>
                     <div class="col-md-9 col-sm-9">
                         <h3><a href="">{{ post.user.username }}</a>&nbsp;&nbsp;<small>{{ post.created  }}</small></h3>
