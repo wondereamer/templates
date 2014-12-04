@@ -19,8 +19,8 @@
 		<div class="row">
 			<div class="col-md-20">
 				<ul class="nav nav-pills shop-type">
-				    <li ui-sref-active="active" ui-sref=".all"><a href="">全部</a></li>
-				    <li ui-sref-active="active" ui-sref=".all"><a href="">异想家</a></li>
+				    <li ui-sref-active="active" ui-sref=".0"><a href="">全部</a></li>
+				    <li ui-sref-active="active" ui-sref=".1"><a href="">异想家</a></li>
 				</ul>
 			</div>
 		</div>
@@ -28,38 +28,46 @@
 </div>
 <!--分类导航栏结束-->
 <br />
+<div ui-view>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-18 col-xs-16" style="height: 50px;">
+				<h3 style="margin-top: 0;">最新发现</h3>
+			</div>
+			<div class="col-md-2 col-xs-4">
+				<a class="pull-right" href="">
+					<span class="badge">More</span>
+					>>>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div ui-view="fever-list">展示创意列表</div>
+		</div>
+	</div>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-18 col-xs-16" style="height: 50px;">
-			<h3 style="margin-top: 0;">最新发现</h3>
-		</div>
-		<div class="col-md-2 col-xs-4">
-			<a class="pull-right" href=""><span class="badge">More</span>>>></a>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-18" style="height: 50px;">
+				<h3 style="margin-top: 0;">成功项目</h3>
+			</div>
+			<div class="col-md-2">
+				<a class="pull-right" href="">
+					<span class="badge">More</span>
+					>>>
+				</a>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div ui-view="fever-list">展示创意列表</div>
+	<div class="container">
+		<div class="row">
+			<div ui-view="fever-list">展示创意列表</div>
+		</div>
 	</div>
 </div>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-18" style="height: 50px;">
-			<h3 style="margin-top: 0;">成功项目</h3>
-		</div>
-		<div class="col-md-2">
-			<a class="pull-right" href=""><span class="badge">More</span>>>></a>
-		</div>
-	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div ui-view="fever-list">展示创意列表</div>
-	</div>
-</div>
 <!--合作机构开始-->
 <div class="container">
 	<div class="row">
