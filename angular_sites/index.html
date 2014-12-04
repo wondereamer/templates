@@ -472,15 +472,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
             }
         })
     {% endfor %}
+    {% for key, value in fever_cats.items %}
+		//分类
+        .state("fever.{{ key }}", {
+            url: "/{{ key  }}",
+            views: {
+                "": {
+                    templateUrl: "views/fever-box.html",
+                    controller: function($scope){
+                        $scope.getFeverType({{ key  }});
+                    }
+                },
+                "fever-list@fever.{{ key }}": {
+                    templateUrl: "views/idea_sites/fever-item-one.html"
+                }
+            }
+		})
+    {% endfor %}
 });
 </script>
 
 
 
-<iframe id="form_target" name="form_target" style="display:none"></iframe>
-
-<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
-    <input name="docfile" type="file" onchange="$('#my_form').submit();this.value='';">
-</form>
 </body>
 </html>
