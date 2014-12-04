@@ -19,8 +19,9 @@
 		<div class="row">
 			<div class="col-md-20">
 				<ul class="nav nav-pills shop-type">
-				    <li ui-sref-active="active" ui-sref=".0"><a href="">全部</a></li>
-				    <li ui-sref-active="active" ui-sref=".1"><a href="">异想家</a></li>
+				    {% for key, value in cats.items %}
+                    	<li ui-sref-active="active" ui-sref=".{{ key }}"><a href="">{{ value }}</a></li>
+                    {% endfor %}
 				</ul>
 			</div>
 		</div>

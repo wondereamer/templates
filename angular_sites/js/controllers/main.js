@@ -257,25 +257,13 @@ app.controller("feverController",["$scope","$http",function($scope,$http){
 	};
 	$scope.getFever();
 	//获取全部创意商品
-	$scope.getFeverAll = function() {
-		console.log("获取全部创意商品...");
+	$scope.getFeverType = function(key) {
+		console.log("获取第" + key + '分类创意商品...');
 		return $http
-			.get($scope.urlApi + '/fever/latest/')
+			.get($scope.urlApi + '/fever/' + key + '/')
 			.then(function(res) {
 				$scope.all = res.data;
 				console.log($scope.all);
-			}, function() {
-				console.log("获取成功");
-			});
-	};
-	//获取分类一创意商品
-	$scope.getFeverOne = function() {
-		console.log("获取分类一创意商品...");
-		return $http
-			.get($scope.urlApi + '/fever/latest/')
-			.then(function(res) {
-				$scope.one = res.data;
-				console.log($scope.one);
 			}, function() {
 				console.log("获取成功");
 			});

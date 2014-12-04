@@ -44,36 +44,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		//全部
-		.state("fever.0", {
-			url: "/0",
+		//分类
+		.state("fever.key", {
+			url: "/key",
 			views: {
 				"": {
 					templateUrl: "views/fever-box.html",
 					controller: function($scope){
-						$scope.getFeverAll();
+						$scope.getFeverType(key);
 					}
 				},
-				"fever-list@fever.0": {
-					templateUrl: "views/idea_sites/fever-item-all.html"
-				}
-			}
-		})
-		//分类一
-		.state("fever.1", {
-			url: "/1",
-			views: {
-				"": {
-					templateUrl: "views/fever-box.html",
-					controller: function($scope){
-						$scope.getFeverOne();
-					}
-				},
-				"fever-list@fever.1": {
+				"fever-list@fever.key": {
 					templateUrl: "views/idea_sites/fever-item-one.html"
 				}
 			}
 		})
+
 		// 发起创意
 		.state("submit-fever-center", {
 			url: "/submit-fever-center",
@@ -169,30 +155,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 					}
 				},
 				"product-list@shop.0": {
-					templateUrl: "views/idea_sites/sale-item-new.html"
-				}
-			}
-		})
-		//第一分类
-		.state("shop.1", {
-			url: "/1",
-			views: {
-				"": {
-					templateUrl: "views/product-new.html",
-				},
-				"product-list@shop.1": {
-					templateUrl: "views/idea_sites/sale-item-new.html"
-				}
-			}
-		})
-		//第二分类
-		.state("shop.2", {
-			url: "/2",
-			views: {
-				"": {
-					templateUrl: "views/product-new.html",
-				},
-				"product-list@shop.2": {
 					templateUrl: "views/idea_sites/sale-item-new.html"
 				}
 			}
