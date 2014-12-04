@@ -55,26 +55,14 @@
             	<div class="form-group">
 	                <h4>类别</h4>
 	                <div>
+
+                    {% for key, value in cats.items %}
 	                    <label class="radio-inline">
-	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="健康医疗" ng-checked="true"/>
-	                    	健康医疗
+	                    	<input type="radio" name="ideaType"
+                            ng-model="idea.type" value="{{ key  }}" {% if forloop.first %}ng-checked="true"{% endif %}/>
+                            {{ value  }}
 	                    </label>
-	                    <label class="radio-inline">
-	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="数码电子" />
-	                    	数码电子
-	                    </label>
-	                    <label class="radio-inline">
-	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="电影音乐" />
-	                    	电影音乐
-	                    </label>
-	                    <label class="radio-inline">
-	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="娱乐生活" />
-	                    	娱乐生活
-	                    </label>
-	                    <label class="radio-inline">
-	                    	<input type="radio" name="ideaType" ng-model="idea.type" value="户外休闲" />
-	                    	户外休闲
-	                    </label>
+                    {% endfor %}
 	                </div>
             	</div>
                 <p class="font-size-1_2em">标题</p>
