@@ -40,13 +40,13 @@
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
  {% if user.is_authenticated %}
-     var user = {
+     var global_user = {
          username:  "{{ user.username }}",
          id: "{{ user.id  }}",
          Role: "admin"
      };
  {% else %}
-     var user=null;
+     var global_user=null;
  {% endif %}
 </script>
 <script language="javascript" src="js/config/config.js"></script>

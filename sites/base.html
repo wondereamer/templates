@@ -32,11 +32,11 @@
 <body ng-controller="ApplicationController">
 <script type="text/javascript" charset="utf-8">
     {% if user.is_authenticated %}
-        var user = {
+        var global_user = {
             username:  "{{ user.username }}" 
         };
     {% else %}
-        var user=null;
+        var global_user=null;
     {% endif %}
 </script>
 
@@ -60,7 +60,6 @@
 {% include "sites/header.html"  %}
 {% block content %}{% endblock %}
 {% include "sites/footer.html"  %}
-
 
 </body>
 </html>

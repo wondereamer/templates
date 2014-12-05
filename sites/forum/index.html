@@ -20,7 +20,10 @@
                                         <img class="img-responsible img-rounded" src="" alt="img" />
                                     </div>
                                 </div>
-                                <a href="/forum/{{ forum.pk }}">{{ forum.name}}</a>
+                                <a href="/forum/{{ forum.pk }}">{{ forum.name }}</a>
+                                <div>{{ forum.description }}</div>
+                                主题：{{ forum.topic_count  }}
+                                回帖：{{ forum.post_count  }}
                             </div>
                             {% endfor %}
                         </div>
@@ -36,14 +39,14 @@
                                             {{ topic.name }}
                                         </div>
                                         <div class="col-md-3">
-                                            <img class="img-responsible img-circle" src="" alt="img" />
-                                            <strong>TeaEra</strong>
+                                            <img class="img-responsible img-circle" src="{{ topic.user.profile.get_client_avatar_url }}" alt="img" />
+                                            <strong>{{ topic.user.usename  }}</strong>
                                         </div>
                                         <div class="col-md-1">
-                                            3 views
+                                            {{ topic.views  }}查看
                                         </div>
                                         <div class="col-md-1">
-                                            1 replies
+                                            {{ topic.reply_count}}回复
                                         </div>
                                     </div>
                                 </a>
@@ -56,14 +59,14 @@
                                             {{ topic.name }}
                                         </div>
                                         <div class="col-md-3">
-                                            <img class="img-responsible img-circle" src="" alt="img" />
-                                            <strong>TeaEra</strong>
+                                            <img class="img-responsible img-circle" src="{{ topic.user.profile.get_client_avatar_url }}" alt="img" />
+                                            <strong>{{ topic.user.username  }}</strong>
                                         </div>
                                         <div class="col-md-1">
-                                            3 views
+                                            {{ topic.views  }}查看
                                         </div>
                                         <div class="col-md-1">
-                                            1 replies
+                                            {{ topic.reply_count }}回复
                                         </div>
                                     </div>
                                 </a>

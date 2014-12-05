@@ -91,7 +91,7 @@
     <div class="container">     		
         <div class="row">    			
             <div class="col-md-10 col-md-offset-1">
-            <form role="form" action="." method="POST" >
+            <form role="form" action="." method="POST" id="comment_form">
                 {% csrf_token %}
                 <div class="form-group">						    
                     <textarea class="form-control" rows="3" placeholder="请输入内容" name="body"></textarea>
@@ -125,5 +125,17 @@
         {% endfor %}
     </div><!--回复区域结束-->    	
 </div>
+<!--<script type="text/javascript" charset="utf-8">-->
+<!--$('#comment_form').click(function(event){-->
+        <!--alert('ok');-->
+        <!--if(global_user)-->
+        <!--return true;-->
+        <!--else {-->
+        <!--$("#login").modal("toggle");-->
+        <!--event.preventDefault();-->
+        <!---->
+        <!--}-->
+        <!-- -->
+        <!--});-->
+<!--</script>-->
 {% endblock content%}
-
