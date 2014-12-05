@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ui.router", "restangular","ngAnimate"]);
+var app = angular.module("app", ["ui.router", "restangular", "ngAnimate", "shop"]);
 app.config(function($interpolateProvider) {
 	$interpolateProvider.startSymbol("{[");
 	$interpolateProvider.endSymbol("]}");
@@ -59,6 +59,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
+		.state("fever.latest", {
+			url: "/latest",
+			views: {
+				"": {
+					templateUrl: "views/fever-latest.html",
+					controller: function($scope){
+						$scope.getFeverLatest();
+					}
+				},
+				"latest-list@latest": {
+					templateUrl: "views/idea_sites/fever-item.html"
+				}
+			}
+		})
+		.state("fever.success", {
+			url: "/success",
+			views: {
+				"": {
+					templateUrl: "views/fever-success.html",
+					controller: function($scope){
+						$scope.getFeverSuccess();
+					}
+				},
+				"success-list@success": {
+					templateUrl: "views/idea_sites/fever-item.html"
+				}
+			}
+		})
 
 		// 发起创意
 		.state("submit-fever-center", {
@@ -91,7 +119,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "views/submit-fever-step3.html"
 		})
 
-		// 商店
+		// 商店首页
 		.state("shop", {
 			url: "/shop",
 			views: {
@@ -102,63 +130,83 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				"carousel@shop": {
 					templateUrl: "views/carousel.html"
 				},
-				"product-list@shop": {
-					templateUrl: "views/idea_sites/sale-item.html"
+				"latest-list@shop": {
+					templateUrl: "views/idea_sites/shop-item-latest.html"
+				},
+				"hot-list@shop": {
+					templateUrl: "views/idea_sites/shop-item-hot.html"
 				},
 				"footer@shop": {
 					templateUrl: "views/footer.html"
 				}
 			}
 		})
-		.state("shop.product-new", {
-			url: "/product-new",
+		// 商店最新商品
+		.state("shop.latest", {
+			url: "/latest",
 			views: {
-				"": {
-					templateUrl: "views/product-new.html",
+				"shop-type": {
+					templateUrl: "views/shop-box.html",
 					controller: function($scope){
 						$scope.getShopLatest();
 					}
 				},
-				"product-filter@shop.product-new": {
-					templateUrl: "views/product-filter.html"
+				"shop-filter@shop.latest": {
+					templateUrl: "views/shop-filter.html"
 				},
-				"product-list@shop.product-new": {
-					templateUrl: "views/idea_sites/sale-item-new.html"
+				"shop-list@shop.latest": {
+					templateUrl: "views/idea_sites/shop-item-latest.html"
 				}
 			}
 		})
-		.state("shop.product-hot", {
-			url: "/product-hot",
+		// 商店最热商品
+		.state("shop.hot", {
+			url: "/hot",
 			views: {
-				"": {
-					templateUrl: "views/product-hot.html",
+				"shop-type": {
+					templateUrl: "views/shop-box.html",
 					controller: function($scope){
 						$scope.getShopHot();
 					}
 				},
-				"product-filter@shop.product-hot": {
-					templateUrl: "views/product-filter.html"
+				"shop-filter@shop.hot": {
+					templateUrl: "views/shop-filter.html"
 				},
-				"product-list@shop.product-hot": {
-					templateUrl: "views/idea_sites/sale-item-hot.html"
+				"shop-list@shop.hot": {
+					templateUrl: "views/idea_sites/shop-item-hot.html"
 				}
 			}
 		})
-		//全部
-		.state("shop.0", {
-			url: "/0",
+		// 商品详情
+		.state("shop.detail", {
+			url: "/detail/:inboxId",
 			views: {
-				"": {
-					templateUrl: "views/product-new.html",
-					controller: function($scope){
-						$scope.getShopOne();
+				"shop-detail": {
+					templateUrl: "views/shop-detail.html",
+					controller: function($scope,$stateParams){
+						$scope.inboxId=$stateParams.inboxId;
+						$scope.getShopDetail($scope.inboxId);
 					}
-				},
-				"product-list@shop.0": {
-					templateUrl: "views/idea_sites/sale-item-new.html"
 				}
 			}
 		})
+		.state("shop.detail.describe", {
+			url: "/describe",
+			templateUrl: "views/shop-detail-describe.html"
+		})
+		.state("shop.detail.buy", {
+			url: "/buy",
+			templateUrl: "views/shop-detail-buy.html"
+		})
+		.state("shop.detail.comment", {
+			url: "/comment",
+			templateUrl: "views/shop-detail-comment.html"
+		})
+		.state("shop.detail.question", {
+			url: "/question",
+			templateUrl: "views/shop-detail-question.html"
+		})
+
 		// 用户中心
 		.state("user-center", {
 			url: "/user-center",
@@ -201,36 +249,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: "/service",
 			templateUrl: "views/user-service-list.html"
 		})
-		//		商品详情
-		.state("product-detail", {
-			url: "/product-detail",
-			views: {
-				"": {
-					templateUrl: "views/product-detail.html",
-					controller: "shopDetailController"
-				},
-				"footer@product-detail": {
-					templateUrl: "views/footer.html"
-				}
-			}
-		})
-		.state("product-detail.describe", {
-			url: "/idea-detail-describe",
-			templateUrl: "views/product-detail-describe.html"
-		})
-		.state("product-detail.buy", {
-			url: "/idea-detail-buy",
-			templateUrl: "views/product-detail-buy.html"
-		})
-		.state("product-detail.comment", {
-			url: "/idea-detail-comment",
-			templateUrl: "views/product-detail-comment.html"
-		})
-		.state("product-detail.question", {
-			url: "/idea-detail-question",
-			templateUrl: "views/product-detail-question.html"
-		})
-		//		创意详情
+
+		// 创意详情
 		.state("fever-detail", {
 			url: "/fever-detail",
 			views: {

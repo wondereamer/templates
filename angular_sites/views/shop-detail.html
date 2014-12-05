@@ -6,20 +6,20 @@
 				<div class="row">
 					<div class="col-md-12  col-xs-20">
 						<ul class="list-unstyled pic-show">
-							<li ng-show="index==$index" ng-repeat="img in pro.photo_intros">
+							<li ng-show="index==$index" ng-repeat="img in details.photo_intros">
 								<img class="img-responsive" src="{[img]}"/>
 							</li>
 						</ul>
 						<br />
 						<ul class="pic-list list-unstyled" style="width:100%;">
-							<li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="img in pro.photo_intros">
+							<li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="img in details.photo_intros">
 								<img class="img-responsive" ng-src="{[img]}" style="width: 100%;"/>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-8 col-xs-20">
-						<h3>{[pro.title]}</h3>
-						<h4 style="color: red;">&yen;{[pro.price]}</h4>
+						<h3>{[details.title]}</h3>
+						<h4 style="color: red;">&yen;{[details.price]}</h4>
 						<hr />
 						<div>
 							<p>好评指数：
@@ -34,7 +34,7 @@
 						</div>
 						<div style="margin-bottom: 100px;">
 							<h4 class="page-header">产品简介：</h4>
-							<p>{[pro.brief]}</p>
+							<p>{[details.brief]}</p>
 						</div>
 						<div>
 							<!-- JiaThis Button BEGIN -->
@@ -188,14 +188,3 @@
 		</div>
 	</div>
 </div>
-
-<br />
-<!-- 页脚 -->
-<div class="footer" style="background-color: #333333;color: #f3f3f3;">
-	<div class="container">
-		<div class="row" style="height: 200px;">
-			<div ui-view="footer"></div>
-		</div>
-	</div>
-</div>
-

@@ -4,6 +4,7 @@ app.controller('ApplicationController',
                function ($rootScope, $scope,$http,USER_ROLES,AuthService, AUTH_EVENTS, Session) {
     // 由服务器控制的变量值，当网站由传统方式切换到angular框架的时候用来设置用户是否已经登录。
   	$scope.urlApi="";
+  	$scope.imgUrl="";
 	$scope.currentUser = null;
 	$scope.userRoles = USER_ROLES;
 	$scope.isAuthorized = AuthService.isAuthorized;
@@ -194,14 +195,17 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 	};
 }]);
 
-app.controller('shopController', ['$scope', '$http', function($scope, $http) {
+var shop = angular.module("shop", []);
+shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
 	//获取商店首页商品
 	$scope.getShop = function() {
-		console.log("获取商店首页商品");
+		console.log("获取商店首页商品...");
 		$http.get($scope.urlApi + "/shop/")
 			.then(function(res) {
-				$scope.products = res.data.hot;
-				console.log($scope.products);
+				$scope.latests = res.data.latest;
+				$scope.hots = res.data.hot;
+				console.log($scope.latests);
+				console.log($scope.hots);
 			}, function(res) {
 				console.log("Failed!");
 			});
@@ -209,35 +213,50 @@ app.controller('shopController', ['$scope', '$http', function($scope, $http) {
 	$scope.getShop();
 	//获取最新商品
 	$scope.getShopLatest = function() {
-		console.log("获取最新商品");
+		console.log("获取最新商品...");
 		return $http
-			.get($scope.urlApi + '/shop/latest/')
+			.get($scope.urlApi + "/shop/latest/")
 			.then(function(res) {
-				$scope.new = res.data;
+				$scope.latests = res.data;
+				console.log($scope.latests);
 			}, function() {
-				console.log("获取成功");
+				console.log("获取失败");
 			});
 	};
 	//获取最热商品
 	$scope.getShopHot = function() {
-		console.log("获取最热商品");
+		console.log("获取最热商品...");
 		return $http
-			.get($scope.urlApi + '/shop/hot/')
+			.get($scope.urlApi + "/shop/hot/")
 			.then(function(res) {
-				$scope.hot = res.data;
+				$scope.hots = res.data;
+				console.log($scope.hots);
 			}, function() {
-				console.log("获取成功");
+				console.log("获取失败");
 			});
 	};
-	//获取第一分类商品
-	$scope.getShopOne = function() {
-		console.log("获取第一分类商品");
+	//获取分类商品
+	$scope.getShopType = function(id) {
+		console.log("获取分类商品...");
 		return $http
-			.get($scope.urlApi + '/shop/1/')
+			.get($scope.urlApi + "/shop/" + id + "/")
 			.then(function(res) {
-				$scope.one = res.data;
+				$scope.types = res.data;
 			}, function() {
-				console.log("获取成功");
+				console.log("获取失败");
+			});
+	};
+	//获取商品详情
+	$scope.getShopDetail = function(id) {
+		console.log("获取商品详情中...");
+		console.log(id);
+		return $http
+			.get($scope.urlApi + "/shop_product/" + id + "/")
+			.then(function(res) {
+				$scope.details=res.data.product;
+				console.log($scope.details);
+			}, function(res) {
+				console.log("获取失败!");
 			});
 	};
 }]);
@@ -262,10 +281,32 @@ app.controller("feverController",["$scope","$http",function($scope,$http){
 		return $http
 			.get($scope.urlApi + '/fever/' + key + '/')
 			.then(function(res) {
-				$scope.all = res.data;
-				console.log($scope.all);
+				$scope.types = res.data;
+				console.log($scope.types);
 			}, function() {
-				console.log("获取成功");
+				console.log("获取失败");
+			});
+	};
+	$scope.getFeverLatest = function() {
+		console.log("获取最新创意商品...");
+		return $http
+			.get($scope.urlApi + "/fever/latest/")
+			.then(function(res) {
+				$scope.latest = res.data;
+				console.log($scope.latest);
+			}, function() {
+				console.log("获取失败");
+			});
+	};
+	$scope.getFeverSuccess = function() {
+		console.log("获取成功案例创意商品...");
+		return $http
+			.get($scope.urlApi + "/fever/hot/")
+			.then(function(res) {
+				$scope.latest = res.data;
+				console.log($scope.latest);
+			}, function() {
+				console.log("获取失败");
 			});
 	};
 }]);
@@ -298,33 +339,7 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 }]);
 
 // 商店商品详情页
-app.controller('shopDetailController', ['$scope','$http', function($scope,$http){
-	$scope.imgs=[
-		{
-			imgSrc:"img/01-233.jpg"
-		},
-		{
-			imgSrc:"img/02-233.jpg"
-		},
-		{
-			imgSrc:"img/03-233.jpg"
-		},
-		{
-			imgSrc:"img/04-233.jpg"
-		}
-	];
-	$scope.shopProductDetail = function() {
-		console.log("获取商品详情中...");
-		return $http
-			.get($scope.urlApi + "/shop_product/1/")
-			.then(function(res) {
-				$scope.pro=res.data;
-				console.log($scope.pro);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-	$scope.shopProductDetail();
+app.controller('shopDetailController', ['$scope','$http', function($scope, $http){
 	// 主图TAB切换
 	$scope.index=0;
 	$scope.imgHover=function($index){

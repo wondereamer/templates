@@ -1,21 +1,21 @@
 <!--一个商品展示区域开始-->
-<div class="col-lg-4 col-md-5 col-sm-10 sale-item" ng-repeat="x in new">
+<div class="col-lg-4 col-md-5 col-sm-10 sale-item" ng-repeat="type in types">
 	<div class="sale-item-box">
 		<div class="sale-item-img">
-			<a ui-sref="product-detail.describe" target="_blank">
-				<img class="img-responsive" ng-src="{[x.photo_intros]}"/>
+			<a ui-sref="detail.describe" target="_blank">
+				<img class="img-responsive" ng-src="{[imgUrl+type.photo_intros]}"/>
 			</a>
-			<p>&yen;<span style="color: red;">&nbsp;{[x.price | number:2]}</span></p>
+			<p>&yen;<span style="color: red;">&nbsp;{[type.price | number:2]}</span></p>
 		</div>
 		<div class="sale-item-title">
-			<a ui-sref="product-detail.describe">{[x.brief]}</a>
+			<a ui-sref=".detail.describe" target="_blank">{[type.title]}</a>
 		</div>
 		<div class="sale-item-tips">
 			<a class="btn btn-danger btn-xs" href="#">
 				<span class="glyphicon glyphicon-heart-empty"></span>&nbsp;
-				{[x.num_liked]}
+				{[type.num_liked]}
 			</a>
-			<a class="pull-right" href="#">销量({[x.num_sale]})</a>
+			<a class="pull-right" href="#">销量({[type.num_sale]})</a>
 		</div>
 		<hr class="sale-item-line" />
 		<!--一个用户评论区域开始-->
@@ -23,7 +23,7 @@
 			<ul class="list-unstyled">
 				<li class="head">
 					<a href="#">
-						<img class="img-circle img-responsible" ng-src="{[x.photo_intros]}"/>
+						<img class="img-circle img-responsible" ng-src="{[imgUrl+type.photo_intros]}"/>
 					</a>
 				</li>
 				<li class="comment">
