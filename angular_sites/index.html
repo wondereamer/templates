@@ -459,19 +459,22 @@ $(function(){
 
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
-		//全部
+	//全部
     {% for key, value in cats.items %}
         .state("shop.{{ key }}", {
             url: "/{{ key }}",
             views: {
-                "": {
-                    templateUrl: "views/product-new.html",
+                "shop-type": {
+                    templateUrl: "views/shop-box.html",
+                    controller: function($scope){
+                        $scope.getShopType({{ key }});
+                    }
                 },
-                "product-filter@shop.{{ key }}": {
-                    templateUrl: "views/product-filter.html"
+                "shop-filter@shop.{{ key }}": {
+                    templateUrl: "views/shop-filter.html"
                 },
-                "product-list@shop.{{ key }}": {
-                    templateUrl: "views/idea_sites/sale-item-new.html"
+                "shop-list@shop.{{ key }}": {
+                    templateUrl: "views/idea_sites/shop-item-type.html"
                 }
             }
         })
@@ -479,12 +482,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     {% for key, value in fever_cats.items %}
 		//分类
         .state("fever.{{ key }}", {
-            url: "/{{ key  }}",
+            url: "/{{ key }}",
             views: {
-                "": {
+                "shop-type": {
                     templateUrl: "views/fever-box.html",
                     controller: function($scope){
-                        $scope.getFeverType({{ key  }});
+                        $scope.getFeverType({{ key }});
                     }
                 },
                 "fever-list@fever.{{ key }}": {
