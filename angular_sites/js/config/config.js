@@ -179,13 +179,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		// 商品详情
 		.state("shop.detail", {
-			url: "/detail/:inboxId",
+			url: "/detail/:productId",
 			views: {
 				"shop-detail": {
 					templateUrl: "views/shop-detail.html",
 					controller: function($scope,$stateParams){
-						$scope.inboxId=$stateParams.inboxId;
-						$scope.getShopDetail($scope.inboxId);
+						$scope.getShopDetail($stateParams.productId);
 					}
 				}
 			}

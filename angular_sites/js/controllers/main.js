@@ -97,7 +97,7 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 	$scope.onlyUserName = function(userName) {
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		var user={
-			name: userName
+			username: userName
 		};
 		console.log(user);
 		return $http
@@ -196,7 +196,7 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 }]);
 
 var shop = angular.module("shop", []);
-shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
+shop.controller("shopController", ["$scope", "$http", "$stateParams", function($scope, $http, $stateParams) {
 	//获取商店首页商品
 	$scope.getShop = function() {
 		console.log("获取商店首页商品...");
@@ -236,10 +236,10 @@ shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
 			});
 	};
 	//获取分类商品
-	$scope.getShopType = function(id) {
-		console.log("获取分类商品...");
+	$scope.getShopType = function(typeId) {
+		console.log("获取第"+ typeId +"个分类商品...");
 		return $http
-			.get($scope.urlApi + "/shop/" + id + "/")
+			.get($scope.urlApi + "/shop/" + typeId + "/")
 			.then(function(res) {
 				$scope.types = res.data;
 			}, function() {
@@ -248,8 +248,7 @@ shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
 	};
 	//获取商品详情
 	$scope.getShopDetail = function(id) {
-		console.log("获取商品详情中...");
-		console.log(id);
+		console.log("获取第"+id+"个商品详情中...");
 		return $http
 			.get($scope.urlApi + "/shop_product/" + id + "/")
 			.then(function(res) {
