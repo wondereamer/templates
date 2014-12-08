@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ui.router", "restangular", "ngAnimate", "shop"]);
+var app = angular.module("app", ["ui.router", "restangular", "ngAnimate", "fever", "shop"]);
 app.config(function($interpolateProvider) {
 	$interpolateProvider.startSymbol("{[");
 	$interpolateProvider.endSymbol("]}");
@@ -44,32 +44,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		})
-		//分类
-		.state("fever.key", {
-			url: "/key",
-			views: {
-				"": {
-					templateUrl: "views/fever-box.html",
-					controller: function($scope){
-						$scope.getFeverType(key);
-					}
-				},
-				"fever-list@fever.key": {
-					templateUrl: "views/idea_sites/fever-item-one.html"
-				}
-			}
-		})
 		.state("fever.latest", {
 			url: "/latest",
 			views: {
 				"": {
-					templateUrl: "views/fever-latest.html",
+					templateUrl: "views/fever-box.html",
 					controller: function($scope){
 						$scope.getFeverLatest();
 					}
 				},
-				"latest-list@latest": {
-					templateUrl: "views/idea_sites/fever-item.html"
+				"fever-list@fever.latest": {
+					templateUrl: "views/idea_sites/fever-item-latest.html"
 				}
 			}
 		})
@@ -77,17 +62,40 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: "/success",
 			views: {
 				"": {
-					templateUrl: "views/fever-success.html",
+					templateUrl: "views/fever-box.html",
 					controller: function($scope){
 						$scope.getFeverSuccess();
 					}
 				},
-				"success-list@success": {
-					templateUrl: "views/idea_sites/fever-item.html"
+				"fever-list@fever.success": {
+					templateUrl: "views/idea_sites/fever-item-success.html"
 				}
 			}
 		})
-
+		// 创意详情
+		.state("fever-detail", {
+			url: "/fever-detail",
+			views: {
+				"": {
+					templateUrl: "views/fever-detail.html"
+				},
+				"footer@fever-detail": {
+					templateUrl: "views/footer.html"
+				}
+			}
+		})
+		.state("fever-detail.describe", {
+			url: "/fever-detail-describe",
+			templateUrl: "views/fever-detail-describe.html"
+		})
+		.state("fever-detail.spit", {
+			url: "/fever-detail-sipt",
+			templateUrl: "views/fever-detail-spit.html"
+		})
+		.state("fever-detail.question", {
+			url: "/fever-detail-question",
+			templateUrl: "views/fever-detail-question.html"
+		})
 		// 发起创意
 		.state("submit-fever-center", {
 			url: "/submit-fever-center",
@@ -249,28 +257,5 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "views/user-service-list.html"
 		})
 
-		// 创意详情
-		.state("fever-detail", {
-			url: "/fever-detail",
-			views: {
-				"": {
-					templateUrl: "views/fever-detail.html"
-				},
-				"footer@fever-detail": {
-					templateUrl: "views/footer.html"
-				}
-			}
-		})
-		.state("fever-detail.describe", {
-			url: "/fever-detail-describe",
-			templateUrl: "views/fever-detail-describe.html"
-		})
-		.state("fever-detail.spit", {
-			url: "/fever-detail-sipt",
-			templateUrl: "views/fever-detail-spit.html"
-		})
-		.state("fever-detail.question", {
-			url: "/fever-detail-question",
-			templateUrl: "views/fever-detail-question.html"
-		})
+
 });
