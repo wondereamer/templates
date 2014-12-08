@@ -12,9 +12,9 @@ app.controller('ApplicationController',
 		$scope.currentUser = user;
 	};
     // 用来控制传统页面的用户验证。
-    if (user) {
-        $scope.currentUser=user
-        Session.create(0, user.id, user.role);
+    if (global_user) {
+        $scope.currentUser=global_user
+        Session.create(0, global_user.id, global_user.role);
         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
     };
 }]);
@@ -37,9 +37,9 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		AuthService.login(credentials)
 			.then(function(user) {
 				$("#login").modal("toggle");
-                alert('ok');
 				$scope.setCurrentUser(user);
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                global_user = user; // mark传统方式的登录。
                 /*window.location.href = "/#/index";*/
 
 			}, function() {

@@ -3,37 +3,140 @@
 注册
 {% endblock %}
 {% block content %}
-    <div id="main-content">
-        <!-- -->
-        <div class="container" id="form-showRegister">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">帐号注册</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form accept-charset="UTF-8" role="form" method="post">
-                                {% csrf_token %}
-                                <fieldset>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="用户名" name="username" type="text">
-                                    </div>
-                                    <div class="form-group"> <input class="form-control" placeholder="邮箱" name="email" type="text">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="密码" name="password1" type="password" value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" placeholder="密码（重复）"  name="password2" type="password" value="">
-                                    </div>
-                                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="注册">
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div ng-controller="authController">
+	<!--注册弹出框区域开始-->
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form class="form-horizontal" role="form" name="registerForm" action="/accounts/register/" method="POST">
+                    {% csrf_token %}
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title" id="registerLabel">
+							注册异想
+						</h3>
+					</div>
+					<div class="modal-body" style="padding: 0 40px;">
+						<br />
+						<div class="form-group" style="padding: 5% 10%;">
+							<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
+							<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="username"
+								type="text"
+								placeholder="用户名"
+								ng-minlength="6"
+								ng-maxlength="25"
+								ng-model="user.username"
+								ng-pattern="/^[\u4e00-\u9fa5-_0-9a-zA-Z]+$/"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.userName.$dirty && registerForm.userName.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="registerForm.userName.$dirty && registerForm.userName.$invalid">
+								<span ng-show="registerForm.userName.$error.minlength" style="color: red;">请输入6个字符以上</span>
+								<span ng-show="registerForm.userName.$error.maxlength" style="color: red;">请输入25个字符以下</span>
+								<span ng-show="registerForm.userName.$error.pattern" style="color: red;">输入的用户名不合法</span>
+							</span>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="email"
+								type="email"
+								placeholder="邮箱"
+								ng-model="user.email"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.email.$dirty && registerForm.email.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
+								<span ng-show="registerForm.email.$error.email" style="color: red;">输入正确的邮箱</span>
+							</span>
+						</div>
+						<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="password1"
+								type="password"
+								placeholder="密码"
+								ng-maxlength="12"
+								ng-minlength="6"
+								ng-model="user.password1"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.password1.$dirty && registerForm.password1.$valid"
+	                              style="color: green;">
+							</span>
+							<span ng-show="registerForm.password1.$dirty && registerForm.password1.$invalid">
+								<span ng-show="registerForm.password1.$error.minlength" style="color: red;">输入的密码少于6位</span>
+								<span ng-show="registerForm.password1.$error.maxlength" style="color: red;">输入的密码超过12位</span>
+							</span>
+					    </div>
+					   	<div class="form-group has-feedback">
+							<input
+								class="form-control input-lg"
+								name="password2"
+								type="password"
+								placeholder="确认密码"
+								ng-model="user.password2"
+								required
+							/>
+							<span class="glyphicon glyphicon-ok form-control-feedback"
+	                              ng-show="registerForm.password1.$dirty && registerForm.password1.$valid && user.password1 == user.password2"
+	                              style="color: green;">
+							</span>
+							<span
+								ng-show="registerForm.password2.$dirty && registerForm.password1.$valid && user.password1 != user.password2"
+								 style="color: red;">
+								两次输入的密码不一致。
+							</span>
+						</div>
+						<div class="checkbox">
+						    <label class="checkbox-inline">
+						    	<input type="checkbox" name="agree" ng-model="user.agree"/> 同意异想服务协议
+						    </label>
+					    </div>
+					</div>
+					<div class="modal-footer"  style="padding: 20px 40px;">
+						<br />
+						<div class="form-group">
+							<input class="btn btn-lg btn-success btn-block" id="registerBtn" type="submit" value="确认注册"/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--注册弹出框区域结束-->
+	<!--验证邮箱开始-->
+	<div class="modal fade" id="activate" tabindex="-1" role="dialog" aria-labelledby="activateLabel" aria-hidden="true" style="top: 10%">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form class="form-horizontal" action="#" role="form" name="activate">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h3 class="modal-title" id="activateLabel" style="color: green;">
+							激活账号
+							<br />
+							<small>请点击一下链接验证邮箱激活</small>
+						</h3>
+					</div>
+					<div class="modal-body" style="">
+						<a href="//{[user.activate]}" target="_blank"><h5>http://{[user.activate]}</h5></a>
+					</div>
+					<div class="modal-footer"  style="padding: 20px 40px;">
+						<a class="btn btn-default" data-dismiss="modal" href="">返回</a>
+					</div>
+				</form>
+			</div>
+		</div>
+</div>
 {% endblock %}
