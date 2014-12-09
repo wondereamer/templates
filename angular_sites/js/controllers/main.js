@@ -37,9 +37,9 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		AuthService.login(credentials)
 			.then(function(user) {
 				$("#login").modal("toggle");
+                alert('ok');
 				$scope.setCurrentUser(user);
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                global_user = user; // mark传统方式的登录。
                 /*window.location.href = "/#/index";*/
 
 			}, function() {
@@ -200,11 +200,11 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 }]);
 
 var shop = angular.module("shop", []);
-shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
+shop.controller("shopController", ["$scope", "$http", "$stateParams", function($scope, $http, $stateParams) {
 	//获取商店首页商品
 	$scope.getShop = function() {
 		console.log("获取商店首页商品...");
-		$http.get($scope.urlApi + "/shop/")
+		return $http.get($scope.urlApi + "/shop/")
 			.then(function(res) {
 				$scope.latests = res.data.latest;
 				$scope.hots = res.data.hot;
@@ -240,10 +240,10 @@ shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
 			});
 	};
 	//获取分类商品
-	$scope.getShopType = function(id) {
-		console.log("获取分类商品...");
+	$scope.getShopType = function(typeId) {
+		console.log("获取第"+ typeId +"个分类商品...");
 		return $http
-			.get($scope.urlApi + "/shop/" + id + "/")
+			.get($scope.urlApi + "/shop/" + typeId + "/")
 			.then(function(res) {
 				$scope.types = res.data;
 			}, function() {
@@ -252,8 +252,7 @@ shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
 	};
 	//获取商品详情
 	$scope.getShopDetail = function(id) {
-		console.log("获取商品详情中...");
-		console.log(id);
+		console.log("获取第"+id+"个商品详情中...");
 		return $http
 			.get($scope.urlApi + "/shop_product/" + id + "/")
 			.then(function(res) {
@@ -265,8 +264,8 @@ shop.controller("shopController", ["$scope", "$http", function($scope, $http) {
 	};
 }]);
 
-
-app.controller("feverController",["$scope","$http",function($scope,$http){
+var fever = angular.module("fever", []);
+fever.controller("feverController",["$scope", "$http", function($scope,$http){
 	//获取发现创意首页商品
 	$scope.getFever = function() {
 		console.log("获取发现创意首页商品");
@@ -296,8 +295,8 @@ app.controller("feverController",["$scope","$http",function($scope,$http){
 		return $http
 			.get($scope.urlApi + "/fever/latest/")
 			.then(function(res) {
-				$scope.latest = res.data;
-				console.log($scope.latest);
+				$scope.latests = res.data;
+				console.log($scope.latests);
 			}, function() {
 				console.log("获取失败");
 			});
@@ -307,8 +306,8 @@ app.controller("feverController",["$scope","$http",function($scope,$http){
 		return $http
 			.get($scope.urlApi + "/fever/hot/")
 			.then(function(res) {
-				$scope.latest = res.data;
-				console.log($scope.latest);
+				$scope.successes = res.data;
+				console.log($scope.successes);
 			}, function() {
 				console.log("获取失败");
 			});
@@ -320,10 +319,9 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 	$scope.idea={
 		type:"健康医疗",
 		title:"生活是官方说法更加广泛",
-		introduction:"事实告诉我们，能够真正服务于生活的创意才是我们要寻找的好设计。为此我们建立了一个投票环节，在这里，你所喜欢、支持的创意都有可能制作成产品并成功上市。一个好创意诞生很不容易，希望你们成为优秀的评审团。",
+		introduction:"事实告诉我成为优秀的评审团。",
 		label :"生活创意",
         detail: "temp",
-    /*detail:"设计一款可根据按钮自由伸缩的耳塞装置，避免耳塞在使用后无处安放、使用前各种整理等问题，该装置大小控制在4-7cm范围内，比如5*5cm，越小巧越方便携带，装置的形状可以是云朵、叶子、花瓣等，也可根据个人爱好私人定制形状，装置的一面设置按钮，按钮位置视各个具体形状而定，一般设计在绕线处的轴心位置，轴心处的另一面，也就是装置的另一面，设置成耳塞插头的出口，出口处边缘以外的旁白部分可印制图案或产品标识，私人定制形状可印制个人喜欢图案。",*/
 		video:"http://v.youku.com/v_show/id_XNjMyMDU2Nzgw.html?from=y1.3-music-new-4344-10220.91968-90792-90602.1-4"
 	};
 	$scope.submitIdea=function(idea){
@@ -334,10 +332,9 @@ app.controller("submitIdeaController",["$scope","$http",function($scope,$http){
 			.post('/submit_idea/', $.param(idea))
 			.then(function(response) {
 				/// @todo 返回数据
-				console.log("提交成功");
-			},
-			function(response) {
-				console.log("提交失败");
+				alert("提交成功");
+			},function(response) {
+				alert("提交失败");
 			});
 	};
 }]);

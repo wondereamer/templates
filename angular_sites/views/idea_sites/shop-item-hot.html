@@ -2,13 +2,13 @@
 <div class="col-lg-4 col-md-5 col-sm-10 sale-item" ng-repeat="hot in hots">
 	<div class="sale-item-box" ng-click="getShopDetail(hot.id)">
 		<div class="sale-item-img">
-			<a ui-sref=".detail.describe" target="_blank">
+			<a ui-sref=".detail.describe({productId:hot.id})" target="_blank">
 				<img class="img-responsive" ng-src="{[imgUrl+hot.photo_intros]}"/>
 			</a>
 			<p>&yen;<span style="color: red;">&nbsp;{[hot.price | number:2]}</span></p>
 		</div>
 		<div class="sale-item-title">
-			<a ui-sref=".detail.describe" target="_blank">{[hot.title]}</a>
+			<a ui-sref=".detail.describe({productId:hot.id})" target="_blank">{[hot.title]}</a>
 		</div>
 		<div class="sale-item-tips">
 			<a class="btn btn-danger btn-xs" href="#">
