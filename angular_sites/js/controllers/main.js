@@ -11,7 +11,7 @@ app.controller('ApplicationController',
 	$scope.setCurrentUser = function(user) {
 		$scope.currentUser = user;
 	};
-    // 用来控制传统页面的用户验证。
+    // 统页面的用户验证传播到angular框架
     if (global_user) {
         $scope.currentUser=global_user
         Session.create(0, global_user.id, global_user.role);
@@ -23,8 +23,8 @@ app.controller('ApplicationController',
 app.controller('authController',['$scope','$location','$rootScope','$http','AUTH_EVENTS','AuthService',
 	function ($scope, $location, $rootScope, $http, AUTH_EVENTS, AuthService) {
 	$scope.credentials = {
-		username: 'admin',
-		password: 'wdj123'
+		username: '1234567',
+		password: '1234567'
 	};
 	$scope.user = {
 		username: 'wwwwww',
@@ -54,7 +54,8 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 			$scope.setCurrentUser(null);
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             /*$location.path('/');*/
-            window.location.href = "/#/index";
+            /*window.location.href = "/#/index";*/
+            window.location.href = "/";
 		});
 	};
 	/**
@@ -97,15 +98,18 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 	$scope.onlyUserName = function(userName) {
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		var user={
-			name: userName
+			username: userName
 		};
+        console.log("验证用户的唯一性");
 		console.log(user);
 		return $http
 			.post($scope.urlApi + '/accounts/api/unique_user/', $.param(user))
 			.then(function() {
 				$scope.isUserName=true;
+                console.log("用户验证服务正常。");
 			}, function() {
 				$scope.isUserName=false;
+                console.log("用户验证服务错误！");
 			});
 	};
 
@@ -161,17 +165,17 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 			.get($scope.urlApi + '/accounts/api/profile/' + Session.userId + '/')
 			.then(function(res) {
 				$scope.user=res.data;
-				console.log($scope.userInfo);
+				console.log($scope.user);
 			}, function(res) {
 				console.log("个人资料获取失败!");
 			});
 	};
 	// 提交用户资料
 	$scope.putUserInfo = function(user){
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
+		$http.defaults.headers.put['X-CSRFToken'] = getCookie("csrftoken");
 		console.log(user);
 		return $http
-			.post($scope.urlApi + '/accounts/api/profile/' + Session.userId + '/', $.param(user))
+			.put($scope.urlApi + '/accounts/api/profile/' + Session.userId + '/', $.param(user))
 			.then(function() {
 				console.log("保存成功");
 			}, function() {

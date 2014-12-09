@@ -3,14 +3,14 @@
 论坛
 {% endblock %}
 {% block content %}
-
 <div ng-controller="authController">
 	<!--登录弹出框区域开始-->
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form class="form-horizontal"  name="loginForm" action="/accounts/login/" method="POST"> 
-                    {% csrf_token %}
-                    <div class="modal-header">
+				<form class="form-horizontal" role="form" name="loginForm" action="/accounts/login/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next  }}"/>
+					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h3 class="modal-title" id="loginLabel">
 							登录异想
@@ -20,7 +20,6 @@
 						<div class="form-group" style="padding: 15% 15%;">
 							<input class="btn btn-lg btn-default" type="button" value="用微博登陆" style="float: left;width: 45%;"/>
 							<input class="btn btn-lg btn-default" type="button" value="用QQ登陆" style="float: right;width: 45%;"/>
-                            <input type="hidden" name="next" value="/forum/"/>
 						</div>
 						<div class="form-group has-feedback">
 							<input
@@ -78,12 +77,10 @@
 							<span>已有账号？<a data-toggle="modal" data-target="#register" style="cursor: pointer;">立即注册</a></span>
 						</div>
 					</div>
-                    <div>{{ errors }}</div>
+                    <div>{{ form.errors }}</div>
 				</form>
 			</div>
-		</div>
-	<!--登录弹出框区域开始-->
-
+	</div>
 </div>
 <script type="text/javascript" charset="utf-8">
     $("#login").modal("toggle");
