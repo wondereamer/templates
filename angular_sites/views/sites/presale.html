@@ -1,0 +1,84 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block title  %}
+商店
+{% endblock %}
+{% block content %}
+    <div id="main-content">
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger">全部</button>
+                        <button type="button" class="btn btn-default">健康医疗</button>
+                        <button type="button" class="btn btn-default">数码电子</button>
+                        <button type="button" class="btn btn-default">智能家居</button>
+                        <button type="button" class="btn btn-default">娱乐生活</button>
+                        <button type="button" class="btn btn-default">户外休闲</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <!-- -->
+        <div class="container" id="product-three-columns">
+            {% for  product in product_list %}
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!--<img class="img-responsive" src="/img/Chrysanthemum.jpg" />-->
+                        <a href="/sale_product/{{  product.id }}/">{{ product.photo_intros.all.0.image }}</a>
+                         
+                    </div>
+                    <div class="panel-footer">
+                        <h3>Title</h3>
+                        <h5>description .........................................</h5>
+                        <hr />
+                        <div class="row center-block">
+                            <span class="pull-left">158</span>
+                            <span class="pull-right">{{ product.id }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="/cars?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages  }}
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="/shop?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

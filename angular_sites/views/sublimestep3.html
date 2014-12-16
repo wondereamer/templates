@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <p class="text-center">
+            <span style="font-size: 3em;">
+                1
+            </span>
+        </p>
+        <p class="text-center">
+            <span style="font-size: 1.2em;">
+                基本信息
+            </span>
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p class="text-center front-color-lightgray">
+            <span style="font-size: 3em;">
+                2
+            </span>
+        </p>
+        <p class="text-center front-color-lightgray">
+            <span style="font-size: 1.2em;">
+                填写详细内容
+            </span>
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p class="text-center front-color-lightgray">
+            <span style="font-size: 3em;">
+                3
+            </span>
+        </p>
+        <p class="text-center front-color-lightgray">
+            <span style="font-size: 1.2em;">
+                上传图片&视频
+            </span>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-20">
+        <p>
+            <span class="font-size-2em">
+                上传图片&视频
+            </span>
+            <a><i class="glyphicon glyphicon-question-sign"></i></a>
+        </p>
+    </div>
+
+    <!-- -->
+    <div class="row">
+        <div class="col-md-20">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!-- 多图片上传开始 -->
+                    <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>选择图片</span>
+                        <input id="fileupload" type="file" name="file" multiple>
+                    </span>
+                    <br>
+                    <br>
+                    <!-- 进度条 -->
+                    <div id="progress" class="progress" style="height: 3px">
+                        <div class="progress-bar progress-bar-success"></div>
+                    </div>
+                    <!-- 返回数据显示容器 -->
+                    <div id="files" class="files"></div>
+                    <br>
+                    <button type="button" id="cha">改变imgUrl</button>
+                    <!-- 多图片上传开始 -->
+                    <div class="form-group">
+                        <p>
+                            <span class="font-size-1_2em">视频链接</span>
+                        </p>
+                        <input class="form-control" ng-model="idea.video" placeholder="http://" />
+                    </div>
+                    <br />
+                    <p>
+                        <span class="pull-left">
+                            <a ui-sref="submit-fever-center.step2" class="btn btn-default" href="">上一步</a>
+                        </span>
+                        <span class="pull-right">
+                            <button class="btn btn-success" type="submit">完成</button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+// function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    // return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+// }
+$(function () {
+
+    $('#cha').click(function(){
+        imgUrl='how';
+        alert('imgUrl:'+imgUrl);
+    });
+
+    $('#fileupload').fileupload({
+        url: '/upload/new/',
+        dataType: 'json',
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        maxFileSize: 5000000, // 5 MB
+
+        //上传成功返回图片链接
+        done: function (e, data) {
+            console.log("返回数据：");
+            console.log(data.result);
+            $.each(data.result.files, function (index, file) {
+                var item = $('<div/>').addClass('col-md-4').appendTo('#files'),
+                    imgBox = $('<div/>').css({'width':200,'height':200,'overflow':'hidden'}).appendTo(item),
+                    img = $('<img/>').attr({'src':file.url, 'del-url':file.deleteUrl}).css({'width':'100%'}).appendTo(imgBox)
+                $('<p/>').text(file.name).appendTo(item);
+            });
+        },
+        // 进度条
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            console.log('进度：' + progress + '%');
+            $('#progress .progress-bar').css({'width':progress + '%'});
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+
+</script>
+

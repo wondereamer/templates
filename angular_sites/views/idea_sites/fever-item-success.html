@@ -1,20 +1,19 @@
-<h1>我是成功创意商品</h1>
 <div class="col-md-6 col-sm-10 col-xs-20 idea-item" ng-repeat="success in successes" ng-init="views=0" style="padding-bottom: 50px;">
 	<div class="fever-box" style="box-shadow: 0 3px 6px 3px #ccc;">
 		<div class="img-box">
-			<a ui-sref="fever-detail.describe" target="_blank" ng-click="views=views+1">
+			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="views=views+1">
 				<img class="img-responsive" ng-src="{[success.photo_intros]}" width="100%" />
 			</a>
 		</div>
 		<div class="fever-title" style="padding:0 10px">
-			<a ui-sref="fever-detail.describe" target="_blank" ng-click="views=views+1">
+			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="views=views+1">
 				<h3>{[success.title]}<br /></h3>
 			</a>
 			<p></p>
 		</div>
 		<div class="media" style="padding:0 10px">
 			<a class="pull-left" href="#">
-				<img class="media-object img-circle img-responsive" ng-src="{[success.post_aount.avatar]}" style="width: 35px;height: 35px;">
+				<img class="media-object img-circle img-responsive" ng-src="{[success.post.avatar]}" style="width: 35px;height: 35px;">
 			</a>
 			<div class="media-body">
 				<a href="#"><h5 class="media-heading">{[success.post_aount.username]}</h5></a>
@@ -24,8 +23,8 @@
 		<br />
 		<div style="padding: 0 10px;">
 			<div class="progress progress-striped active" style="height: 10px;">
-			   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" 
-			      aria-valuemin="0" aria-valuemax="100" ng-style="width: {[f.actual_like/f.target_like]}%;height: 10px;">
+			   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+			      aria-valuemin="0" aria-valuemax="100" ng-style="{width: {[success.actual_like/success.target_like]} + '%'}">
 			      <span class="sr-only">{[success.actual_like/success.target_like]}% 完成</span>
 			   </div>
 			</div>

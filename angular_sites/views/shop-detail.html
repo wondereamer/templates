@@ -1,190 +1,295 @@
 <br />
 <div class="container">
-	<div ui-view="product-detail-header">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-12  col-xs-20">
-						<ul class="list-unstyled pic-show">
-							<li ng-show="index==$index" ng-repeat="img in details.photo_intros">
-								<img class="img-responsive" src="{[img]}"/>
-							</li>
-						</ul>
-						<br />
-						<ul class="pic-list list-unstyled" style="width:100%;">
-							<li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="img in details.photo_intros">
-								<img class="img-responsive" ng-src="{[img]}" style="width: 100%;"/>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-8 col-xs-20">
-						<h3>{[details.title]}</h3>
-						<h4 style="color: red;">&yen;{[details.price]}</h4>
-						<hr />
-						<div>
-							<p>好评指数：
-								<i class="glyphicon glyphicon-star"></i>
-								<i class="glyphicon glyphicon-star"></i>
-								<i class="glyphicon glyphicon-star"></i>
-							</p>
-						</div>
-						<div class="btn-group">
-							<a class="btn btn-danger btn-lg" href="http://vimi168.taobao.com/dc.htm?spm=5726.1406519.1998212869.13.jpHs7X&v=1" target="_blank">立即购买</a>
-							<a class="btn btn-success btn-lg" href="#">找人送我</a>
-						</div>
-						<div style="margin-bottom: 100px;">
-							<h4 class="page-header">产品简介：</h4>
-							<p>{[details.brief]}</p>
-						</div>
-						<div>
-							<!-- JiaThis Button BEGIN -->
-							<div class="jiathis_style_24x24" style="float: right;">
-								<a class="jiathis_button_qzone"></a>
-								<a class="jiathis_button_tsina"></a>
-								<a class="jiathis_button_tqq"></a>
-								<a class="jiathis_button_weixin"></a>
-								<a class="jiathis_button_renren"></a>
-								<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-							</div>
-							<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
-							<!-- JiaThis Button END -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div ui-view="product-detail-header">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12  col-xs-20">
+                        <ul class="list-unstyled pic-show">
+                            <li ng-show="index==$index" ng-repeat="img in details.photo_intros">
+                            <img class="img-responsive" src="{[img]}"/>
+                            </li>
+                        </ul>
+                        <br />
+                        <ul class="pic-list list-unstyled" style="width:100%;">
+                            <li ng-class="{'img-hover':index==$index,'default':true}" ng-mouseover="imgHover($index)" ng-repeat="i in details.photo_intros">
+                            <img class="img-responsive" ng-src="{[i]}" style="width: 100%;"/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8 col-xs-20"> <h3>{[details.title]}</h3>
+                        <h4 style="color: red;">&yen;{[details.price]}</h4>
+                        <hr />
+                        <div>
+                            <p>好评指数：
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            </p>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-danger btn-lg" href="http://vimi168.taobao.com/dc.htm?spm=5726.1406519.1998212869.13.jpHs7X&v=1" target="_blank">立即购买</a>
+                            <a class="btn btn-success btn-lg" href="">找人送我</a>
+                        </div>
+                        <div style="margin-bottom: 100px;">
+                            <h4 class="page-header">产品简介：</h4>
+                            <p>{[details.brief]}</p>
+                        </div>
+                        <div>
+                            <!-- JiaThis Button BEGIN -->
+                            <div class="jiathis_style_24x24" style="float: right;">
+                                <a class="jiathis_button_qzone"></a>
+                                <a class="jiathis_button_tsina"></a>
+                                <a class="jiathis_button_tqq"></a>
+                                <a class="jiathis_button_weixin"></a>
+                                <a class="jiathis_button_renren"></a>
+                                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                            </div>
+                            <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+                            <!-- JiaThis Button END -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- <div class="container">
+    <div ui-view="product-detail-body">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li ui-sref-active="active" ui-sref=".describe">
+                    <a>商品详情</a>
+                    </li>
+                    <li ui-sref-active="active" ui-sref=".comment">
+                    <a>商品评价<span>(226)</span></a>
+                    </li>
+                    <li ui-sref-active="active" ui-sref=".buy">
+                    <a>成交记录<span>(248)</span></a>
+                    </li>
+                    <li ui-sref-active="active" ui-sref=".question">
+                    <a>咨询提问</a>
+                    </li>
+                </ul>
+                <div class="product-detail-tab" style="padding-top: 50px;">
+                    <div ui-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
 <div class="container">
-	<div ui-view="product-detail-body">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<ul class="nav nav-tabs">
-					<li ui-sref-active="active" ui-sref=".describe">
-						<a>商品详情</a>
-					</li>
-					<li ui-sref-active="active" ui-sref=".comment">
-						<a>商品评价<span>(226)</span></a>
-					</li>
-					<li ui-sref-active="active" ui-sref=".buy">
-						<a>成交记录<span>(248)</span></a>
-					</li>
-					<li ui-sref-active="active" ui-sref=".question">
-						<a>咨询提问</a>
-					</li>
-				</ul>
-				<div class="product-detail-tab" style="padding-top: 50px;">
-					<div ui-view></div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-20">
+            <!-- 详情页导航开始 -->
+            <ul class="nav nav-tabs" ng-init="activeTab=1">
+                <li ng-class="{active: activeTab == 1}">
+                    <a href="javascript:;" ng-click="activeTab = 1">商品详情</a>
+                </li>
+                <li ng-class="{active: activeTab == 2}">
+                    <a href="javascript:;" ng-click="activeTab = 2; getComments()">商品评价</a>
+                </li>
+                <li ng-class="{active: activeTab == 3}">
+                    <a href="javascript:;" ng-click="activeTab = 3; getQuestions()">咨询提问</a>
+                </li>
+            </ul>
+            <!-- 详情页导航结束 -->
+            <div class="tab-content tab-bordered">
+                <!-- 商品描述开始 -->
+                <div class="tab-panel" ng-show="activeTab == 1">
+                    <h1>我是商品描述</h1>
+                    <ul class="list-unstyled">
+                        <br />
+                        <li ng-repeat="imgSrc in details.photo_details">
+                            <img class="img-responsive" ng-src="{[imgSrc]}" width="100%" />
+                        </li>
+                    </ul>
+                </div>
+                <!-- 商品描述开始 -->
+
+                <!-- 商品评论开始 -->
+                <div class="tab-panel" ng-show="activeTab == 2">
+                    <div>
+                        <form role="form" ng-submit="putComments(comenmts)">
+                            <div class="form-group">
+                                <label for="name">评论</label>
+                                <textarea class="form-control" rows="3" ng-model="comenmts"></textarea>
+
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" type="submit">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--一个人的评论开始-->
+                    <div class="media" style="border-bottom: 1px dashed #ccc;padding-bottom: 5px;" ng-repeat="c in comm.posts">
+                        <a class="pull-left" href="">
+                            <img class="media-object img-circle img-responsive" src="/img/01-233.jpg" alt="头像" width="40px" height="40px"></a>
+                        <div class="media-body">
+                            <a href="">
+                                <h4 class="media-heading">{[c.name]}</h4>
+                            </a>
+                            <div>{[c.body]}</div>
+                            <div>{[c.created]}</div>
+                        </div>
+                    </div>
+                    <!--一个人的评论结束-->
+                </div>
+                <!-- 商品评论结束 -->
+
+                <!-- 商品咨询提问开始 -->
+                <div class="tab-panel" ng-show="activeTab == 3">
+                    <div>
+                        <form role="form" ng-submit="putQuestions(question)">
+                            <div class="form-group">
+                                <label for="name">提问？</label>
+                                <textarea class="form-control" rows="3" ng-model="question"></textarea>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" type="submit">提交</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div>
+                        <span>网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;友：</span>
+                        <span>一踩踩</span>
+                        <span style="padding-left:50px;color:#999;">2014-12-03 09:46:20</span>
+                        <div>咨询内容：笔记本能用吗？</div>
+                        <div>
+                            <span style="color:red">异想回复： 您好！这款音箱配有AUX音频线，可以连接笔记本的。感谢您对异想的支持！祝您购物愉快！</span>
+                            <span class="pull-right" style="color:#999">2014-12-03 10:46:20</span>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div>
+                        <span>网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;友：</span>
+                        <span>仟语陌路</span>
+                        <span style="padding-left:50px;color:#999;">2014-12-02 11:23:20</span>
+                        <div>咨询内容：为什么连不上蓝牙？</div>
+                        <div>
+                            <span style="color:red">
+                                异想回复： 您好！这款音箱是支持安卓智能手机的蓝牙连接，我们产品均享受7天退换新，1年保修服务，如果您购买的产品存在问题，欢迎咨询在线客服，我们将竭诚为您服务，谢谢！感谢您对异想的支持！祝您购物愉快！
+                            </span>
+                            <span class="pull-right" style="color:#999">2014-12-02 12:46:20</span>
+                        </div>
+                        <hr/>
+                    </div>
+                </div>
+                <!-- 商品咨询提问结束 -->
+            </div>
+        </div>
+    </div>
 </div>
+<br />
+
 <!-- 热门推荐 -->
 <div class="container">
-	<div class="row">
-		<div class="col-md-20">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3>热门推荐</h3>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-5">
-							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
-								<div class="img">
-									<a href="">
-										<img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
-									</a>
-								</div>
-								<div class="like-title" style="padding: 0 10px;">
-									<a href="">
-										<h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
-									</a>
-								</div>
-								<div class="finish text-right" style="padding: 0 10px;">
-									<h3 style="color:red">&yen;98</h3>
-								</div>
-								<hr />
-								<div class="" style="padding: 0 10px 10px;height: 45px;">
-									<h5 class="pull-left">已售：<span style="color: red;">26</span>件</h5>
-									<h5 class="pull-right">评论：<span style="color: red;">23</span></h5>
-								</div>
-							</div>
-						</div>
+    <div class="row">
+        <div class="col-md-20">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>热门推荐</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="like-box" style="box-shadow: 0 0 3px #ccc;">
+                                <div class="img">
+                                    <a href="">
+                                        <img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
+                                    </a>
+                                </div>
+                                <div class="like-title" style="padding: 0 10px;">
+                                    <a href="">
+                                        <h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
+                                    </a>
+                                </div>
+                                <div class="finish text-right" style="padding: 0 10px;">
+                                    <h3 style="color:red">&yen;98</h3>
+                                </div>
+                                <hr />
+                                <div class="" style="padding: 0 10px 10px;height: 45px;">
+                                    <h5 class="pull-left">已售：<span style="color: red;">26</span>件</h5>
+                                    <h5 class="pull-right">评论：<span style="color: red;">23</span></h5>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="col-md-5">
-							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
-								<div class="img">
-									<a href="">
-										<img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
-									</a>
-								</div>
-								<div class="like-title" style="padding: 0 10px;">
-									<a href="">
-										<h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
-									</a>
-								</div>
-								<div class="finish text-right" style="padding: 0 10px;">
-									<h3 style="color:red">&yen;8</h3>
-								</div>
-								<hr />
-								<div class="" style="padding: 0 10px 10px;height: 45px;">
-									<h5 class="pull-left">已售：<span style="color: red;">2116</span>件</h5>
-									<h5 class="pull-right">评论：<span style="color: red;">223</span></h5>
-								</div>
-							</div>
-						</div>
+                        <div class="col-md-5">
+                            <div class="like-box" style="box-shadow: 0 0 3px #ccc;">
+                                <div class="img">
+                                    <a href="">
+                                        <img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
+                                    </a>
+                                </div>
+                                <div class="like-title" style="padding: 0 10px;">
+                                    <a href="">
+                                        <h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
+                                    </a>
+                                </div>
+                                <div class="finish text-right" style="padding: 0 10px;">
+                                    <h3 style="color:red">&yen;8</h3>
+                                </div>
+                                <hr />
+                                <div class="" style="padding: 0 10px 10px;height: 45px;">
+                                    <h5 class="pull-left">已售：<span style="color: red;">2116</span>件</h5>
+                                    <h5 class="pull-right">评论：<span style="color: red;">223</span></h5>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="col-md-5">
-							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
-								<div class="img">
-									<a href="">
-										<img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
-									</a>
-								</div>
-								<div class="like-title" style="padding: 0 10px;">
-									<a href="">
-										<h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
-									</a>
-								</div>
-								<div class="finish text-right" style="padding: 0 10px;">
-									<h3 style="color:red">&yen;18</h3>
-								</div>
-								<hr />
-								<div class="" style="padding: 0 10px 10px;height: 45px;">
-									<h5 class="pull-left">已售：<span style="color: red;">216</span>件</h5>
-									<h5 class="pull-right">评论：<span style="color: red;">231</span></h5>
-								</div>
-							</div>
-						</div>
+                        <div class="col-md-5">
+                            <div class="like-box" style="box-shadow: 0 0 3px #ccc;">
+                                <div class="img">
+                                    <a href="">
+                                        <img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
+                                    </a>
+                                </div>
+                                <div class="like-title" style="padding: 0 10px;">
+                                    <a href="">
+                                        <h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
+                                    </a>
+                                </div>
+                                <div class="finish text-right" style="padding: 0 10px;">
+                                    <h3 style="color:red">&yen;18</h3>
+                                </div>
+                                <hr />
+                                <div class="" style="padding: 0 10px 10px;height: 45px;">
+                                    <h5 class="pull-left">已售：<span style="color: red;">216</span>件</h5>
+                                    <h5 class="pull-right">评论：<span style="color: red;">231</span></h5>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="col-md-5">
-							<div class="like-box" style="box-shadow: 0 0 3px #ccc;">
-								<div class="img">
-									<a href="">
-										<img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
-									</a>
-								</div>
-								<div class="like-title" style="padding: 0 10px;">
-									<a href="">
-										<h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
-									</a>
-								</div>
-								<div class="finish text-right" style="padding: 0 10px;">
-									<h3 style="color:red">&yen;198</h3>
-								</div>
-								<hr />
-								<div class="" style="padding: 0 10px 10px;height: 45px;">
-									<h5 class="pull-left">已售：<span style="color: red;">436</span>件</h5>
-									<h5 class="pull-right">评论：<span style="color: red;">243</span></h5>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="col-md-5">
+                            <div class="like-box" style="box-shadow: 0 0 3px #ccc;">
+                                <div class="img">
+                                    <a href="">
+                                        <img class="img-responsive" src="/img/01-233.jpg" alt="" width="100%"/>
+                                    </a>
+                                </div>
+                                <div class="like-title" style="padding: 0 10px;">
+                                    <a href="">
+                                        <h4>雨天里的诗意魔法—如鱼得水 遇水变色雨伞</h4>
+                                    </a>
+                                </div>
+                                <div class="finish text-right" style="padding: 0 10px;">
+                                    <h3 style="color:red">&yen;198</h3>
+                                </div>
+                                <hr />
+                                <div class="" style="padding: 0 10px 10px;height: 45px;">
+                                    <h5 class="pull-left">已售：<span style="color: red;">436</span>件</h5>
+                                    <h5 class="pull-right">评论：<span style="color: red;">243</span></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

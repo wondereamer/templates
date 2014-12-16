@@ -1,0 +1,83 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block title  %}
+商店
+{% endblock %}
+{% block content %}
+    <div id="main-content">
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="btn-group">
+                        <a class="btn btn-danger" href="/shop/">全部</a>
+                        {% for c in cats %}
+                            <a class="btn btn-default" href="/shop/{{ c.id }}/">{{ c.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <!-- -->
+        <div class="container" id="product-three-columns">
+            {% for  product in product_list %}
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        
+                        <a href="/shop_product/{{  product.id }}/">
+                            <img class="img-responsive" src="{{ product.photo_intros.all.0.image.url | media_path }}" />
+                        </a> 
+                    </div>
+                    <div class="panel-footer">
+                        <h3>产品描述</h3>
+                        <h5>产品的详细介绍</h5>
+                        <hr />
+                        <div class="row center-block">
+                            <span class="pull-left">{{ product.price  }}</span>
+                            <span class="pull-right">{{ product.num_liked }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="/shop?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages  }}
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="/shop?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+
+        <!-- -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="pagination">
+                        <li><a href="#">&laquo;</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

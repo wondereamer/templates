@@ -34,7 +34,7 @@
                     <img class="img-responsive" src="{{ topic.user.profile.get_client_avatar_url }}" />
                 </div>
                 <div class="col-md-9">
-                    <h3>{{ topic.name  }}</h3>
+                    <h3>{{ topic.name  }}[{{ topic.id }}]</h3>
                     <p>
                     <span>{{ topic.user.username  }}</span> 发表于 <span>{{ topic.created  }}</span> |
                         浏览数: <span>{{ topic.views  }}</span>
@@ -108,18 +108,23 @@
             {% else  %}
                 <div class="row">    		
                     <div class="col-md-2 col-sm-2">
-                        <img class="img-responsive img-circle pull-right" src="{{ post.user.profile.get_client_avatar_url  }}" />	
+                        <img class="img-responsive img-circle pull-right" src="{{ post.user.profile.get_client_avatar_url }}" />	
                     </div>
                     <div class="col-md-9 col-sm-9">
-                        <h3><a href="">{{ post.user.username }}</a>&nbsp;&nbsp;<small>{{ post.created  }}</small></h3>
+                        <h3><a href="">{{ post.user.username }}</a>&nbsp;&nbsp;<small>{{ post.created }}</small></h3>
                         <p>{{ post.body }}</p>
                     </div>
                     <div class="col-md-1 col-sm-1">
-                        <a style="line-height: 100px;font-size: 20px;" href="#">
-                            <span class="glyphicon glyphicon-heart-empty" title="喜欢"></span>
-                        </a>
+                        Up ---- Down
                     </div>
-                </div>     		
+                    <form action="." method="post" accept-charset="utf-8">
+                        {% csrf_token %}
+                        <input type="text" name="body" value="reply"/>     
+                        <input type="hidden" name="target" value="{{ post.id }}"/>
+                        <p><input type="submit" value="回复"/></p>
+                    </form>
+                    
+                </div>      		
                 <br />
             {% endif %}
         {% endfor %}

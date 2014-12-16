@@ -1,0 +1,80 @@
+{% extends 'sites/base.html' %}
+{% block header %}
+论坛
+{% endblock %}
+{% block content %}
+    <div id="main-content">
+        <!-- -->
+        <div class="container">
+            {% for cat in cats %}
+            <div class="row">
+                <div class="panel panel-default">
+                    <!-- heading -->
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-12 well-sm">{{ cat.name }}</div>
+                            {% for forum in cat.forums.all %}
+                            <div class="col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <img class="img-responsible img-rounded" src="" alt="img" />
+                                    </div>
+                                </div>
+                                <a href="/forum/{{ forum.pk }}">{{ forum.name}}</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="panel-body">
+                        <div class="list-group">
+                        {% ifequal cat.name '产品专区' %}
+                            {% for topic in huati %}
+                                <a class="list-group-item" href="/forum/topic/{{ topic.id  }}">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            {{ topic.name }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img class="img-responsible img-circle" src="" alt="img" />
+                                            <strong>TeaEra</strong>
+                                        </div>
+                                        <div class="col-md-1">
+                                            3 views
+                                        </div>
+                                        <div class="col-md-1">
+                                            1 replies
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        {% else  %}
+                            {% for topic in cat.topics %}
+                                <a class="list-group-item" href="/forum/topic/{{ topic.id  }}">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            {{ topic.name }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img class="img-responsible img-circle" src="" alt="img" />
+                                            <strong>TeaEra</strong>
+                                        </div>
+                                        <div class="col-md-1">
+                                            3 views
+                                        </div>
+                                        <div class="col-md-1">
+                                            1 replies
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        {% endifequal %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

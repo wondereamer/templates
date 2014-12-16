@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head>
 <meta charset = "UTF-8">
-<title>异想</title>
+<title>异想创意科技</title>
     <link href="css/bootstrap.custom.min.css" rel="stylesheet">
     <!-- 载入Compass处理后的css文件 -->
     <link href="css/main.css" rel="stylesheet" />
@@ -15,28 +15,40 @@
     <!--头像上传截图css-->
     <link rel="stylesheet" href="js/lib/croppic/croppic.css" />
 
-    <style type="text/css" media="screen">
-    body {
-        padding-top:50px
-    }
-    </style>
-    <script src="js/lib/jquery.min.js"></script>
+    <style>
+		/* Hide Angular JS elements before initializing */
+		.ng-cloak {
+		    display: none;
+		}
+	</style>
+
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script>
+    // 当CDN加载失败时使用本地库
+    window.jQuery || document.write('<script src="js/lib/jquery.min.js"><\/script>');
+    </script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/bootstrap-hover-dropdown.min.js"></script>
     <!--头像上传截图js-->
     <script src="js/lib/croppic/croppic.js"></script>
 
-    <script language="javascript" src="js/lib/angular/angular.min.js"></script>
+    <script src="js/lib/angular/angular.min.js"></script>
     <script src="js/lib/angular/angular-animate.min.js"></script>
     <script language="javascript" src="js/lib/angular-ui-router.min.js"></script>
     <script language="javascript" src="js/lib/underscore-min.js"></script>
     <script language="javascript" src="js/lib/restangular.min.js"></script>
 	<!-- 多图片上传 -->
 	<script src="js/lib/FileUpload/jquery.ui.widget.js"></script>
+	<script src="js/lib/FileUpload/load-image.all.min.js"></script>
     <script src="js/lib/FileUpload/jquery.iframe-transport.js"></script>
     <script src="js/lib/FileUpload/jquery.fileupload.js"></script>
+    <script src="js/lib/FileUpload/jquery.fileupload-process.js"></script>
+    <script src="js/lib/FileUpload/jquery.fileupload-image.js"></script>
+    <script src="js/lib/FileUpload/jquery.fileupload-angular.js"></script>
+    <script src="js/lib/FileUpload/angular-upload-app.js"></script>
+
 </head>
-<body ng-controller="ApplicationController" style="overflow-y: -scroll;">
+<body ng-controller="ApplicationController" style="padding-top:50px">
 <!--放在前面，避免个人中心的闪烁出现-->
 <script type="text/javascript" charset="utf-8">
  {% if user.is_authenticated %}
@@ -126,7 +138,7 @@
                             <li><a href="/#/user-setting-center/order">我的订单</a></li>
                             <li><a ng-controller="authController" ng-click="logout()" >退出</a></li>
                             <li class="divider"></li>
-                        </ul>                    	
+                        </ul>
                     </li>
                  {% else %}
                     <li id="btn-login">
@@ -463,10 +475,12 @@ $(function(){
 		return false;
 	});
 });
+</script>
 
+<script>
 app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
-	//全部
+	//商店分类
     {% for key, value in cats.items %}
         .state("shop.{{ key }}", {
             url: "/{{ key }}",
@@ -477,36 +491,54 @@ app.config(function($stateProvider, $urlRouterProvider) {
                         $scope.getShopType({{ key }});
                     }
                 },
-                "shop-filter@shop.{{ key }}": {
-                    templateUrl: "views/shop-filter.html"
-                },
                 "shop-list@shop.{{ key }}": {
                     templateUrl: "views/idea_sites/shop-item-type.html"
                 }
             }
         })
+        // 商店商品的详情
+		.state("shop.{{ key }}.detail", {
+			url: "/detail/:productId",
+			views: {
+				"shop-detail": {
+					templateUrl: "views/shop-detail.html",
+					controller: function($scope,$stateParams){
+						$scope.getShopDetail($stateParams.productId);
+					}
+				}
+			}
+		})
     {% endfor %}
     {% for key, value in fever_cats.items %}
 		//分类
         .state("fever.{{ key }}", {
             url: "/{{ key }}",
             views: {
-                "shop-type": {
+                "": {
                     templateUrl: "views/fever-box.html",
                     controller: function($scope){
                         $scope.getFeverType({{ key }});
                     }
                 },
                 "fever-list@fever.{{ key }}": {
-                    templateUrl: "views/idea_sites/fever-item-one.html"
+                    templateUrl: "views/idea_sites/fever-item-type.html"
                 }
             }
+		})
+		// 创意商品分类详情
+		.state("fever.{{ key }}.detail", {
+            url: "/detail/:feverId",
+			views: {
+				"fever-detail": {
+					templateUrl: "views/fever-detail.html",
+					controller: function($scope,$stateParams){
+						$scope.getFeverDetail($stateParams.feverId);
+					}
+				}
+			}
 		})
     {% endfor %}
 });
 </script>
-
-
-
 </body>
 </html>

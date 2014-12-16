@@ -40,6 +40,7 @@
 					<div class="form-group has-feedback">
 						<label>当前密码</label>
 						<input
+							id="pw0"
 							class="form-control"
 							type="password"
 							name="password0"
@@ -54,6 +55,11 @@
                   			ng-show="changePasswordForm.password0.$dirty && changePasswordForm.password0.$valid && changePasswordForm.password0.$focused==false"
                   			style="color: green;">
 						</span><!--可用-->
+						<span
+							class="glyphicon glyphicon-eye-open"
+                  			ng-show="changePasswordForm.password0.$dirty"
+                  			style="position:absolute;right:10px;top:35px;cursor:pointer;display:block" my-password>
+						</span><!--看密码-->
 						<span ng-show="changePasswordForm.password0.$dirty && changePasswordForm.password0.$invalid">
 							<span ng-show="changePasswordForm.password0.$error.minlength" style="color: red;">输入的密码需大于6位</span>
 							<span ng-show="changePasswordForm.password0.$error.maxlength" style="color: red;">输入的密码需小于12位</span>
@@ -67,6 +73,7 @@
 					<div class="form-group has-feedback">
 						<label>修改密码</label>
 						<input
+							id="npw"
 							class="form-control"
 							type="password"
 							name="password"
@@ -82,6 +89,11 @@
                   			style="color: green;">
 						</span><!--可用-->
 						<span
+							class="glyphicon glyphicon-eye-open"
+                  			ng-show="changePasswordForm.password.$dirty"
+                  			style="position:absolute;right:10px;top:35px;cursor:pointer;display:block" new-password>
+						</span><!--看密码-->
+						<span
 							ng-show="changePasswordForm.password.$dirty && changePasswordForm.password0.$valid && user.password == user.password0"
 							 style="color: red;">
 							新密码不能与旧密码相同。
@@ -96,6 +108,7 @@
 					<div class="form-group has-feedback">
 						<label>确认密码</label>
 						<input
+							id="cpw"
 							class="form-control"
 							type="password"
 							name="passwordRepeat"
@@ -108,6 +121,11 @@
                   			ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.passwordRepeat.$valid && changePasswordForm.passwordRepeat.$focused==false && user.passwordRepeat == user.password"
                   			style="color: green;">
 						</span><!--可用-->
+						<span
+							class="glyphicon glyphicon-eye-open"
+                  			ng-show="changePasswordForm.passwordRepeat.$dirty"
+                  			style="position:absolute;right:10px;top:35px;cursor:pointer;display:block" confirm-password>
+						</span><!--看密码-->
 						<span
 							ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.password.$valid && user.passwordRepeat != user.password"
 							 style="color: red;">

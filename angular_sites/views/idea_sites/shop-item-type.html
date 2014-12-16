@@ -2,13 +2,13 @@
 <div class="col-lg-4 col-md-5 col-sm-10 sale-item" ng-repeat="type in types">
 	<div class="sale-item-box">
 		<div class="sale-item-img">
-			<a ui-sref="detail.describe" target="_blank">
-				<img class="img-responsive" ng-src="{[imgUrl+type.photo_intros]}"/>
+			<a ui-sref=".detail({productId:type.id})" target="_blank">
+				<img class="img-responsive" ng-src="{[type.photo_intros]}"/>
 			</a>
 			<p>&yen;<span style="color: red;">&nbsp;{[type.price | number:2]}</span></p>
 		</div>
 		<div class="sale-item-title">
-			<a ui-sref=".detail.describe" target="_blank">{[type.title]}</a>
+			<a ui-sref=".detail({productId:type.id})" target="_blank">{[type.title]}</a>
 		</div>
 		<div class="sale-item-tips">
 			<a class="btn btn-danger btn-xs" href="#">
@@ -22,13 +22,13 @@
 		<div class="sale-item-comment">
 			<ul class="list-unstyled">
 				<li class="head">
-					<a href="#">
-						<img class="img-circle img-responsible" ng-src="{[imgUrl+type.photo_intros]}"/>
+					<a href="">
+						<img class="img-circle img-responsible" ng-src="{[type.post.avatar]}"/>
 					</a>
 				</li>
 				<li class="comment">
-					<a href="#">我爱创意</a>
-					<p>内搭T恤翻领衬衫都可以，冷一些做外套的打底也可以~公司的高房价撒高房价撒官方数据就是个方法就是咯蛋糕发啥快递松井大辅尴尬就是看设计风格刷卡机</p>
+					<a href="">{[type.post.username]}</a>
+					<p>{[type.post.comments]}</p>
 				</li>
 			</ul>
 		</div>

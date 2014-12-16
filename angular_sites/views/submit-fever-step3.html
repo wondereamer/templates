@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-6 col-md-offset-1">
+    <div class="col-md-6 col-md-offset-1">
         <p class="text-center">
             <span style="font-size: 3em;">
                 1
@@ -47,64 +47,102 @@
         </p>
     </div>
 
-    <!-- -->
     <div class="row">
         <div class="col-md-20">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <p>
-                        <span class="font-size-1_2em">
-                            上传图片
-                        </span>
-                    </p>
-                    <form id="fileupload" action="" method="POST" enctype="multipart/form-data" class="">
-                        <!-- Redirect browsers with Jaupload.appspot.com/vaScript disabled to the origin page -->
-                        <noscript>
-                            &lt;input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"&gt;
-                        </noscript>
+                    <!-- 多图片上传开始 -->
+                    <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data" ng-controller="DemoFileUploadController" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+                        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                        <noscript><input type="hidden" name="redirect" value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
                         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                         <div class="row fileupload-buttonbar">
-                            <div class="col-md-10">
+                            <div class="col-lg-7">
                                 <!-- The fileinput-button span is used to style the file input field as button -->
-                                <span class="btn btn-success fileinput-button"> <i class="glyphicon glyphicon-plus"></i>
-                                    <span>Add files...</span>
-                                    <input type="file" name="file" multiple="">
+                                <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>选择图片</span>
+                                    <input type="file" name="file" multiple ng-disabled="disabled">
                                 </span>
-                                <!-- The global progress bar -->
-                                <div id="progress" class="progress">
-                                    <div class="progress-bar progress-bar-success"></div>
-                                </div>
-                                <!-- The container for the uploaded files -->
-                                <div id="files" class="files"></div>
+                                <button type="button" class="btn btn-primary start" data-ng-click="submit()">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>开始上传</span>
+                                </button>
+                                <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>取消上传</span>
+                                </button>
                                 <!-- The global file processing state -->
                                 <span class="fileupload-process"></span>
                             </div>
                             <!-- The global progress state -->
-                            <div class="col-lg-10 fileupload-progress fade">
+                            <div class="col-lg-5 fade" data-ng-class="{in: active()}">
                                 <!-- The global progress bar -->
-                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                    <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
-                                </div>
+                                <div class="progress progress-striped active" data-file-upload-progress="progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
                                 <!-- The extended global progress state -->
                                 <div class="progress-extended">&nbsp;</div>
                             </div>
                         </div>
                         <!-- The table listing the files available for upload/download -->
-                       <table role="presentation" class="table table-striped">
-                           <tbody class="files"></tbody>
-                       </table>
+                        <table class="table table-striped files ng-cloak">
+                            <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+                                <td data-ng-switch data-on="!!file.thumbnailUrl">
+                                    <div class="preview" data-ng-switch-when="true">
+                                        <a data-ng-href="{[file.url]}" title="{[file.name]}" download="{[file.name]}" data-gallery>
+                                            <img data-ng-src="{[file.url]}">
+                                        </a>
+                                    </div>
+                                    <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+                                    <p>index：{[$index]}</p>
+                                    <input type="text" ng-model="imgUrl[file.name]" ng-value="">
+                                    <button class="btn btn-default" type="button" ng-click="submits()">输出</button>
+                                </td>
+                                <td>
+                                    <p class="name" data-ng-switch data-on="!!file.url">
+                                        <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
+                                            <a data-ng-switch-when="true" data-ng-href="{[file.url]}" title="{[file.name]}" download="{[file.name]}" data-gallery>
+                                                {[file.name]}
+                                            </a>
+                                            <a data-ng-switch-default data-ng-href="{[file.url]}" title="{[file.name]}" download="{[file.name]}">
+                                                {[file.name]}
+                                            </a>
+                                        </span>
+                                        <span data-ng-switch-default>{[file.name]}</span>
+                                    </p>
+                                    <strong data-ng-show="file.error" class="error text-danger">{[file.error]}</strong>
+                                </td>
+                                <td>
+                                    <p class="size">{[file.size | formatFileSize]}</p>
+                                    <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary start" data-ng-click="file.$submit()" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>开始</span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                        <span>取消</span>
+                                    </button>
+                                    <button data-ng-controller="FileDestroyController" type="button" class="btn btn-danger destroy" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        <span>删除</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
-                    <br />
-                    <p>
-                        <span class="font-size-1_2em">视频链接</span>
-                    </p>
+                    <!-- 多图片上传结束 -->
                     <div class="form-group">
+                        <p>
+                            <span class="font-size-1_2em">视频链接</span>
+                        </p>
                         <input class="form-control" ng-model="idea.video" placeholder="http://" />
                     </div>
                     <br />
                     <p>
                         <span class="pull-left">
-                            <a ui-sref="submit-fever-center.submit-fever-step2" class="btn btn-default" href="">上一步</a>
+                            <a ui-sref="submit-fever-center.step2" class="btn btn-default" href="">上一步</a>
                         </span>
                         <span class="pull-right">
                             <button class="btn btn-success" type="submit">完成</button>
@@ -116,129 +154,6 @@
     </div>
 </div>
 
-<script>
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-$(function () {
-    'use strict';
-    // Change this to the location of your server-side upload handler:
-    var url = '/upload/new/',
-        uploadButton = $('<button/>')
-            .addClass('btn btn-primary')
-            .prop('disabled', false)
-            .text('上传')
-            .on('click', function () {
-                var $this = $(this),
-                    data = $this.data();
-                $this
-                    .off('click')
-                    .text('中止')
-                    .on('click', function () {
-                        $this.remove();
-                        data.abort();
-                    });
-                data.submit().always(function () {
-                    $this.remove();
-                });
-            });
-    $('#fileupload').fileupload({
-        url: url,
-        crossDomain: false,
-        dataType: 'json',
-        autoUpload: false,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        maxFileSize: 5000000, // 5 MB
-        previewMaxWidth: 100,
-        previewMaxHeight: 100,
-        previewCrop: true,
-    }).on('fileuploadadd', function (e, data) {
-        console.log("上传数据：");
-        console.log(data.files);
-        data.context = $('<div/>').appendTo('#files');
-        $.each(data.files, function (index, file) {
-            var node = $('<p/>')
-                    .append($('<span/>').text(file.name));
-            if (!index) {
-                node
-                    .append('<br>')
-                    .append(uploadButton.clone(true).data(data));
-            }
-            node.appendTo(data.context);
-        });
-    }).on('fileuploadprocessalways', function (e, data) {
-        var index = data.index,
-            file = data.files[index],
-            node = $(data.context.children()[index]);
-        if (file.preview) {
-            node
-                .prepend('<br>')
-                .prepend(file.preview);
-        }
-        if (file.error) {
-            node
-                .append('<br>')
-                .append(file.error);
-        }
-        if (index + 1 === data.files.length) {
-            data.context.find('button')
-                .text('Upload')
-                .prop('disabled', !!data.files.error);
-        }
-    }).on('fileuploadprogressall', function (e, data) {
-        // 改变进度条的状态。
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        $('#progress .progress-bar').css(
-            'width',
-            progress + '%'
-        );
-    }).on('fileuploaddone', function (e, data) {
-        console.log("返回成功上传数据：");
-        console.log(data.result);
-        $.each(data.result.files, function (index, file) {
-            var link = $('<a>')
-                .attr('target', '_blank')
-                .prop('href', file.url);
-            $(data.context.children()[index])
-                .wrap(link);
-        });
-    }).on('fileuploadfail', function (e, data) {
-        $.each(data.result.files, function (index, file) {
-            var error = $('<span/>').text(file.error);
-            $(data.context.children()[index])
-                .append('<br>')
-                .append(error);
-        });
-    }).prop('disabled', !$.support.fileInput)
-        .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-
-
-        // 以下代码视乎是多余的！
-        // Enable iframe cross-domain access via redirect option:
-        $('#fileupload').fileupload(
-            'option',
-            'redirect',
-            window.location.href.replace(
-                /\/[^\/]*$/,
-                '/cors/result.html?%s'
-            )
-        );
-        // Load existing files:
-        $('#fileupload').addClass('fileupload-processing');
-        $.ajax({
-            // Uncomment the following to send cross-domain cookies:
-            //xhrFields: {withCredentials: true},
-            url: $('#fileupload').fileupload('option', 'url'),
-            dataType: 'json',
-            context: $('#fileupload')[0]
-        }).always(function () {
-            $(this).removeClass('fileupload-processing');
-        }).done(function (result) {
-            $(this).fileupload('option', 'done')
-                .call(this, $.Event('done'), {result: result});
-        });
-});
+<script type="text/javascript">
 </script>
+
