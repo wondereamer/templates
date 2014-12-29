@@ -1,0 +1,320 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block title %}
+提交创意
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-1 step1-label" style="cursor:pointer">
+            <p class="text-center">
+                <span style="font-size: 3em;">
+                    1
+                </span>
+            </p>
+            <p class="text-center">
+                <span style="font-size: 1.2em;">
+                    基本信息
+                </span>
+            </p>
+        </div>
+        <div class="col-md-6 step2-label" style="cursor:pointer">
+            <p class="text-center front-color-lightgray">
+                <span style="font-size: 3em;">
+                    2
+                </span>
+            </p>
+            <p class="text-center front-color-lightgray">
+                <span style="font-size: 1.2em;">
+                    填写详细内容
+                </span>
+            </p>
+        </div>
+        <div class="col-md-6 step3-label" style="cursor:pointer">
+            <p class="text-center front-color-lightgray">
+                <span style="font-size: 3em;">
+                    3
+                </span>
+            </p>
+            <p class="text-center front-color-lightgray">
+                <span style="font-size: 1.2em;">
+                    上传图片&视频
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<form id="submit-idea-form"  action="" role="form">
+
+    <div class="container step1-body" style="display:-none">
+        <div class="row">
+            <div class="col-md-20">
+                <p>
+                    <span class="font-size-2em">
+                        填写基本信息
+                    </span>
+                    <a><i class="glyphicon glyphicon-question-sign"></i></a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-20">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <h4>类别</h4>
+                            <div>
+                                {% for key, value in cats.items %}
+                                    <label class="radio-inline">
+                                        <input class="idea-cat" type="radio"
+                                        name="idea-cat" value="{{ key  }}"/>{{ value  }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <p class="font-size-1_2em">标题</p>
+                        <div class="form-group">
+                            <input class="form-control idea-title" placeholder="标题" />
+                        </div>
+                        <p class="font-size-1_2em">创意简介</p>
+                        <div class="form-group">
+                            <textarea class="form-control idea-introduction" rows="6">
+                            </textarea>
+                        </div>
+                        <p class="front-color-lightgray">给你30秒的时间，你该如何描述你的创意</p>
+                        <p class="font-size-1_2em">标签</p>
+                        <div class="form-group">
+                            <input class="form-control idea-label" placeholder="标签" />
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input class="idea-empower" type="checkbox" value="yes" />授权
+                            </label>
+                        </div>
+                        <p>
+                            <span class="pull-right">
+                                <a class="btn btn-default step1-cancel" href="/idea-introduction/">取消</a>
+                                <a class="btn btn-default step1-next" href="javascript:void(0)">下一步</a>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container step2-body" style="display:none;">
+        <div class="row">
+            <div class="col-md-20">
+                <p>
+                    <span class="font-size-2em">
+                        创意详细说明
+                    </span>
+                    <a><i class="glyphicon glyphicon-question-sign"></i></a>
+                </p>
+            </div>
+        </div>
+        <!-- -->
+        <div class="row">
+            <div class="col-md-20">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                            <textarea class="form-control idea-detail" id="tiny" rows="8"></textarea>
+                        <br />
+                        <p>
+                            <span class="pull-left">
+                                <a class="btn btn-default step2-prev" href="javascript:void(0)">上一步</a>
+                            </span>
+                            <span class="pull-right">
+                                <a class="btn btn-default step2-next" href="javascript:void(0)">下一步</a>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container step3-body" style="display:none">
+        <div class="row">
+            <div class="col-md-20">
+                <p>
+                    <span class="font-size-2em">
+                        上传图片&视频
+                    </span>
+                    <a><i class="glyphicon glyphicon-question-sign"></i></a>
+                </p>
+            </div>
+
+            <!-- -->
+            <div class="row">
+                <div class="col-md-20">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                        <!-- 多图片上传开始 -->
+                            <span class="btn btn-success fileinput-button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>选择图片</span>
+                                <input id="fileupload" type="file" name="file" multiple>
+                            </span>
+                            <br>
+                            <br>
+                            <!-- 进度条 -->
+                            <div id="progress" class="progress" style="height: 3px">
+                                <div class="progress-bar progress-bar-success"></div>
+                            </div>
+                            <!-- 返回数据显示容器 -->
+                            <div id="files" class="files" style="padding-bottom:30px;"></div>
+                        <!-- 多图片上传开始 -->
+                            <div class="form-group">
+                                <p>
+                                    <span class="font-size-1_2em">视频链接</span>
+                                </p>
+                                <input class="form-control idea-video" placeholder="http://" />
+                            </div>
+                            <br />
+                            <p>
+                                <span class="pull-left">
+                                    <a class="btn btn-default step3-prev" href="javascript:void(0)">上一步</a>
+                                </span>
+                                <span class="pull-right">
+                                    <button class="btn btn-success step3-submit" type="button" onclick="postIdea()">完成</button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script type="text/javascript" src="js/lib/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+
+tinymce.init({
+    selector: ".idea-detail",
+    theme: "modern",
+    plugins: [
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern jbimages"
+    ],
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+    toolbar2: "print preview media | forecolor backcolor emoticons jbimages",
+    image_advtab: true,
+    templates: [
+        {title: 'Test template 1', content: 'Test 1'},
+        {title: 'Test template 2', content: 'Test 2'}
+    ],
+    language:'zh_CN',
+    relative_urls: false
+});
+
+function tiny_data() {
+    var ed = tinymce.get('tiny');
+    return ed.getContent();
+}//end of tiny_test
+</script>
+
+<script>
+    var imgSrc={};
+    var imgCount=0;
+    $(function () {
+        'use strict';
+
+        $('#fileupload').fileupload({
+            url: '/upload/new/',
+            dataType: 'json',
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 5000000, // 5 MB
+            autoUpload: true,
+
+            //上传成功返回图片链接
+            done: function (e, data) {
+                console.log("返回数据：");
+                console.log(data.result);
+                $.each(data.result.files, function (index, file) {
+                    var item = $('<div/>').addClass('col-md-4 imgItem').appendTo('#files'),
+                        imgBox = $('<div/>').css({'width':200,'height':200,'overflow':'hidden'}).appendTo(item),
+                        img = $('<img/>').addClass("imgUrl").attr('src',file.url).css({'width':'100%'}).appendTo(imgBox)
+                    $('<p/>').text(file.name).appendTo(item);
+                    $('<button/>').attr({'del-url':file.deleteUrl,'type':'button'}).addClass('btn btn-danger deleteImg').text('删除').appendTo(item);
+
+                    imgSrc[imgCount]=file.url;
+                    imgCount++;
+                });
+            },
+            // 进度条
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                console.log('进度：' + progress + '%');
+                $('#progress .progress-bar').css({'width':progress + '%'});
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+</script>
+
+<script>
+    $(function(){
+        // 页面跳转
+        $("div.step1-label,a.step2-prev").click(function(){
+            $("div.step1-body").show().siblings("div").hide();
+        });
+        $("div.step2-label,a.step1-next,a.step3-prev").click(function(){
+            $("div.step2-body").show().siblings("div").hide();
+        });
+        $("div.step3-label,a.step2-next").click(function(){
+            $("div.step3-body").show().siblings("div").hide();
+        });
+
+        // 删除图片
+        $(document).on("click",".deleteImg",function(e){
+            $.ajax({
+                type: 'delete',
+                url: $(this).attr("del-url"),
+                success:function(data){
+                    $("button.deleteImg").parent("div.imgItem").remove();
+                    alert("删除成功");
+                },
+                error:function(error){
+                    console.log('提交失败');
+                }
+
+            });
+        });
+
+    });
+    // 提交创意
+    function postIdea(){
+        var idea={
+            cat:$("input[name='idea-cat']:checked").val(),
+            title:$(".idea-title").val(),
+            introduction:$(".idea-introduction").val(),
+            label:$(".idea-label").val(),
+            empower:$(".idea-empower").val(),
+            detail:tiny_data(),
+            imgUrl: imgSrc,
+            video_link:$(".idea-video").val()
+        };
+        console.log(idea);
+        $.ajax({
+            type: "post",
+            url: "/api/submit_idea/",
+            dataType: "json",
+            data: idea,
+            success:function(data){
+                console.log('提交成功');
+            },
+            error:function(error){
+                console.log('提交失败');
+            }
+
+        });
+    };
+
+</script>
+{% endblock %}

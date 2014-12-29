@@ -89,13 +89,11 @@
                                 <td data-ng-switch data-on="!!file.thumbnailUrl">
                                     <div class="preview" data-ng-switch-when="true">
                                         <a data-ng-href="{[file.url]}" title="{[file.name]}" download="{[file.name]}" data-gallery>
-                                            <img data-ng-src="{[file.url]}">
+                                            <img data-ng-src="{[file.url]}" style="width:80px;height:80px">
                                         </a>
                                     </div>
                                     <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
-                                    <p>index：{[$index]}</p>
-                                    <input type="text" ng-model="imgUrl[file.name]" ng-value="">
-                                    <button class="btn btn-default" type="button" ng-click="submits()">输出</button>
+                                    <input type="hidden" ng-model="idea.imgUrl" ng-value="idea.imgUrl{[$index]}=file.url">
                                 </td>
                                 <td>
                                     <p class="name" data-ng-switch data-on="!!file.url">

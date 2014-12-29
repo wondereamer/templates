@@ -1,31 +1,31 @@
 // 确保ajax提交能通过安全验证。
-function getCookie(name) {
-	var cookieValue = null;
-	if (document.cookie && document.cookie != '') {
-		var cookies = document.cookie.split(';');
-		for (var i = 0; i < cookies.length; i++) {
-			var cookie = jQuery.trim(cookies[i]);
-			// Does this cookie string begin with the name we want?
-			if (cookie.substring(0, name.length + 1) == (name + '=')) {
-				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-				break;
-			}
-		}
-	}
-	return cookieValue;
-};
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-// 登录后刷新，这个设置发挥作用。
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-        }
-    }
-});
+/*function getCookie(name) {*/
+/*var cookieValue = null;*/
+/*if (document.cookie && document.cookie != '') {*/
+/*var cookies = document.cookie.split(';');*/
+/*for (var i = 0; i < cookies.length; i++) {*/
+/*var cookie = jQuery.trim(cookies[i]);*/
+/*// Does this cookie string begin with the name we want?*/
+/*if (cookie.substring(0, name.length + 1) == (name + '=')) {*/
+/*cookieValue = decodeURIComponent(cookie.substring(name.length + 1));*/
+/*break;*/
+/*}*/
+/*}*/
+/*}*/
+/*return cookieValue;*/
+/*};*/
+/*function csrfSafeMethod(method) {*/
+/*// these HTTP methods do not require CSRF protection*/
+/*return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));*/
+/*}*/
+/*// 登录后刷新，这个设置发挥作用。*/
+/*$.ajaxSetup({*/
+/*beforeSend: function(xhr, settings) {*/
+/*if (!csrfSafeMethod(settings.type) && !this.crossDomain) {*/
+/*xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));*/
+/*}*/
+/*}*/
+/*});*/
 //
 app.factory('UserService', ['Restangular', function(Restangular) {
 }]);
@@ -69,17 +69,16 @@ app.factory('AuthService', function($http, Session) {
 	var authService = {};
 	/** 登录验证 */
 	authService.login = function(credentials) {
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-        // 设置ajax 的安全标志, 登录后csrf标志会改变.
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                }
-            }
-        });
+        /*// 设置ajax 的安全标志, 登录后csrf标志会改变.*/
+        /*$.ajaxSetup({*/
+        /*beforeSend: function(xhr, settings) {*/
+        /*if (!csrfSafeMethod(settings.type) && !this.crossDomain) {*/
+        /*xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));*/
+        /*}*/
+        /*}*/
+        /*});*/
 		return $http
-			.post('/accounts/api/login/', $.param(credentials))
+			.post('/accounts/api/login/', $.param(credentials), {xsrfCookieName: 'csrftoken'})
 			.then(function(res) {
 				Session.create(res.data.id, res.data.user.id,
 					res.data.user.role);
@@ -88,9 +87,8 @@ app.factory('AuthService', function($http, Session) {
 	};
 
 	authService.logout = function() {
-        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		return $http
-			.post('/accounts/api/logout/')
+			.post('/accounts/api/logout/', {xsrfCookieName: 'csrftoken'})
 			.then(function(res) {
 				return true;
 			});

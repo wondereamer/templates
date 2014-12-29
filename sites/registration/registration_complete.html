@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset = "UTF-8">
-<title>Registration Complete!</title>
-</head>
-
-<body>
-/// @todo goto mail website
-   请在10天内激活邮件！ 
-   <a href="/">返回主页</a>
-</body>
-</html>
+{% extends 'sites/base.html' %}
+{% block title %}
+注册
+{% endblock %}
+{% block content %}
+	<div style="height:600px">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form class="form-horizontal" action="#" role="form" name="activate">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
+						<h3 class="modal-title" id="activateLabel" style="color: green;">
+							激活账号
+							<br />
+							<small>请点击以下链接验证邮箱激活</small>
+						</h3>
+					</div>
+					<div class="modal-body">
+						<a href="//{[user.activate]}" target="_blank"><h5>http://{[user.activate]}</h5></a>
+					</div>
+					<div class="modal-footer"  style="padding: 20px 40px;">
+						<a class="btn btn-default" href="">返回</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

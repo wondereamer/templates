@@ -9,14 +9,13 @@ app.controller('ApplicationController',
 	$scope.setCurrentUser = function(user) {
 		$scope.currentUser = user;
 	};
-    // 统页面的用户验证传播到angular框架
-    if (global_user) {
-        $scope.currentUser=global_user
-        Session.create(0, global_user.id, global_user.role);
-        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-    };
+    /*// 统页面的用户验证传播到angular框架*/
+    /*if (global_user) {*/
+    /*$scope.currentUser=global_user*/
+    /*Session.create(0, global_user.id, global_user.role);*/
+    /*$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);*/
+    /*};*/
 
-    $scope.hideCarousel=false;
 }]);
 
 /**  登录，注销，注册 */
@@ -37,7 +36,6 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		AuthService.login(credentials)
 			.then(function(user) {
 				$("#login").modal("toggle");
-                alert('ok');
 				$scope.setCurrentUser(user);
 				$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 /*window.location.href = "/#/index";*/
@@ -68,9 +66,8 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 		}
 		else {
 			console.log(user);
-			$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 			return $http
-				.post('/accounts/api/register/', $.param(user))
+				.post('/accounts/api/register/', $.param(user), {xsrfCookieName: 'csrftoken'})
 				.then(function() {
 					$("#register").modal("toggle");
 					$("#activate").modal();
@@ -82,28 +79,17 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 				});
 		};
 	};
-	// 用户建议
-	$scope.suggest = function(userSuggest){
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		console.log(userSuggest);
-		return $http
-			.post('/accounts/api/userSuggest/', $.param(userSuggest))
-			.then(function() {
-				$("#suggest").modal("toggle");
-			}, function() {
-				alert("提交失败");
-			});
-	};
+
 	//连接服务器验证用户名唯一性
 	$scope.onlyUserName = function(userName) {
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		var user={
 			username: userName
 		};
         console.log("验证用户的唯一性");
 		console.log(user);
+        console.log($.param(user))
 		return $http
-			.post('/accounts/api/unique_user/', $.param(user))
+			.post('/accounts/api/unique_user/', $.param(user), {xsrfCookieName: 'csrftoken'})
 			.then(function() {
 				$scope.isUserName=true;
                 console.log("用户验证服务正常。");
@@ -115,13 +101,12 @@ app.controller('authController',['$scope','$location','$rootScope','$http','AUTH
 
 	//连接服务器验证邮箱唯一性
 	$scope.onlyEmail = function(userEmail) {
-		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		var user={
 			email: userEmail
 		};
 		console.log(user);
 		return $http
-			.post('/accounts/api/unique_email/', $.param(user))
+			.post('/accounts/api/unique_email/', $.param(user), {xsrfCookieName: 'csrftoken'})
 			.then(function() {
 				$scope.isEmail=true;
 			}, function() {
@@ -136,13 +121,16 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 	$scope.modifyAuth = function(user) {
 		console.log("修改帐号信息,参数：");
 		console.log(user);
-		$http.defaults.headers.put['X-CSRFToken'] = getCookie("csrftoken");
 		return $http
-			.put('/accounts/api/user/' + Session.userId + '/', $.param(user))
+			.put('/accounts/api/user/' + Session.userId + '/', $.param(user), {xsrfCookieName: 'csrftoken'})
 			.then(function(res) {
 				/// @todo 验证邮箱的唯一性。
+				$scope.setOk=true;
+				$scope.setFail=false;
 				console.log("修改成功！");
 			}, function(res) {
+				$scope.setOk=false;
+				$scope.setFail=true;
 				console.log("修改失败");
 			});
 	};
@@ -177,8 +165,12 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 		return $http
 			.put('/accounts/api/profile/' + Session.userId + '/', $.param(user))
 			.then(function() {
+				$scope.saveOk=true;
+				$scope.saveFail=false;
 				console.log("保存成功");
 			}, function() {
+				$scope.saveOk=false;
+				$scope.saveFail=true;
 				console.log("提交失败");
 			});
 	};
@@ -199,267 +191,11 @@ app.controller('personalController', ['$scope', '$http', 'Session', function($sc
 	};
 }]);
 
-var shop = angular.module("shop", []);
-shop.controller("shopController", ["$scope", "$http", "$stateParams", function($scope, $http, $stateParams) {
-	// 主图TAB切换
-	$scope.index=0;
-	$scope.imgHover=function($index){
-		$scope.index=$index;
-	};
-	//获取商店首页商品
-	$scope.getShop = function() {
-		console.log("获取商店首页商品...");
-		return $http.get("/shop/")
-			.then(function(res) {
-				$scope.latests = res.data.latest;
-				$scope.hots = res.data.hot;
-				console.log($scope.latests);
-				console.log($scope.hots);
-			}, function(res) {
-				console.log("Failed!");
-			});
-	};
-	$scope.getShop();
-	//获取最新商品
-	$scope.getShopLatest = function() {
-		console.log("获取最新商品...");
-		return $http
-			.get("/shop/latest/")
-			.then(function(res) {
-				$scope.types = res.data;
-				console.log($scope.types);
-			}, function() {
-				console.log("获取失败");
-			});
-	};
-	//获取最热商品
-	$scope.getShopHot = function() {
-		console.log("获取最热商品...");
-		return $http
-			.get("/shop/hot/")
-			.then(function(res) {
-				$scope.types = res.data;
-				console.log($scope.types);
-			}, function() {
-				console.log("获取失败");
-			});
-	};
-	//获取分类商品
-	$scope.getShopType = function(typeId) {
-		console.log("获取第"+ typeId +"个分类商品...");
-		return $http
-			.get("/shop/" + typeId + "/")
-			.then(function(res) {
-				$scope.types = res.data;
-				console.log($scope.types);
-			}, function() {
-				console.log("获取失败");
-			});
-	};
-	//获取商品详情
-	$scope.getShopDetail = function(id) {
-		console.log("获取第"+id+"个商品详情中...");
-		return $http
-			.get("/shop_product/" + id + "/")
-			.then(function(res) {
-				$scope.details=res.data.product;
-				console.log($scope.details);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-	// 提交问题
-	$scope.putComments=function(comm){
-		var comments={body: comm}
-		console.log(comments);
-        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		return $http
-				.post($scope.details.comments_api_url, $.param(comments))
-				.then(function(res) {
-					console.log("提交成功");
-				}, function(res) {
-					console.log("提交失败!");
-				});
-	};
-	//获取商品评论
-	$scope.getComments = function() {
-		console.log("获取商品评论中...");
-		return $http
-			.get($scope.details.comments_api_url)
-			.then(function(res) {
-				$scope.comm=res.data;
-				console.log($scope.comm);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-	// 提交咨询
-	$scope.putQuestions=function(ques){
-		var questions={body:ques}
-		console.log(questions);
-        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		return $http
-				.post($scope.details.questions_api_url, $.param(questions))
-				.then(function(res) {
-					console.log("提交成功");
-				}, function(res) {
-					console.log("提交失败!");
-				});
-	};
-	//获取商品评论
-	$scope.getQuestions = function() {
-		console.log("获取商品咨询中...");
-		return $http
-			.get($scope.details.questions_api_url)
-			.then(function(res) {
-				$scope.ques=res.data;
-				console.log($scope.ques);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-}]);
-
-var fever = angular.module("fever", []);
-fever.controller("feverController",["$scope", "$http", function($scope,$http){
-	// 主图TAB切换
-	$scope.index=0;
-	$scope.imgHover=function($index){
-		$scope.index=$index;
-	};
-	//获取发现创意首页商品
-	$scope.getFever = function() {
-		console.log("获取发现创意首页商品");
-		$http.get("/fever/")
-			.then(function(res) {
-				$scope.latests=res.data.latest;
-				$scope.successes=res.data.hot;
-				console.log($scope.latests);
-				console.log($scope.successes);
-			}, function(res) {
-				console.log("Failed!");
-			});
-	};
-	$scope.getFever();
-	//获取创意商品分类
-	$scope.getFeverType = function(key) {
-		console.log("获取第" + key + '分类创意商品...');
-		return $http
-			.get('/fever/' + key + '/')
-			.then(function(res) {
-				$scope.types = res.data;
-				console.log($scope.types);
-			}, function() {
-				console.log("获取失败");
-			});
-	};
-	$scope.getFeverLatest = function() {
-		console.log("获取最新创意商品...");
-		return $http
-			.get("/fever/latest/")
-			.then(function(res) {
-				$scope.types = res.data;
-				console.log($scope.types);
-			}, function() {
-				console.log("获取失败");
-			});
-	};
-	$scope.getFeverSuccess = function() {
-		console.log("获取成功案例创意商品...");
-		return $http
-			.get("/fever/hot/")
-			.then(function(res) {
-				$scope.types = res.data;
-				console.log($scope.types);
-			}, function() {
-				console.log("获取失败");
-			});
-	};
-	//获取创意商品详情
-	$scope.getFeverDetail = function(id) {
-		console.log("获取第"+id+"个商品详情中...");
-		return $http
-			.get("/fever_product/" + id + "/")
-			.then(function(res) {
-				$scope.details=res.data.product;
-				console.log($scope.details);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-	// 提交吐槽
-	$scope.putSpits=function(spit){
-		var spits={body: spit}
-		console.log(spits);
-        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		return $http
-				.post($scope.details.comments_api_url, $.param(spits))
-				.then(function(res) {
-					console.log("提交成功");
-				}, function(res) {
-					console.log("提交失败!");
-				});
-	};
-	//获取吐槽
-	$scope.getSpits = function() {
-		console.log("获取吐槽中...");
-		return $http
-			.get($scope.details.comments_api_url)
-			.then(function(res) {
-				$scope.spits=res.data;
-				console.log($scope.spits);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-	// 提交咨询
-	$scope.putQuestions=function(ques){
-		var questions={body:ques}
-		console.log(questions);
-        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		return $http
-				.post($scope.details.questions_api_url, $.param(questions))
-				.then(function(res) {
-					console.log("提交成功");
-				}, function(res) {
-					console.log("提交失败!");
-				});
-	};
-	//获取商品评论
-	$scope.getQuestions = function() {
-		console.log("获取商品咨询中...");
-		return $http
-			.get($scope.details.questions_api_url)
-			.then(function(res) {
-				$scope.ques=res.data;
-				console.log($scope.ques);
-			}, function(res) {
-				console.log("获取失败!");
-			});
-	};
-	// 点赞
-	$scope.feverLike=function(like){
-		 var feverLike={
-			actual_like: like
-		};
-		console.log("点赞ing。。。")
-		console.log(feverLike);
-        $http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
-		return $http
-				.post("/fever_product/" + $scope.details.id + "/like", $.param(feverLike))
-				.then(function() {
-					console.log("提交成功");
-				}, function() {
-					console.log("提交失败!");
-				});
-	};
-}]);
 
 //发起创意步骤
 app.controller("submitIdeaController",["$scope", "$http", function($scope, $http){
-	$scope.imgUrl={};
 	$scope.idea={
-		type:"健康医疗",
+		cat:"1",
 		title:"生活是官方说法更加广泛",
 		introduction:"事实告诉我成为优秀的评审团。",
 		label :"生活创意",
@@ -467,7 +203,7 @@ app.controller("submitIdeaController",["$scope", "$http", function($scope, $http
 		video:"http://v.youku.com/v_show/id_XNjMyMDU2Nzgw.html?from=y1.3-music-new-4344-10220.91968-90792-90602.1-4"
 	};
 	$scope.submitIdea=function(idea){
-        // idea.detail = tiny_data();
+        idea.detail = tiny_data();
 		console.log(idea);
 		$http.defaults.headers.post['X-CSRFToken'] = getCookie("csrftoken");
 		return $http

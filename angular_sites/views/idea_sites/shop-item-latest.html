@@ -1,38 +1,25 @@
 <!--一个商品展示区域开始-->
-<div class="col-lg-4 col-md-5 col-sm-10 sale-item" ng-repeat="latest in latests">
+<div class="col-lg-5 col-md-5 col-sm-10 sale-item" ng-repeat="latest in latests">
 	<div class="sale-item-box">
 		<div class="sale-item-img">
 			<a ui-sref=".detail({productId:latest.id})" target="_blank">
 				<img class="img-responsive" ng-src="{[latest.photo_intros]}"/>
 			</a>
-			<p>&yen;<span style="color: red;">&nbsp;{[latest.price | number:2]}</span></p>
 		</div>
-		<div class="sale-item-title">
-			<a ui-sref=".detail({productId:latest.id})" target="_blank">{[latest.title]}</a>
-		</div>
-		<div class="sale-item-tips">
-			<a class="btn btn-danger btn-xs" href="#">
-				<span class="glyphicon glyphicon-heart-empty"></span>&nbsp;
-				{[latest.num_liked]}
-			</a>
-			<a class="pull-right" href="">销量({[latest.num_sale]})</a>
-		</div>
-		<hr class="sale-item-line" />
-		<!--一个用户评论区域开始-->
-		<div class="sale-item-comment">
-			<ul class="list-unstyled">
-				<li class="head">
-					<a href="">
-						<img class="img-circle img-responsible" ng-src="{[latest.post.avatar]}"/>
-					</a>
-				</li>
-				<li class="comment">
-					<a href="">{[latest.post.username]}</a>
-					<p>{[latest.post.comments]}</p>
-				</li>
-			</ul>
+		<div class="sale-item-brief">
+			<div class="sale-item-title">
+				<a ui-sref=".detail({productId:latest.id})" target="_blank">
+					<h4>{[latest.title]}</h4>
+				</a>
+			</div>
+			<div class="sale-item-tips">
+				<span>&yen;<span style="font-size:22px;">&nbsp;{[latest.price | number:2]}</span></span>
+				<a href="" style="padding-left:160px">
+					<span class="glyphicon glyphicon-heart" style="font-size:22px;color:red"></span>&nbsp;
+					{[latest.num_liked]}
+				</a>
+			</div>
 		</div>
 	</div>
-	<!--一个用户评论区域结束-->
 </div>
 <!--一个商品展示区域结束-->

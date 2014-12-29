@@ -1,83 +1,191 @@
 {% extends 'sites/base.html' %}
 {% load forum_extras %}
-{% block title  %}
-商店
+{% block title %}
+异想商店
 {% endblock %}
 {% block content %}
-    <div id="main-content">
-        <!-- -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                    <div class="btn-group">
-                        <a class="btn btn-danger" href="/shop/">全部</a>
-                        {% for c in cats %}
-                            <a class="btn btn-default" href="/shop/{{ c.id }}/">{{ c.name }}</a>
-                        {% endfor %}
+<!-- 轮播图开始 -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-24" style="padding: 0;">
+            <div id="myCarousel" class="carousel slide">
+                <!-- 轮播（Carousel）指标 -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <!-- 轮播（Carousel）项目 -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="" alt="First slide" style="background: #008000; width: 100%; height: 600px;">
+                        <div class="carousel-caption">
+                            <h1>创意产品，总在异想</h1>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="" alt="Second slide" style="background: #C7254E; width: 100%;height: 600px;">
+                        <div class="carousel-caption">
+                            <h1>创意产品，总在异想</h1>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="" alt="Third slide" style="background: #C12E2A; width: 100%;height: 600px;">
+                        <div class="carousel-caption">
+                            <h1>创意产品，总在异想</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- 轮播（Carousel）导航 -->
+                <div class="left carousel-control" data-target="#myCarousel" href="javascript:" role="button" data-slide="prev">
+                    <div style="width: 50px;height: 50px;position: absolute;top:50%;left:30%">
+                        <img src="img/carousel-left.png" alt="" style="width:50px;height:50px;">
+                    </div>
+                </div>
+                <div class="right carousel-control" data-target="#myCarousel" href="javascript:" role="button" data-slide="next">
+                    <div style="width: 50px;height: 50px;position: absolute;top:50%;right:30%">
+                        <img src="img/carousel-right.png" alt="" style="width:50px;height:50px;">
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!-- 轮播图结束 -->
 
-        <br />
+<!--分类导航栏开始-->
+<div style="width: 100%;padding: 20px 0; border-bottom: 1px dashed #ccc;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-24">
+                <ul class="list-unstyled shop-type">
+                    <li class="green">
+                        <a href="/shop/all/">全部</a>
+                    </li>
+                    {% for key, value in cats.items %}
+                    <li class="green">
+                        <a  href="/shop/{{ key }}">{{ value }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--分类导航栏结束-->
 
-        <!-- -->
-        <div class="container" id="product-three-columns">
-            {% for  product in product_list %}
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        
-                        <a href="/shop_product/{{  product.id }}/">
-                            <img class="img-responsive" src="{{ product.photo_intros.all.0.image.url | media_path }}" />
-                        </a> 
+<!-- 商品热门展示区开始 -->
+<div class="container">
+    <h3 style="color:red">Hot</h3>
+    <div id="shop-hot" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="item active">
+                <ul class="list-unstyled" style="width:100%;height:200px;">
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/fever01.jpg" alt="">
+                    </li>
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/slider-1.jpg" alt="">
+                    </li>
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/presale01.jpg" alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="item">
+                <ul class="list-unstyled" style="width:100%;height:200px;">
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/slider-5.jpg" alt="">
+                    </li>
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/slider-3.jpg" alt="">
+                    </li>
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/slider-4.jpg" alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="item">
+                <ul class="list-unstyled" style="width:100%;height:200px;">
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/slider-2.jpg" alt="">
+                    </li>
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/fever01.jpg" alt="">
+                    </li>
+                    <li style="width:33.3%;height:200px;float:left;">
+                        <img src="img/slider-3.jpg" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <div class="left carousel-control" data-target="#shop-hot" href="javascript:" role="button" data-slide="prev">
+            <div style="width: 30px;height: 30px; border-radius: 50px;position: absolute;top:40%;left:10%">
+                <img src="img/carousel-left.png" alt="" style="width:30px;height:30px;">
+            </div>
+        </div>
+        <div class="right carousel-control" data-target="#shop-hot" href="javascript:" role="button" data-slide="next">
+            <div style="width: 30px;height: 30px; border-radius: 50px;position: absolute;top:40%;right:10%">
+                <img src="img/carousel-right.png" alt="" style="width:30px;height:30px;">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 商品热门展示区结束 -->
+
+<!-- 异想推荐开始 -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-20">
+            <h3>异想推荐</h3>
+        </div>
+        <div class="col-md-4" style="padding-top: 24px;">
+            <a class="pull-right" href="###">
+                <span class="badge" style="background-color:#B0DDF3;color:#00A0E8;padding:3px 12px;">more</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- 异想推荐结束 -->
+
+<!--产品展示区域开始-->
+<div class="container">
+    <div class="row">
+        <!--一个商品展示区域开始 /**循环单个商品**/-->
+        {% for product in product_list %}
+        <!--{{ product.photo_intros.0.get_absolute_url  }}-->
+            <div class="col-lg-8 sale-item">
+                <div class="sale-item-box">
+                    <div class="sale-item-img">
+                        <a href="/shop/detail/{{ product.id  }}" target="_blank">
+                            <img class="img-responsive" src="{{ product.photo_intros.all.0.get_absolute_url }}"/>
+                        </a>
                     </div>
-                    <div class="panel-footer">
-                        <h3>产品描述</h3>
-                        <h5>产品的详细介绍</h5>
-                        <hr />
-                        <div class="row center-block">
-                            <span class="pull-left">{{ product.price  }}</span>
-                            <span class="pull-right">{{ product.num_liked }}</span>
+                    <div class="sale-item-brief">
+                        <div class="sale-item-title">
+                            <a href="/shop/detail/{{ product.id  }}" target="_blank">
+                                <h4>{{ product.title }}</h4>
+                            </a>
+                        </div>
+                        <div class="sale-item-tips">
+                            <span>&yen;<span style="font-size:22px;">&nbsp;{{ product.price }}</span></span>
+                            <a href="" style="padding-left:160px">
+                                <img src="img/like-normal.png" alt="" style="width:20px;height:20px;">
+                                {{ product.num_liked }}
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-
-        </div>
-
-        {% if is_paginated %}
-            <div class="pagination">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="/shop?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-                    <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages  }}
-                    </span>
-                    {% if page_obj.has_next %}
-                        <a href="/shop?page={{ page_obj.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
-
-        <!-- -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="pagination">
-                        <li><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        {% endif %}
+        {% endfor %}
+        <!--一个商品展示区域结束-->
     </div>
+</div>
+<!--产品展示区域结束-->
+<script>
+$(function(){
+    // $("ul#navbar-top li").eq(3).addClass("navbar-menu-hover").siblings("li").removeClass("navbar-menu-hover");
+});
+</script>
 {% endblock %}

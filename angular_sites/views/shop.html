@@ -6,13 +6,14 @@
 	<!--轮播图区域结束-->
 
 	<!--分类导航栏开始-->
-	<div style="width: 100%;padding: 10px 0; border-bottom: 1px solid #ccc;">
+	<div style="width: 100%;padding: 20px 0; border-bottom: 1px dashed #ccc;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-20">
-					<ul class="nav nav-pills shop-type">
+					<ul class="list-unstyled shop-type">
+                            <li class="green" ui-sref-active="type-active-green" ui-sref=".all">全部</li>
 	                    {% for key, value in cats.items %}
-	                        <li ui-sref-active="active" ui-sref=".{{ key }}"><a href="">{{ value }}</a></li>
+	                        <li class="green" ui-sref-active="type-active-green" ui-sref=".{{ key }}">{{ value }}</li>
 	                    {% endfor %}
 					</ul>
 				</div>
@@ -22,14 +23,85 @@
 	<!--分类导航栏结束-->
 	<br />
 
+	<div class="container">
+		<h3 style="color:red">Hot</h3>
+		<div id="shop-hot" class="carousel slide">
+			<!-- 轮播（Carousel）指标 -->
+			<!-- <ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol> -->
+			<!-- 轮播（Carousel）项目 -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<!-- <img src="" alt="First slide" style="background: #008000; width: 100%; height: 220px;">
+					<div class="carousel-caption">
+						<h1></h1>
+					</div> -->
+					<ul class="list-unstyled" style="width:100%;height:200px;">
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/fever01.jpg" alt="">
+						</li>
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/fever-one-1.jpg" alt="">
+						</li>
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/presale01.jpg" alt="">
+						</li>
+					</ul>
+				</div>
+				<div class="item">
+					<ul class="list-unstyled" style="width:100%;height:200px;">
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/watch_02.jpg" alt="">
+						</li>
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/watch_10.jpg" alt="">
+						</li>
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/watch_03.jpg" alt="">
+						</li>
+					</ul>
+				</div>
+				<div class="item">
+					<ul class="list-unstyled" style="width:100%;height:200px;">
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/watch_04.jpg" alt="">
+						</li>
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/fever01.jpg" alt="">
+						</li>
+						<li style="width:33.3%;height:200px;float:left;">
+							<img src="img/watch_05.jpg" alt="">
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 轮播（Carousel）导航 -->
+			<div class="left carousel-control" data-target="#shop-hot" href="javascript:" role="button" data-slide="prev">
+				<div style="width: 30px;height: 30px; border-radius: 50px;position: absolute;top:40%;left:10%">
+					<img src="img/carousel-left.png" alt="" style="width:30px;height:30px;">
+				</div>
+			</div>
+			<div class="right carousel-control" data-target="#shop-hot" href="javascript:" role="button" data-slide="next">
+				<div style="width: 30px;height: 30px; border-radius: 50px;position: absolute;top:40%;right:10%">
+					<img src="img/carousel-right.png" alt="" style="width:30px;height:30px;">
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div ui-view="shop-type">
 		<div class="container">
-			<div class="row" style="border-bottom: 1px solid #ccc;">
+			<div class="row">
 				<div class="col-md-18">
-					<h3>最新商品<small style="color: red;">&nbsp;(New)</small></h3>
+					<h3>异想推荐</h3>
 				</div>
 				<div class="col-md-2" style="padding-top: 24px;">
-					<a class="pull-right" ui-sref=".latest"><span class="badge">More</span>>>></a>
+					<a class="pull-right" ui-sref=".latest">
+						<span class="badge" style="background-color:#B0DDF3;color:#00A0E8;padding:3px 12px;">more</span>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -42,7 +114,7 @@
 		</div>
 		<!--产品展示区域结束-->
 
-		<div class="container">
+		<!-- <div class="container">
 			<div class="row" style="border-bottom: 1px solid #ccc;padding-top: 50px;">
 				<div class="col-md-18">
 					<h3>最热商品<small style="color: red;">&nbsp;(Hot)</small></h3>
@@ -51,23 +123,17 @@
 					<a class="pull-right" ui-sref=".hot"><span class="badge">More</span>>>></a>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<!--产品展示区域开始-->
-		<div class="container">
+		<!-- <div class="container">
 			<div class="row">
 				<div ui-view="hot-list">这用于最热产品列表展示</div>
 			</div>
-		</div>
+		</div> -->
 		<!--产品展示区域结束-->
 	</div>
 </div>
 <!--页脚区域开始-->
-<div class="footer hidden-sm hidden-xs" style="background-color: #333333;color: #f3f3f3;">
-	<div class="container">
-		<div class="row" style="height: 200px;">
-			<div ui-view="footer"></div>
-		</div>
-	</div>
-</div>
+<div ui-view="footer"></div>
 <!--页脚区域结束-->

@@ -1,83 +1,103 @@
 {% extends 'sites/base.html' %}
-{% block header %}
-论坛
+{% block title %}
+论坛社区
 {% endblock %}
 {% block content %}
-    <div id="main-content">
-        <!-- -->
-        <div class="container">
-            {% for cat in cats %}
-            <div class="row">
-                <div class="panel panel-default">
-                    <!-- heading -->
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-12 well-sm">{{ cat.name }}</div>
-                            {% for forum in cat.forums.all %}
-                            <div class="col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <img class="img-responsible img-rounded" src="" alt="img" />
-                                    </div>
-                                </div>
-                                <a href="/forum/{{ forum.pk }}">{{ forum.name }}</a>
-                                <div>{{ forum.description }}</div>
-                                主题：{{ forum.topic_count  }}
-                                回帖：{{ forum.post_count  }}
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <!-- row -->
-                    <div class="panel-body">
-                        <div class="list-group">
-                        {% ifequal cat.name '产品专区' %}
-                            {% for topic in huati %}
-                                <a class="list-group-item" href="/forum/topic/{{ topic.id  }}">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            {{ topic.name }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            <img class="img-responsible img-circle" src="{{ topic.user.profile.get_client_avatar_url }}" alt="img" />
-                                            <strong>{{ topic.user.usename  }}</strong>
-                                        </div>
-                                        <div class="col-md-1">
-                                            {{ topic.views  }}查看
-                                        </div>
-                                        <div class="col-md-1">
-                                            {{ topic.reply_count}}回复
-                                        </div>
-                                    </div>
-                                </a>
-                            {% endfor %}
-                        {% else  %}
-                            {% for topic in cat.specific_topics %}
-                                <a class="list-group-item" href="/forum/topic/{{ topic.id  }}">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            {{ topic.name }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            <img class="img-responsible img-circle" src="{{ topic.user.profile.get_client_avatar_url }}" alt="img" />
-                                            <strong>{{ topic.user.username  }}</strong>
-                                        </div>
-                                        <div class="col-md-1">
-                                            {{ topic.views  }}查看
-                                        </div>
-                                        <div class="col-md-1">
-                                            {{ topic.reply_count }}回复
-                                        </div>
-                                    </div>
-                                </a>
-                            {% endfor %}
-                        {% endifequal %}
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+<div class="container" style="">
+    <div class="row">
+        <div class="col-md-12 col-md-offset-6" style="padding:26px 0;">
+            <img class="img-responsive" src="img/bbs-banner.png" alt="">
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-24">
+            <div class="bbs-nav-bg">
+                <ul class="bbs-nav-menu list-unstyled">
+                    <li class="active">论坛</li>
+                    <li>异想日报</li>
+                    <li>槽点研究</li>
+                    <li>灵感碰撞</li>
+                    <li>体验派</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row bbs-content">
+        <!-- 左栏开始 -->
+        <div class="col-md-5">
+            <ul class="bbs-left-menu list-unstyled">
+                <li>全部主题</li>
+                <li>官方动态</li>
+                <li>校园俱乐部</li>
+                <li>论坛反馈</li>
+            </ul>
+            <ul class="bbs-state list-unstyled">
+                <li class="text-center first">
+                    <h4>46</h4>
+                    <span>今日发帖数</span>
+                </li>
+                <li class="text-center">
+                    <h4>208</h4>
+                    <span>昨日发帖数</span>
+                </li>
+                <li class="text-center">
+                    <h4>2516</h4>
+                    <span>新论坛总帖数</span>
+                </li>
+                <li class="text-center last">
+                    <h4>21558</h4>
+                    <span>新论坛会员数</span>
+                </li>
+            </ul>
+            <div class="bbs-notice">
+                <h4>论坛公告</h4>
+                <p>这是一款让人惊喜的车载空气净化器，它充分吸取了豪华跑车的设计元素，精致优雅；十余种颜色的珍珠烤漆绚丽夺目；机器进出风口呈三角形排布，能大幅提升空气循环和净化速率，实现了工艺美学和科技性能的完美融合。它虽然小巧，但却容纳了五重净化技术，能全面去除烟尘、甲醛、细菌等空气污染。</p>
+                <a href="">
+                    <h4>版主：TTxiang</h4>
+                </a>
+            </div>
+        </div>
+        <!-- 左栏结束 -->
+
+        <!-- 右栏开始 -->
+        <div class="col-md-19">
+            <ul class="bbs-right-top list-unstyled">
+                <li>热门板块:</li>
+                <li>异想会</li>
+                <li>校园俱乐部</li>
+                <li>异想会议室</li>
+                <li>意见调整</li>
+            </ul>
+            <div class="bbs-right-mid">
+                <h4 class="active">推荐<span>30</span></h4>
+                <h4>最新<span>2508</span></h4>
+                <h4 class="bbs-new-topic"><img src="img/bbs-menu-icon.png" alt="">发表新主题</h4>
+            </div>
+            <div class="bbs-right-bottom">
+                <!-- 一个帖子开始 -->
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="pull-left" href="">
+                            <img class="media-object img-circle img-responsive" src="/img/01-233.jpg" alt="头像" width="40px" height="40px">
+                        </a>
+                    </div>
+                    <div class="col-md-18">
+                        <h4 style="display:inline-block">风铃叮当</h4>
+                        <span>发表于昨天21:28</span>
+                        <span>来自WEB端</span>
+                        <span>置顶</span>
+                        <p>我叫蔡佳，是赛菲车载净化器的创始人，我在空净领域干了十余年，从一个普通的销售员到全球知名空净企业全国销售总监。</p>
+                        <p>我就不告诉你</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="glyphicon glyphicon-thumbs-up pull-right">345</span>
+                        <span class="glyphicon glyphicon-eye-open pull-right">54654</span>
+                    </div>
+                </div>
+                <!-- 一个帖子结束 -->
+            </div>
+        </div>
+        <!-- 右栏结束 -->
+    </div>
+</div>
 {% endblock %}

@@ -55,7 +55,7 @@ var jbImagesDialog = {
 		// To avoid domain relaxing issue in Opera
 		function close() {
 			tinymce.EditorManager.activeEditor.windowManager.close(window);
-			tinymce = tinyMCE = t.editor = t.params = t.dom = t.dom.doc = null; // Cleanup
+			//tinymce = tinyMCE = t.editor = t.params = t.dom = t.dom.doc = null; // Cleanup
 		};
 
 		if (tinymce.isOpera)

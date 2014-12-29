@@ -1,0 +1,306 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block title %}
+异想商店
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <!-- 左边菜单开始 -->
+        <div class="col-md-4" style="padding-top: 20px;">
+            <div class="list-group" id="user-center-menu">
+                <a class="list-group-item">安全设置<i class="glyphicon glyphicon-cog pull-right"></i></a>
+                <a class="list-group-item">个人资料<i class="glyphicon glyphicon-user pull-right"></i></a>
+                <a class="list-group-item">收货地址<i class="glyphicon glyphicon-map-marker pull-right"></i></a>
+                <a class="list-group-item">我的订单<i class="glyphicon glyphicon-shopping-cart pull-right"></i></a>
+                <a class="list-group-item">我的优惠券<i class="glyphicon glyphicon-gift pull-right"></i></a>
+                <a class="list-group-item">售后服务<i class="glyphicon glyphicon-phone-alt pull-right"></i></a>
+            </div>
+        </div>
+        <!-- 左边菜单结束 -->
+
+        <div class="col-md-16">
+
+            <!-- 安全设置开始 -->
+            <h2>安全设置</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form role="form" name="changePasswordForm" ng-controller="personalController" ng-submit="modifyAuth(user)" >
+                        <h3 class="page-header">用户{[ currentUser.username ]}</h3>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>绑定邮箱</label>
+                                    <input
+                                        class="form-control"
+                                        name="email"
+                                        type="email"
+                                        ng-model="user.email"
+                                        ng-blur="onlyEmail(user.email)"
+                                        ng-focus="isEmail=disabled"
+                                        required
+                                    />
+                                    <!--失去焦点后验证邮箱唯一性开始-->
+                                    <span
+                                        class="glyphicon glyphicon-ok form-control-feedback"
+                                        ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$valid && isEmail==true"
+                                        style="color: green;">
+                                    </span><!--可用-->
+                                    <span
+                                        class="glyphicon glyphicon-remove form-control-feedback"
+                                        ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$valid && isEmail==false"
+                                        style="color: red;">
+                                    </span><!--不可用-->
+                                    <!--失去焦点后验证邮箱唯一性结束-->
+                                    <span ng-show="changePasswordForm.email.$dirty && changePasswordForm.email.$invalid">
+                                        <span ng-show="changePasswordForm.email.$error.email" style="color: red;">输入正确的邮箱</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>当前密码</label>
+                                    <input
+                                        id="pw0"
+                                        class="form-control"
+                                        type="password"
+                                        name="password0"
+                                        ng-model="user.password0"
+                                        ng-minlength="6"
+                                        ng-maxlength="12"
+                                        my-focus
+                                        required
+                                    />
+                                    <span
+                                        class="glyphicon glyphicon-ok form-control-feedback"
+                                        ng-show="changePasswordForm.password0.$dirty && changePasswordForm.password0.$valid && changePasswordForm.password0.$focused==false"
+                                        style="color: green;">
+                                    </span><!--可用-->
+                                    <span
+                                        class="glyphicon glyphicon-eye-open"
+                                        ng-show="changePasswordForm.password0.$dirty"
+                                        style="position:absolute;right:10px;top:35px;cursor:pointer;display:block" my-password>
+                                    </span><!--看密码-->
+                                    <span ng-show="changePasswordForm.password0.$dirty && changePasswordForm.password0.$invalid">
+                                        <span ng-show="changePasswordForm.password0.$error.minlength" style="color: red;">输入的密码需大于6位</span>
+                                        <span ng-show="changePasswordForm.password0.$error.maxlength" style="color: red;">输入的密码需小于12位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>修改密码</label>
+                                    <input
+                                        id="npw"
+                                        class="form-control"
+                                        type="password"
+                                        name="password"
+                                        ng-model="user.password"
+                                        ng-minlength="6"
+                                        ng-maxlength="12"
+                                        my-focus
+                                        required
+                                    />
+                                    <span
+                                        class="glyphicon glyphicon-ok form-control-feedback"
+                                        ng-show="changePasswordForm.password.$dirty && changePasswordForm.password.$valid && changePasswordForm.password.$focused==false && user.password != user.password0"
+                                        style="color: green;">
+                                    </span><!--可用-->
+                                    <span
+                                        class="glyphicon glyphicon-eye-open"
+                                        ng-show="changePasswordForm.password.$dirty"
+                                        style="position:absolute;right:10px;top:35px;cursor:pointer;display:block" new-password>
+                                    </span><!--看密码-->
+                                    <span
+                                        ng-show="changePasswordForm.password.$dirty && changePasswordForm.password0.$valid && user.password == user.password0"
+                                         style="color: red;">
+                                        新密码不能与旧密码相同。
+                                    </span>
+                                    <span ng-show="changePasswordForm.password.$dirty && changePasswordForm.password.$invalid">
+                                        <span ng-show="changePasswordForm.password.$error.minlength" style="color: red;">输入的密码需大于6位</span>
+                                        <span ng-show="changePasswordForm.password.$error.maxlength" style="color: red;">输入的密码需小于12位</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>确认密码</label>
+                                    <input
+                                        id="cpw"
+                                        class="form-control"
+                                        type="password"
+                                        name="passwordRepeat"
+                                        ng-model="user.passwordRepeat"
+                                        my-focus
+                                        required
+                                    />
+                                    <span
+                                        class="glyphicon glyphicon-ok form-control-feedback"
+                                        ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.passwordRepeat.$valid && changePasswordForm.passwordRepeat.$focused==false && user.passwordRepeat == user.password"
+                                        style="color: green;">
+                                    </span><!--可用-->
+                                    <span
+                                        class="glyphicon glyphicon-eye-open"
+                                        ng-show="changePasswordForm.passwordRepeat.$dirty"
+                                        style="position:absolute;right:10px;top:35px;cursor:pointer;display:block" confirm-password>
+                                    </span><!--看密码-->
+                                    <span
+                                        ng-show="changePasswordForm.passwordRepeat.$dirty && changePasswordForm.password.$valid && user.passwordRepeat != user.password"
+                                         style="color: red;">
+                                        两次输入的密码不一致。
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert alert-success text-center" ng-show="setOk">修改成功</div>
+                        <div class="alert alert-danger text-center" ng-show="setFail">修改失败</div>
+                        <div class="row">
+                            <div class="col-md-20">
+                                <button class="btn btn-success" type="submit">确认修改</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- 安全设置结束 -->
+
+            <!-- 个人信息开始 -->
+            <h2>设置个人资料</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 class="page-header">设置头像<small>&nbsp;(设置一个宽度大于300px、小于3M的JPG头像，让小伙伴们迅速认识你.)</small></h3>
+                    <form role="form" name="userInfoForm" ng-submit="putUserInfo(user)">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="#">
+                                    <img class="img-responsive img-circle" ng-src="{[user.avatar]}" title="我的头像" />
+                                </a>
+                            </div>
+                            <div class="col-md-16">
+                                <!--头像上传croppic插件-->
+                                <div class="form-group cropHeaderWrapper">
+                                    <div id="croppic" ng-show="showMe"></div>
+                                    <span class="btn" id="cropContainerHeaderButton" ng-click="showMe=true">选择图片</span>
+                                </div>
+                                <!--头像上传croppic插件-->
+                            </div>
+                        </div>
+
+                        <h3 class="page-header">详细资料</h3>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">姓名：</label>
+                                    <input class="form-control" type="text" ng-model="user.realname" autofocus/>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">性别：</label>
+                                    <select class="form-control" ng-model="user.sex">
+                                        <option value="0">男</option>
+                                        <option value="1">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">职业：</label>
+                                    <input class="form-control" type="text" placeholder="" ng-model="user.job" />
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">城市：</label>
+                                    <input class="form-control" type="text" placeholder="" ng-model="user.city" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">手机：</label>
+                                    <input class="form-control" type="text" placeholder="" ng-model="user.phone" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-20">
+                                <div class="form-group">
+                                    <label for="">地址：</label>
+                                    <input class="form-control" type="text" placeholder=""  ng-model="user.address" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-20">
+                                <div class="form-group">
+                                    <label for="">我的亮点：</label>
+                                    <textarea class="form-control" rows="2" placeholder="" ng-model="user.highlight" ></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-20">
+                                <div class="form-group">
+                                    <label for="">个人简介：</label>
+                                    <textarea class="form-control" rows="6" placeholder="" ng-model="user.intro" ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-success text-center" ng-show="saveOk">保存成功</div>
+                        <div class="alert alert-danger text-center" ng-show="saveFail">保存失败</div>
+                        <div class="row">
+                            <div class="col-md-20 text-center">
+                                <button class="btn btn-success" type="submit">确认提交</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- 个人信息结束 -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //头像上传截图
+    var croppicHeaderOptions = {
+                uploadUrl:'/accounts/api/upload_avatar/',
+                cropData:{
+                    "dummyData":1,
+                    "dummyData2":"asdas"
+                },
+                cropUrl:'/accounts/api/resize_avatar/',
+                customUploadButtonId:'cropContainerHeaderButton',
+                modal:true,
+                loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+                onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
+                onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
+                onImgDrag: function(){ console.log('onImgDrag') },
+                onImgZoom: function(){ console.log('onImgZoom') },
+                onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
+                onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
+        }
+    var cropperHeader = new Croppic('croppic', croppicHeaderOptions);
+
+</script>
+{% endblock %}

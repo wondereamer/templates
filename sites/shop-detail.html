@@ -1,0 +1,221 @@
+{% extends 'sites/base.html' %}
+{% block title%}
+商品
+{% endblock %}
+{% block content %}
+
+<!-- 商品简介开始 -->
+<div class="container" style="padding-top:30px;">
+    <div class="row">
+        <div class="col-md-14" style="height:900px;">
+            <ul class="list-unstyled pic-show">
+                <!-- 循环大图开始 -->
+                {% for  photo in object.photo_intros.all %}
+                <li>
+                    <img class="img-responsive" src="{{ photo.get_absolute_url }}"/>
+                </li>
+                {% endfor %}
+                <!-- 循环大图结束 -->
+            </ul>
+            <br />
+            <ul class="list-unstyled pic-list" style="width:100%;">
+                <!-- 循环小图开始 -->
+                {% for  photo in object.photo_intros.all %}
+                <li>
+                    <img class="img-responsive" src="{{  photo.get_absolute_url }}" style="width: 100%;"/>
+                </li>
+                {% endfor %}
+                <!-- 循环大图结束 -->
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row" style="border-top:1px dashed #ccc;border-bottom:1px dashed #ccc;padding:20px 0;position:relative;">
+                <h3 class="col-md-18">我是商品标题</h3>
+                <div class="col-md-6" style="padding-top:20px;">
+                    <span style="font-size:20px;margin-top:10px;">888</span>
+                    <img src="img/like-select.png" alt="">
+                </div>
+                <h2 class="col-md-24" style="color: red;">&yen;98</h2>
+            </div>
+            <div style="border-bottom:1px dashed #ccc;height:610px;">
+                <br>
+                <h4 class="">品牌：德国TETE</h4>
+                <br>
+                <div class="" style="width:100%;height:24px;">
+                    <h4 class="pull-left" style="margin:0">款式：</h4>
+                    <span class="pull-left" style="display:block;background:red;width:20px;height:20px;border-radius:20px;margin-right:6px;"></span>
+                    <span class="pull-left" style="display:block;background:green;width:20px;height:20px;border-radius:20px;margin-right:6px;"></span>
+                    <span class="pull-left" style="display:block;background:blue;width:20px;height:20px;border-radius:20px;margin-right:6px;"></span>
+                </div>
+                <br>
+                <h4 class="clearfix">数量：
+                    <button>-</button>
+                    <input type="text" value="1" style="width:30px;">
+                    <button>+</button>
+                </h4>
+                <div class="text-center" style="position:absolute;bottom:20px;width:100%">
+                    <a href="" class="btn btn-lg btn-danger" style="margin-right:30px;border-radius:0;width:200px;">立即购买</a>
+                    <a href="" class="btn btn-lg btn-info" style="border-radius:0;width:200px;">找人送我</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 商品简介结束 -->
+
+<!-- 商品详情+评论+提问 开始 -->
+<div style="width:100%;border-top:1px dashed #ccc;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-24">
+                <ul class="list-unstyled shop-detail-menu" style="padding:10px 0;height:50px;">
+                    <li class="shop-detail-menu-select" style="float:left;padding-right:5%;line-height:30px;">
+                        <h4 style="cursor:pointer;">项目详情</h4>
+                    </li>
+                    <li onclick="getComments()" style="float:left;padding-right:5%;line-height:30px;">
+                        <h4 style="cursor:pointer;">评论(17)</h4>
+                    </li>
+                    <li style="float:left;padding-right:5%;line-height:30px;">
+                        <h4 style="cursor:pointer;">提问(223)</h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <!-- 详情页导航结束 -->
+            <div class="col-md-14 shop-detail-body">
+                <!-- 商品描述开始 -->
+                <div class="tab-panel">
+                    <ul class="list-unstyled">
+                        <br />
+                        <!-- 循环开始 -->
+                        {% for photo in object.photo_details.all %}
+                        <li>
+                        <img class="img-responsive" src="{{ photo.get_absolute_url  }}" width="100%" />
+                        </li>
+                        {% endfor %}
+                        <!-- 循环结束 -->
+                    </ul>
+                </div>
+                <!-- 商品描述开始 -->
+
+                <!-- 商品评论开始 -->
+                <div class="tab-panel" style="display:none">
+                    <div>
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea id="commment-body" class="form-control" rows="3" placeholder="留下你的宝贵意见"></textarea>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" type="submit" onclick="postComments()">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="comments" style="border-bottom: 1px dashed #ccc;padding-bottom: 5px;">评论内容</div>
+                </div>
+                <!-- 商品评论结束 -->
+
+                <!-- 商品咨询提问开始 -->
+                <div class="tab-panel" style="display:none">
+                    <div>
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="name">提问？</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" type="submit">提交</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 循环提问开始 -->
+                    <div>
+                        <span>网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;友：</span>
+                        <span>@一踩踩</span>
+                        <span style="padding-left:50px;color:#999;">@2014-12-03 09:46:20</span>
+                        <div>咨询内容：@笔记本能用吗？</div>
+                        <div>
+                            <span style="color:red">异想回复： @您好！这款音箱配有AUX音频线，可以连接笔记本的。感谢您对异想的支持！祝您购物愉快！</span>
+                            <span class="pull-right" style="color:#999">@2014-12-03 10:46:20</span>
+                        </div>
+                        <hr/>
+                    </div>
+                    <!-- 循环提问结束 -->
+
+                </div>
+                <!-- 商品咨询提问结束 -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 商品详情+评论+提问 结束 -->
+
+<script>
+    $(function(){
+        // $("ul#navbar-top li").eq(3).addClass("navbar-menu-hover").siblings("li").removeClass("navbar-menu-hover");
+        $("ul.pic-show li").eq(0).css("display","block");
+        $("ul.pic-list li").eq(0).addClass("mouse-over");
+
+        $("ul.pic-list li").mouseover(function(){
+            $("ul.pic-show li").eq($(this).index()).show().siblings('li').hide();
+            $(this).addClass('mouse-over').siblings('li').removeClass('mouse-over');
+        });
+
+        $("ul.shop-detail-menu li").click(function(){
+            $("div.shop-detail-body div.tab-panel").eq($(this).index()).show().siblings('div').hide();
+            $(this).addClass('shop-detail-menu-select').siblings('li').removeClass('shop-detail-menu-select');
+        });
+    });
+    // 获取评论
+    function getComments(){
+        $.ajax({
+            type: "GET",
+            url: "/forum/api/topic/55/",
+            dataType: "json",
+            success: function(data){
+                console.log("获取商品评论成功...");
+                console.log(data.posts);
+                $('#comments').empty();
+                var html = '';
+                $.each(data.posts, function(index, element){
+                    html += '<div class="media">'+
+                                '<a class="pull-left" href="">'+
+                                    '<img class="media-object img-circle img-responsive" src="'+ data.posts[index].avatar +'" alt="头像" width="40px" height="40px">'+
+                                '</a>'+
+                                '<div class="media-body">'+
+                                    '<a href="">'+
+                                        '<span style="font-size:18px;" class="media-heading">'+ data.posts[index].user +'</span>'+
+                                    '</a>'+
+                                    '<span style="color:#999;padding-left:20px;font-size:12px;">发表于：'+ data.posts[index].created +'</span>'+
+                                    '<h4>'+ data.posts[index].body +'</h4>'+
+                                '</div>'+
+                            '</div>'
+                });
+                $('#comments').html(html);
+             }
+        });
+    };
+    // 提交评论
+    function postComments(){
+        $.ajax({
+            type: "post",
+            url: "/forum/api/topic/55/",
+            dataType: "json",
+            data: {body:$("#commment-body").val()},
+            beforeSend:function(){
+                console.log('正在提交...');
+            },
+            success:function(data){
+                console.log('提交成功');
+            },
+            error:function(){
+                console.log('提交失败');
+            }
+
+        });
+    };
+</script>
+
+{% endblock %}

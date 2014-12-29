@@ -1,0 +1,235 @@
+{% extends 'sites/base.html' %}
+{% load forum_extras %}
+{% block title %}
+创意商品
+{% endblock %}
+{% block content %}
+
+<!-- 商品简介开始 -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-24 text-center">
+            <h2>{{ object.title  }}</h2>
+            <h4 style="color:#999">异想家：<a href="">{{ object.designer.username  }}</a></h4>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-14">
+            <div>
+                <img src="img/fever01.jpg" width="100%" alt="">
+            </div>
+            <div style="padding:15px 0;">
+                <span style="color:#999">发起时间：{{ object.created_time | format_time:"%Y %M %d %I:%M %p"}}</span>
+            </div>
+        </div>
+        <div class="col-md-10" style="position:relative;">
+            <div class="row" style="border-top:1px dashed #ccc;">
+                <div class="col-md-18">
+                    <h1 style="color:#34A3DD;font-size:78px;font-weight:700;">{{ object.actual_like }}<small style="font-size:24px;">累计点赞</small></h1>
+                </div>
+                <div class="col-md-6">
+                    <h1 style="color:#34A3DD;font-size:14px;font-weight:400;">
+                        <a href="">收藏此项目</a>
+                    </h1>
+                </div>
+            </div>
+            <div>
+                <div class="progress" style="height: 50px;border-radius:5px;background-color:#CBE9FA;-webkit-box-shadow:0;box-shadow:0;">
+                   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40"
+                       aria-valuemin="0" aria-valuemax="1" style="width:{{ object.get_like_percent  }}%;border-radius:5px;background-color:#34A3DD;">
+                      <span class="" style="line-height:50px;font-size:24px">{{ object.get_like_percent  }}%</span>
+                   </div>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom:80px;border-bottom:1px dashed #ccc">
+                <div class="col-md-12">
+                    <span class="">还需 {{ object.get_like_left  }} 个赞</span>
+                </div>
+                <div class="col-md-12">
+                    <span class="pull-right">剩余 {{ object.get_expired_day_left  }} 天结束</span>
+                </div>
+            </div>
+            <div class="text-center" style="width:180px;height:48px;border-radius:24px;background:#34A3DD;padding-top:6px;position:absolute;top:264px;left:170px;cursor:pointer">
+                <h4 style="color:#fff">支持这个项目</h4>
+            </div>
+            <div style="padding-top:80px;height:265px;border-bottom:1px dashed #ccc">
+                <h4>项目介绍</h4>
+                <p style="line-height:24px;font-size:14px;">LITTLE DESIGN 设计品牌由设计师李秀荣创立于2012年。一直以来，我们都注重挖掘中国的传统文化，融合现代设计语法，重构一件件充满意趣与文化的生活器具，以此将传统文化留下的财富向未来延伸。</p>
+            </div>
+            <div class="">
+                <ul class="list-unstyled" style="width:100%">
+                    <li
+                    style="float:left;padding-right:5%;line-height:30px;">发现地点：{{ object.designer.profile.city  }}</li>
+                    <li
+                    style="float:left;padding-right:5%;line-height:30px;">领域：{{ object.category.name  }}</li>
+                    <li style="float:left;line-height:30px;">发明者：
+                        <a href="">
+                            <img class="img-circle" src="{{ object.designer.profile.get_client_avatar_url  }}" style="width:30px;height:30px;" alt="">
+                            <span>{{ object.designer.username  }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 商品简介结束 -->
+
+<!-- 商品详情+评论+提问 开始 -->
+<div style="width:100%;border-top:1px dashed #ccc;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-24">
+                <ul class="list-unstyled fever-detail-menu" style="padding:10px 0;height:50px;">
+                    <li class="fever-detail-menu-select" style="float:left;padding-right:5%;line-height:30px;">
+                        <h4 style="cursor:pointer;">项目详情</h4>
+                    </li>
+                    <li onclick="getSpits()" style="float:left;padding-right:5%;line-height:30px;">
+                        <h4 style="cursor:pointer;">吐槽(17)</h4>
+                    </li>
+                    <li style="float:left;padding-right:5%;line-height:30px;">
+                        <h4 style="cursor:pointer;">评论(223)</h4>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <!-- 详情页导航结束 -->
+            <div class="col-md-14 fever-detail-body">
+
+                <!-- 商品描述开始 -->
+                <div class="tab-panel">
+                    <ul class="list-unstyled">
+                        <br />
+                        {% for photo in object.photo_details.all %}
+                        <li>
+                        <img class="img-responsive" src="{{ photo.get_absolute_url }}" width="100%" />
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- 商品描述开始 -->
+
+                <!-- 商品吐槽开始 -->
+                <div class="tab-panel" style="display:none">
+                    <div>
+                        <form role="form">
+                            <div class="form-group">
+                                <textarea id="spit-body" class="form-control" rows="3" placeholder="吐槽开始啦！！！"></textarea>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" type="submit" onclick="postSpits()">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="spits">吐槽内容</div>
+                </div>
+                <!-- 商品吐槽结束 -->
+
+                <!-- 商品咨询提问开始 -->
+                <div class="tab-panel" style="display:none">
+                    <div>
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="name">提问？</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-success" type="submit">提交</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div>
+                        <span>网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;友：</span>
+                        <span>一踩踩</span>
+                        <span style="padding-left:50px;color:#999;">2014-12-03 09:46:20</span>
+                        <div>咨询内容：笔记本能用吗？</div>
+                        <div>
+                            <span style="color:red">异想回复： 您好！这款音箱配有AUX音频线，可以连接笔记本的。感谢您对异想的支持！祝您购物愉快！</span>
+                            <span class="pull-right" style="color:#999">2014-12-03 10:46:20</span>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div>
+                        <span>网&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;友：</span>
+                        <span>仟语陌路</span>
+                        <span style="padding-left:50px;color:#999;">2014-12-02 11:23:20</span>
+                        <div>咨询内容：为什么连不上蓝牙？</div>
+                        <div>
+                            <span style="color:red">
+                                异想回复： 您好！这款音箱是支持安卓智能手机的蓝牙连接，我们产品均享受7天退换新，1年保修服务，如果您购买的产品存在问题，欢迎咨询在线客服，我们将竭诚为您服务，谢谢！感谢您对异想的支持！祝您购物愉快！
+                            </span>
+                            <span class="pull-right" style="color:#999">2014-12-02 12:46:20</span>
+                        </div>
+                        <hr/>
+                    </div>
+                </div>
+                <!-- 商品咨询提问结束 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 商品详情+评论+提问 开始 -->
+
+<script>
+    $(function(){
+        // $("ul#navbar-top li").eq(1).addClass("navbar-menu-hover").siblings("li").removeClass("navbar-menu-hover");
+        $("ul.fever-detail-menu li").click(function(){
+            $("div.fever-detail-body div.tab-panel").eq($(this).index()).show().siblings('div').hide();
+            $(this).addClass('fever-detail-menu-select').siblings('li').removeClass('fever-detail-menu-select');
+        })
+    });
+
+    // 获取吐槽
+    function getSpits(){
+        $.ajax({
+            type: "GET",
+            url: "/forum/api/topic/55/",
+            dataType: "json",
+            success: function(data){
+                console.log("获取吐槽成功。。。");
+                console.log(data.posts);
+                $('#spits').empty();
+                var html = '';
+                $.each(data.posts, function(index, element){
+                    html += '<div class="media">'+
+                                '<a class="pull-left" href="">'+
+                                    '<img class="media-object img-circle img-responsive" src="'+ data.posts[index].avatar +'" alt="头像" width="40px" height="40px">'+
+                                '</a>'+
+                                '<div class="media-body">'+
+                                    '<a href="">'+
+                                        '<span style="font-size:18px;" class="media-heading">'+ data.posts[index].user +'</span>'+
+                                    '</a>'+
+                                    '<span style="color:#999;padding-left:20px;font-size:12px;">发表于：'+ data.posts[index].created +'</span>'+
+                                    '<h4>'+ data.posts[index].body +'</h4>'+
+                                '</div>'+
+                            '</div>'
+                });
+                $('#spits').html(html);
+             }
+        });
+    };
+    // 提交吐槽
+    function postSpits(){
+        $.ajax({
+            type: "post",
+            url: "/forum/api/topic/55/",
+            dataType: "json",
+            data: {body:$("#spit-body").val()},
+            beforeSend:function(){
+                console.log('正在提交');
+            },
+            success:function(data){
+                console.log('提交成功');
+            },
+            error:function(){
+                console.log('提交失败');
+            }
+
+        });
+    };
+</script>
+
+{% endblock %}

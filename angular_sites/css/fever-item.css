@@ -1,6 +1,9 @@
 .fever-box{
-	border-bottom: 3px solid #aaa;
+	/*border-bottom: 3px solid #aaa;*/
+	padding-bottom: 20px;
+	border-radius: 12px;
+	border: 1px solid #eee;
 }
-.fever-box:hover{
-	border-bottom:3px solid #f36;
-}
+/*.fever-box:hover{
+	box-shadow: 0 0 10px 0px #31AAE2;
+}*/

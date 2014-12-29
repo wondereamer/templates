@@ -1,132 +1,351 @@
 {% extends 'sites/base.html' %}
+{% load forum_extras %}
 {% block title %}
-个人信息
+个人中心
 {% endblock %}
 {% block content %}
-    <div id="main-content">
-
-        <!-- -->
-        <div class="container">
-            <div class="col-md-2">
-                <ul class="list-group">
-                    <li class="list-group-item">个人中心</li>
-                    <li class="list-group-item">账户设置</li>
-                    <li class="list-group-item active">
-                        个人资料
-                        <span class="pull-right">
-                            <i class="glyphicon glyphicon-certificate"></i>
-                        </span>
-                    </li>
-                    <li class="list-group-item">收货地址</li>
-                    <li class="list-group-item">我的订单</li>
-                    <li class="list-group-item">我的红包</li>
-                    <li class="list-group-item">售后服务</li>
-                    <li class="list-group-item">退换货</li>
-                </ul>
+<div class="container">
+    <div class="row">
+<!-- 左边菜单开始 -->
+        <div class="col-md-4" style="padding-top: 20px;">
+            <div class="list-group user-set-menu">
+                <a class="list-group-item active">安全设置<i class="glyphicon glyphicon-cog pull-right"></i></a>
+                <a class="list-group-item">个人资料<i class="glyphicon glyphicon-user pull-right"></i></a>
+                <a class="list-group-item">收货地址<i class="glyphicon glyphicon-map-marker pull-right"></i></a>
+                <a class="list-group-item">我的订单<i class="glyphicon glyphicon-shopping-cart pull-right"></i></a>
+                <a class="list-group-item">我的优惠券<i class="glyphicon glyphicon-gift pull-right"></i></a>
+                <a class="list-group-item">售后服务<i class="glyphicon glyphicon-phone-alt pull-right"></i></a>
             </div>
-            <div class="col-md-10">
-                <h3>设置个人资料</h3>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h4>设置头像</h4>
-                        <hr />
+        </div>
+        <!-- 左边菜单结束 -->
+
+        <div class="col-md-16 user-set-body" style="padding-top: 20px;">
+
+            <!-- 安全设置开始 -->
+            <div class="panel panel-default">
+                <h2>安全设置</h2>
+                <div class="panel-body">
+                    <form role="form" name="changePasswordForm">
+                        <h3 class="page-header">用户{{ user.username }}</h3>
                         <div class="row">
-                            <div class="col-md-2">
-                                <img class="/img-responsive img-circle" src="/img/avatar_default_small.jpg" />
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>绑定邮箱</label>
+                                    <input class="form-control user-email" name="email" type="text" value="{{ user.email  }}" required autofocus/>
+                                    <span class="glyphicon glyphicon-ok form-control-feedback email-ok" style="color:green;display:none"></span>
+                                    <span class="glyphicon glyphicon-remove form-control-feedback email-no" style="color:red;display:none"></span>
+                                    <span class="email-tip" style="color:red;display:none" >格式错误</span>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <p>设置一个宽度大于400px、小于3M的JPG头像，让小伙伴们迅速认识你.</p>
-                                <p>
-                                    <a class="btn btn-danger" href="#">+ 选择图片</a>
-                                </p>
+                        </div>
+                        <!-- 是个未绑定的社交帐号  -->
+                        {% if social %}
+                            <div>绑定密码后，将无法用该第三方帐号(比如QQ)登录这个网站。</div>
+                        {% endif %}
+                        <br />
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>当前密码</label>
+                                    <input class="form-control old-password" type="password" name="password0"/>
+                                </div>
                             </div>
                         </div>
                         <br />
-                        <h4>详细资料</h4>
-                        <hr />
-                        {%  if form.errors %}
-                        <p class="error">{{ form.errors  }}</p>
-                        {%  endif %}
-                        <form id="form"  name="form" action="" method="post" accept-charset="utf-8">
-                        {% csrf_token %}
                         <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>姓名：</label>
-                                    <input class="form-control" placeholder="姓名" type="text" name="realname" value="{{ form.realname.value }}"/>
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>新密码</label>
+                                    <input class="form-control new-password" type="password" name="password" required />
+                                    <span class="new-password-tip" style="color:red;display:none" >输入长度在6-18之间(包含字母,数字,下划线)。</span>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                    <label>确认密码</label>
+                                    <input class="form-control confirm-password" type="password" name="passwordRepeat" required />
+                                    <span class="confirm-password-tip" style="color:red;display:none" >两次输入的密码不一致</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="alert alert-success text-center chang-ok" style="display:none">修改成功</div>
+                        <div class="alert alert-danger text-center chang-fail" style="display:none">修改失败</div>
+                        <div class="row">
+                            <div class="col-md-20">
+                                <button class="btn btn-success" type="submit" onclick="changPassword()">确认修改</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- 安全设置结束 -->
+
+            <!-- 个人信息开始 -->
+            <div class="panel panel-default" style="display:none">
+                <h2>设置个人资料</h2>
+                <div class="panel-body">
+                    <h3 class="page-header">设置头像<small>&nbsp;(设置一个宽度大于300px、小于3M的JPG头像，让小伙伴们迅速认识你.)</small></h3>
+                    <form role="form" name="userInfoForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="">
+                                    <img class="img-responsive img-circle user-avatar" src="{{ user.profile.get_client_avatar_url  }}"/>
+                                </a>
+                            </div>
+                            <div class="col-md-16">
+                                <!--头像上传croppic插件-->
+                                <div class="form-group cropHeaderWrapper">
+                                    <div id="croppic"></div>
+                                    <span class="btn" id="cropContainerHeaderButton">选择图片</span>
+                                </div>
+                                <!--头像上传croppic插件-->
+                            </div>
+                        </div>
+
+                        <h3 class="page-header">详细资料</h3>
+
+                        <div class="row">
+                            <div class="col-md-10">
                                 <div class="form-group">
-                                    <label>性别：</label>
-                                    <select class="form-control" name="sex" value= {{ form.sex.value }}>
+                                    <label for="">姓名：</label>
+                                    <input class="form-control user-realname" type="text" value="@" autofocus/>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">性别：</label>
+                                    <select class="form-control user-sex">
                                         <option value="0">男</option>
                                         <option value="1">女</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>职业：</label>
-                                    <input class="form-control" placeholder="职业" name="job" value="{{ form.job.value  }}" type="text" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>城市：</label>
-                                    <input class="form-control" placeholder="城市" type="text" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>Email：</label>
-                                    <input class="form-control" placeholder="Email" type="text" />
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>电话：</label>
-                                    <input class="form-control" placeholder="电话" type="text" />
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="form-group">
-                                    <label>地址：</label>
-                                    <input class="form-control" placeholder="地址" type="text" />
+                                    <label for="">职业：</label>
+                                    <input class="form-control user-job" type="text" value="@" placeholder=""/>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="">城市：</label>
+                                    <input class="form-control user-city" type="text" value="@" placeholder=""/>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="form-group">
-                                    <label>个人关键词：</label>
-                                    <textarea class="form-control" rows="6">
-                                    </textarea>
-                                    <label><small>每个词之间使用,隔开!</small></label>
+                                    <label for="">手机：</label>
+                                    <input class="form-control user-phone" type="text" value="@" placeholder=""/>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-20">
                                 <div class="form-group">
-                                    <label>个人评价：</label>
-                                    <textarea class="form-control" rows="6">
-                                    </textarea>
+                                    <label for="">地址：</label>
+                                    <input class="form-control user-address" type="text" value="@" placeholder=""/>
                                 </div>
                             </div>
                         </div>
-                        <input class="btn btn-danger" type="submit" value="确认修改"/>
+
+                        <div class="row">
+                            <div class="col-md-20">
+                                <div class="form-group">
+                                    <label for="">我的亮点：</label>
+                                    <textarea class="form-control user-highlight" rows="2" value="@" placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-20">
+                                <div class="form-group">
+                                    <label for="">个人简介：</label>
+                                    <textarea class="form-control user-intro" rows="6" value="@" placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-success text-center save-ok" style="display:none">保存成功</div>
+                        <div class="alert alert-danger text-center save-fail" style="display:none">保存失败</div>
+                        <div class="row">
+                            <div class="col-md-20 text-center">
+                                <span class="btn btn-success" onclick="changInfo()">保存</span>
+                            </div>
+                        </div>
+
                     </form>
-                    </div>
                 </div>
             </div>
+            <!-- 个人信息结束 -->
         </div>
-
     </div>
+</div>
+
+<script>
+
+    //头像上传截图
+    var croppicHeaderOptions = {
+        uploadUrl:'/accounts/api/upload_avatar/',
+        cropData:{
+            "dummyData":1,
+            "dummyData2":"asdas"
+        },
+        cropUrl:'/accounts/api/resize_avatar/',
+        customUploadButtonId:'cropContainerHeaderButton',
+        modal:true,
+        loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+        onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
+        onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
+        onImgDrag: function(){ console.log('onImgDrag') },
+        onImgZoom: function(){ console.log('onImgZoom') },
+        onBeforeImgCrop: function(){ console.log('onBeforeImgCrop') },
+        onAfterImgCrop:function(){ console.log('onAfterImgCrop') }
+    }
+    var cropperHeader = new Croppic('croppic', croppicHeaderOptions);
+
+</script>
+
+<script>
+    $(function(){
+        // 菜单切换
+        $("div.user-set-menu a").click(function(){
+            $(this).addClass("active").siblings("a").removeClass("active");
+            $("div.user-set-body>div").eq($(this).index()).show().siblings("div").hide();
+        });
+
+        // 邮箱验证
+        $("input.user-email").blur(function(){
+            var isEmail=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var userEmail=$(this).val();
+            if (isEmail.test(userEmail)) {
+                var user={email:$("input.user-email").val()};
+                $.ajax({
+                    type: "post",
+                    url: "/accounts/api/unique_email/",
+                    dataType: "json",
+                    data: user,
+                    success:function(data){
+                        console.log(data);
+                        if (data) {
+                            $("span.email-ok").show();
+                            $("span.email-no").hide();
+                            console.log('邮箱可用');
+                        }else{
+                            $("span.email-no").show();
+                            $("span.email-ok").hide();
+                            console.log('邮箱不可用');
+                        };
+                    },
+                    error:function(){
+                        console.log('发生意外错误，无法验证邮箱。');
+                    }
+
+                });
+            }else{
+                if (userEmail!="") {
+                    $("span.email-tip").show();
+                };
+            };
+        }).focus(function(){
+            $("span.email-tip").hide();
+            $("span.email-ok,span.email-no").hide();
+        });
+
+        // 新密码验证
+        $("input.new-password").blur(function(){
+            var isPassword=/^\w{6,18}$/;
+            var newPassword=$(this).val();
+            // var oldPassword=$("input.old-password").val();
+            if (!isPassword.test(newPassword)) {
+                $("span.new-password-tip").show();
+                if (newPassword=="") {
+                    $("span.new-password-tip").hide();
+                };
+            };
+        }).focus(function(){
+            $("span.new-password-tip").hide();
+        });
+        // 确认密码验证
+        $("input.confirm-password").blur(function(){
+            var confirmPassword=$(this).val();
+            var newPassword=$("input.new-password").val();
+            if (confirmPassword!=newPassword) {
+                $("span.confirm-password-tip").show();
+                if (confirmPassword=="") {
+                    $("span.confirm-password-tip").hide();
+                };
+            };
+        }).focus(function(){
+            $("span.confirm-password-tip").hide();
+        });
+    });
+    // 修改密码表单提交
+    function changPassword(){
+        $.ajax({
+                type: "post",
+                url: "/accounts/api/user/{{ user.username }}",
+                dataType: "json",
+                data: {
+                    email:$("input.user-email").val(),
+                    password0:$("input.old-password").val(),
+                    password:$("input.new-password").val(),
+                    passwordRepeat:$("input.confirm-password").val()
+                },
+                success:function(data){
+                    $("div.chang-ok").show();
+                    setInterval(function(){
+                        $("div.chang-ok").hide();
+                    },3000);
+                    console.log('修改成功');
+                },
+                error:function(){
+                    var timer;
+                    $("div.chang-fail").show();
+                    timer = setInterval(function(){
+                        $("div.chang-fail").hide();
+                        clearInterval(timer);
+                    },3000);
+                    console.log('修改失败');
+                }
+
+            });
+    };
+
+    // 个人信息表单提交
+    function changInfo(){
+        $.ajax({
+                type: "post",
+                url: "/accounts/api/profile/{{ user.username }}",
+                dataType: "json",
+                data: {
+                    realname:$("input.user-realname").val(),
+                    sex:$("input.user-sex").val(),
+                    job:$("input.user-job").val(),
+                    city:$("input.user-city").val(),
+                    phone:$("input.user-phone").val(),
+                    address:$("input.user-address").val(),
+                    highlight:$("input.user-highlight").val(),
+                    intro:$("input.user-intro").val()
+                },
+                success:function(data){
+                    $("div.save-ok").show();
+                    console.log('保存成功');
+                },
+                error:function(){
+                    $("div.save-fail").show();
+                    console.log('保存失败');
+                }
+
+            });
+    };
+</script>
+
 {% endblock %}

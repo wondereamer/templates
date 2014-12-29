@@ -83,6 +83,7 @@
                     }
                 },
                 add: function (e, data) {
+                    console.log(data);
                     if (e.isDefaultPrevented()) {
                         return false;
                     }

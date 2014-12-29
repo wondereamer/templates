@@ -12,7 +12,7 @@
 				background-position: center;
 				/*box-shadow: 8px 8px 0px rgba(0,0,0,0.1);*/
 			}
-			
+
 			#cropContainerHeaderButton{
 				color: #FFF;
 				margin: 20px 0 30px;
@@ -27,7 +27,7 @@
 				/*box-shadow: 8px 8px 0px rgba(0,0,0,0.1);*/
 				font-size: 20px;
 			}
-			
+
 			.cropHeaderWrapper{
 				/*overflow:hidden;*/
 				width: auto;
@@ -42,7 +42,7 @@
 				cursor: -webkit-grabbing;
 				cursor: grabbing;
 			}
-			
+
 			.cropImgUpload{
 				z-index:2;
 				position:absolute;
@@ -57,7 +57,7 @@
 				line-height:20px;
 				color:#FFF;
 			}
-			
+
 			.cropControls{
 				z-index:2;
 				position:absolute;
@@ -67,15 +67,15 @@
 				top: -1px;
 				right: -1px;
 				font-family:sans-serif;
-				background-color:rgba(0,0,0,0.35); 
+				background-color:rgba(0,0,0,0.35);
 			}
-			
+
 			.cropControls i{
 				display:block;
 				float:left;
 				margin:0;
 				cursor:pointer;
-				background-image:url('../img/cropperIcons.png');	
+				background-image:url('../img/cropperIcons.png');
 				width:30px;
 				height:30px;
 				text-align:center;
@@ -84,11 +84,11 @@
 				font-size:13px;
 				font-weight: bold;
 				font-style: normal;
-				
+
 			}
-			
+
 			.cropControls i:hover{ background-color:rgba(0,0,0,0.7);  }
-			
+
 			.cropControls i.cropControlZoomMuchIn{ background-position:0px 0px;}
 			.cropControls i.cropControlZoomIn{ background-position:-30px 0px; }
 			.cropControls i.cropControlZoomOut{ background-position:-60px 0px; }
@@ -97,11 +97,11 @@
 			.cropControls i.cropControlUpload{ background-position:-150px 0px;}
 			.cropControls i.cropControlReset{ background-position:-180px 0px;}
 			.cropControls i.cropControlRemoveCroppedImage{ background-position:-180px 0px;}
-			
+
 			.cropControls i:last-child{
 				margin-right:none;
 			}
-			
+
 			#croppicModal{
 				position:fixed;
 				width:100%;
@@ -112,13 +112,13 @@
 				background:rgba(0,0,0,0.8);
 				z-index: 10000;
 			}
-			
-			
+
+
 			/*
-			*		PRELOADER 
+			*		PRELOADER
 			*		With courtesy of : http://cssload.net/
 			*/
-			
+
 			.bubblingG {
 				text-align: center;
 				width:80px;
@@ -148,7 +148,7 @@
 				-o-animation: bubblingG 1s infinite alternate;
 				border-radius: 50px;
 				animation: bubblingG 1s infinite alternate;
-				
+
 			}
 
 			#bubblingG_1 {
@@ -259,21 +259,21 @@
 				}
 
 			}
-			
-			
+
+
 			/* some reset stlyes */
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,7 @@
  * 创意产品网格视图，可以与不同的项视图结合使用。
  * 组合成商店，预售商店，投票商店。
  */
-app.directive("ideashopgridview", function() {
+app.directive("gridview", function() {
     return {
         restrict:"AE",
         /*templateUrl:"views/idea_sites/idea_gridview.html",*/
@@ -84,16 +84,17 @@ app.directive("iLike", function(){
         link: function(scope, element, attrs){
             element.on("click", function(){
                 if(count==0){
-                    $(this).removeClass('btn-primary').addClass('btn-danger');
+                    element.removeClass('btn-primary').addClass('btn-danger');
                     scope.feverLike(scope.details.actual_like = scope.details.actual_like + 1);
-                    count++;
+                    count=1;
                 }
                 else{
-                    $(this).removeClass('btn-danger').addClass('btn-primary');
+                    element.removeClass('btn-danger').addClass('btn-primary');
                     scope.feverLike(scope.details.actual_like = scope.details.actual_like - 1);
-                    count--;
+                    count=0;
                 }
             });
         }
     };
 });
+

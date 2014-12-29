@@ -1,53 +1,58 @@
 <div class="col-md-6 col-sm-10 col-xs-20 idea-item" ng-repeat="success in successes" ng-init="views=0" style="padding-bottom: 50px;">
-	<div class="fever-box" style="box-shadow: 0 3px 6px 3px #ccc;">
+	<div class="fever-box">
 		<div class="img-box">
-			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="views=views+1">
-				<img class="img-responsive" ng-src="{[success.photo_intros]}" width="100%" />
+            <a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="success.num_browser=success.num_browser+1">
+				<img class="img-responsive" ng-src="{[success.photo_intros]}"style="border-radius:16px 16px 0 0;width:100%;height:320px;" />
 			</a>
 		</div>
-		<div class="fever-title" style="padding:0 10px">
-			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="views=views+1">
-				<h3>{[success.title]}<br /></h3>
+		<div class="fever-title" style="padding:24px 30px 0 30px">
+			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="success.num_browser=success.num_browser+1">
+				<h5 style="font-weight:600;color:#030000;font-size:16px;">{[success.title]}，自然阳光的LED光源<br /></h5>
 			</a>
 			<p></p>
 		</div>
-		<div class="media" style="padding:0 10px">
+		<!-- <div class="media" style="padding:0 10px">
 			<a class="pull-left" href="#">
 				<img class="media-object img-circle img-responsive" ng-src="{[success.post.avatar]}" style="width: 35px;height: 35px;">
 			</a>
 			<div class="media-body">
-				<a href="#"><h5 class="media-heading">{[success.post_aount.username]}</h5></a>
-				<div>{[success.post_aount.comments]}</div>
+				<a href="#">
+					<h4 class="media-heading">{[success.post.username]}</h4>
+				</a>
+				<h5 style="color: #999;">我是完美主义者，喜欢天然有品质的事物，也喜欢手工创作。手作可以让我真正慢下来，让我能够用心感受生活，打磨时光。</h5>
+			</div>
+		</div> -->
+		<div style="padding:10px 30px 0 30px">
+			<span style="color:#595757">异想家：私印局THINGS</span>
+			<div style="padding:20px 0 0px 0;">
+				<span class="text-justify" style="color:#595757">我是完美主义者，喜欢天然有品质的事物，也喜欢手工创作。手作可以让我真正慢下来，让我能够用心感受生活，打磨时光。</span>
 			</div>
 		</div>
 		<br />
-		<div style="padding: 0 10px;">
-			<div class="progress progress-striped active" style="height: 10px;">
-			   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-			      aria-valuemin="0" aria-valuemax="100" ng-style="{width: {[success.actual_like/success.target_like]} + '%'}">
+		<div style="padding: 0 30px;">
+			<div class="progress" style="height: 8px;border-radius:5px;background-color:#CBE9FA">
+			   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40"
+			      aria-valuemin="0" aria-valuemax="100" style="width:40%;border-radius:5px;background-color:#31AAE2">
 			      <span class="sr-only">{[success.actual_like/success.target_like]}% 完成</span>
 			   </div>
 			</div>
 		</div>
-		<div class="row" style="padding: 0 10px;height: 38px;">
-			<span class="col-md-6 col-md-offset-1 col-xs-6 text-center">{[success.target_like]}赞<br />还需 </span>
-			<span class="col-md-6 col-xs-6 text-center" style="border-right: 1px dashed #ccc;border-left: 1px dashed #ccc;">{[success.actual_like/success.target_like]}%<br />已达到</span>
-			<span class="col-md-6 col-xs-6 text-center">{[success.deadline | date:"d"]} 天<br />剩余</span>
+		<div class="row" style="padding: 0 30px;height: 38px;">
+			<span class="col-md-5">{[success.target_like - success.actual_like]}赞<br /><span style="color:#999">还需</span></span>
+			<span class="col-md-5">{[success.actual_like/success.target_like]}%<br /><span style="color:#999">已达到</span></span>
+			<span class="col-md-5">{[success.deadline | date:"d"]} 天<br /><span style="color:#999">剩余</span></span>
 		</div>
-		<hr style="margin: 8px 0;" />
-		<div style="padding: 0 10px 10px;">
-			<a href="#" style="margin-right: 20px;">
+		<!-- <hr style="margin: 8px 0;" /> -->
+		<!-- <div style="padding: 0 10px 10px;">
+			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="success.num_browser=success.num_browser+1" style="margin-right: 20px;">
 				<span style="font-size: 16px;" class="glyphicon glyphicon-thumbs-up"></span>&nbsp;{[success.actual_like]}
 			</a>
-			<!--<a href="#" style="margin-right: 20px;">
-				<span style="font-size: 16px;" class="glyphicon glyphicon-thumbs-down"></span>&nbsp;88
-			</a>-->
-			<a href="#" style="margin-right: 20px;">
-				<span style="font-size: 16px;" class="glyphicon glyphicon-comment"></span>&nbsp;88
+			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="success.num_browser=success.num_browser+1" style="margin-right: 20px;">
+				<span style="font-size: 16px;" class="glyphicon glyphicon-comment"></span>&nbsp;{[success.post_count]}
 			</a>
-			<a href="#" style="margin-right: 20px;">
-				<span style="font-size: 16px;" class="glyphicon glyphicon-eye-open"></span>&nbsp;{[views]}
+			<a ui-sref=".detail({feverId:success.id})" target="_blank" ng-click="success.num_browser=success.num_browser+1" style="margin-right: 20px;">
+				<span style="font-size: 16px;" class="glyphicon glyphicon-eye-open"></span>&nbsp;{[success.num_browser]}
 			</a>
-		</div>
+		</div> -->
 	</div>
 </div>

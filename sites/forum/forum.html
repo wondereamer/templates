@@ -1,4 +1,6 @@
 {% extends 'sites/base.html' %}
+{% load forum_extras %}
+{%  load humanize %}
 {% block title %}
 论坛
 {% endblock %}
@@ -78,7 +80,7 @@
                                 <td>
                                     <a class="btn">
                                         <img class="img-circle img-responsive"
-                                        src="{{ topic.user.profile.get_client_avatar_url }}"></a>
+                                        src="{{ topic.user.profile.get_client_avatar_url }}" width="80" height="80"></a>
                                     </a>
                                 </td>
                                 <td>
@@ -86,16 +88,16 @@
                                             <a href="/forum/topic/{{ topic.id  }}">[置顶] {{ topic.name }}</a>
                                     </b></h4>
 
-                                    <p>{{ topic.user.username  }} 于{{ topic.created }}发表</p>
+                                    <p>{{ topic.user.username  }} 于{{ topic.created | format_time}} 发表</p>
                                     <p>
 
                                     </p>
                                 </td>
                                 <td>
                                     <a class="btn">
-                                        <img class="img-circle img-responsive" src="{{ topic.user.profile.get_client_avatar_url  }}"></a>
+                                        <img class="img-circle img-responsive" src="{{ topic.user.profile.get_client_avatar_url  }}" width="80" height="80"></a>
                                     </a>
-                                    回复于3天前
+                                    回复于{{ topic.updated | naturaltime  }}
                                 </td>
                                 <td>
                                     <a class="btn btn-danger btn-lg">

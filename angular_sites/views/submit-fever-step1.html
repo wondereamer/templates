@@ -59,7 +59,7 @@
                     {% for key, value in cats.items %}
 	                    <label class="radio-inline">
 	                    	<input type="radio" name="ideaType"
-                            ng-model="idea.type" value="{{ key  }}" {% if forloop.first %}ng-checked="true"{% endif %}/>
+                            ng-model="idea.cat" value="{{ key  }}" {% if forloop.first %}ng-checked="true"{% endif %}/>
                             {{ value  }}
 	                    </label>
                     {% endfor %}

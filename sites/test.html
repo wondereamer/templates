@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "UTF-8">
+<title></title>
+<script src="js/lib/jquery.min.js"></script>
+</head>
+
+<body>
+    
+<script type="text/javascript"
+src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101180263" data-redirecturl="yeexiang.cn" charset="utf-8"></script>
+<span id="qqLoginBtn"></span>
+<button id="logout"> 退出</button>
+<script type="text/javascript">
+
+$('#logout').click(function(){
+    QC.Login.signOut()        ;
+});
+
+    //QQ登陆开始，建议写在函数内，当检查到没有登录时调用。
+QC.Login({
+        btnId:"qqLoginBtn",//生成登录按钮的ID
+        size: "B_M"//QQ图标大小
+    }, function(reqData, opts){
+        // 自己重载了，所以不会显示默认的头像。
+        //登陆成功执行
+        var name=QC.String.escHTML(reqData.nickname);//获取QQ会员名
+        var info={
+            name:name,//会员名取后8位字符
+            gender:reqData.gender,//性别：男|女
+            figureurl:reqData.figureurl_qq_2 //头像100X100
+        };
+        if(QC.Login.check()){
+            //QQ成功登陆
+            QC.Login.getMe(function(openId, accessToken){
+                info.openId=openId;
+                info.accessToken=accessToken;
+                //开始写入数据库
+            });
+        }
+    },function(opts){
+        //console.log("QQ注销成功");
+    });
+        //QC.Login.signOut()
+</script>
+</body>
+</html>

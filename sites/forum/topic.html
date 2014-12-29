@@ -4,7 +4,6 @@
 
 {% block title %} / {{ topic.forum.name }} / {{ topic.name }}{% endblock %}
 {% block content %}
-<div id="main-content">
 <!--路径-->
 <div class="container">
     <div class="row">
@@ -36,7 +35,7 @@
                 <div class="col-md-9">
                     <h3>{{ topic.name  }}[{{ topic.id }}]</h3>
                     <p>
-                    <span>{{ topic.user.username  }}</span> 发表于 <span>{{ topic.created  }}</span> |
+                    <span>{{ topic.user.username  }}</span> 发表于 <span>{{ topic.created | format_time }}</span> |
                         浏览数: <span>{{ topic.views  }}</span>
                     </p>
                 </div>
@@ -46,7 +45,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="panel-body">
                 <div class="col-md-10 col-md-offset-2 well-font-size">
                     {{ posts.0.body }}
@@ -87,48 +86,99 @@
 </div>
 
 
-    <!--回复区域开始-->
-    <div class="container">     		
-        <div class="row">    			
-            <div class="col-md-10 col-md-offset-1">
-            <form role="form" action="." method="POST" id="comment_form">
-                {% csrf_token %}
-                <div class="form-group">						    
-                    <textarea class="form-control" rows="3" placeholder="请输入内容" name="body"></textarea>
-                    <br />
-                    <input class="btn btn-info pull-right" type="submit" name="some_name" value="评论"/>
-                </div>
-            </form>
+<!--回复区域开始-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        <form role="form" action="." method="POST" id="comment_form">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea class="form-control" rows="3" placeholder="请输入内容" name="body"></textarea>
+                <br />
+                <input class="btn btn-info pull-right" type="submit" name="some_name" value="评论"/>
             </div>
+        </form>
         </div>
-        <br />
-        <!--跟帖-->
-        {% for post in posts %}
-            {% if forloop.first  %}
-            {% else  %}
-                <div class="row">    		
-                    <div class="col-md-2 col-sm-2">
-                        <img class="img-responsive img-circle pull-right" src="{{ post.user.profile.get_client_avatar_url }}" />	
-                    </div>
-                    <div class="col-md-9 col-sm-9">
-                        <h3><a href="">{{ post.user.username }}</a>&nbsp;&nbsp;<small>{{ post.created }}</small></h3>
-                        <p>{{ post.body }}</p>
-                    </div>
-                    <div class="col-md-1 col-sm-1">
-                        Up ---- Down
-                    </div>
+    </div>
+    <br />
+    <!--跟帖-->
+    <!-- {% for post in posts %}
+        {% if forloop.first  %}
+        {% else  %}
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+                    <img class="img-responsive img-circle pull-right" src="{{ post.user.profile.get_client_avatar_url }}" width="80" height="80" />
+                </div>
+                <div class="col-md-9 col-sm-9">
+                    <h3><a href="">{{ post.user.username }}</a>&nbsp;&nbsp;<small>{{ post.created }}</small></h3>
+                    <p>{{ post.body }}</p>
                     <form action="." method="post" accept-charset="utf-8">
                         {% csrf_token %}
-                        <input type="text" name="body" value="reply"/>     
+                        <input type="text" name="body" value="reply"/>
                         <input type="hidden" name="target" value="{{ post.id }}"/>
                         <p><input type="submit" value="回复"/></p>
                     </form>
-                    
-                </div>      		
-                <br />
-            {% endif %}
-        {% endfor %}
-    </div><!--回复区域结束-->    	
+                </div>
+                <div class="col-md-1 col-sm-1">
+                    <a href="" style="margin-right:20px">
+                        <span class="glyphicon glyphicon-thumbs-up" style="font-size:20px"></span>
+                    </a>
+                    <a href="">
+                        <span class="glyphicon glyphicon-thumbs-down" style="font-size:20px"></span>
+                    </a>
+                </div>
+            </div>
+            <br />
+        {% endif %}
+    {% endfor %} -->
+</div><!--回复区域结束-->
+
+<div id="accordion" class="container">
+{% for post in posts %}
+    {% if forloop.first  %}
+    {% else  %}
+    <!-- <div class="row"> -->
+        <!-- <div class="col-md-12"> -->
+            <!--一个人的评论开始-->
+            <div class="media panel" style="border-bottom: 1px dashed #ccc;padding-bottom: 5px;">
+                <a class="pull-left" href="">
+                    <img class="media-object img-circle img-responsive" src="{{ post.user.profile.get_client_avatar_url }}" alt="头像" width="80px" height="80px">
+                </a>
+                <div class="media-body">
+                    <a href=""><h4 class="media-heading">{{ post.user.username }}</h4></a>
+                    <p>{{ post.created | format_time }}</p>
+                    <div>{{ post.body }}</div>
+                </div>
+                <div style="padding: 0 10px 10px;text-align: right;">
+                    <a class="like" href="#" style="margin-right: 20px;">
+                        <span style="font-size: 16px;" class="glyphicon glyphicon-thumbs-up"></span>&nbsp;889
+                    </a>
+                    <a class="hate" href="#" style="margin-right: 20px;">
+                        <span style="font-size: 16px;" class="glyphicon glyphicon-thumbs-down"></span>&nbsp;88
+                    </a>
+                    <a data-target="#t{{ post.id }}" data-toggle="collapse" data-parent="#accordion" style="margin-right: 20px;">
+                        <span style="font-size: 16px;" class="glyphicon glyphicon-comment"></span>&nbsp;88
+                    </a>
+                </div>
+                <div id="t{{ post.id }}" class="collapse">
+                    <form role="form" action="." method="post" accept-charset="utf-8">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">评论</label>
+                            <textarea class="form-control" rows="3" name="body" value="reply"></textarea>
+                            <input type="hidden" name="target" value="{{ post.id }}"/>
+                        </div>
+                        <div class="form-group text-right">
+                            <button class="btn btn-success" type="submit">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--一个人的评论结束-->
+        <!-- </div> -->
+    <!-- </div> -->
+    {% endif %}
+{% endfor %}
 </div>
 <!--<script type="text/javascript" charset="utf-8">-->
 <!--$('#comment_form').click(function(event){-->
@@ -143,4 +193,27 @@
         <!-- -->
         <!--});-->
 <!--</script>-->
+
+<script>
+$(function(){
+    // /forum/post/{{ post.id }}/up
+    $(".like,.hate").click(function(){
+        // var like=12;
+        $(this).css({"color":"#f36"});
+        $.post("/like/hate",
+            {
+                like:"1"
+            },
+            function(data,status){
+            alert("Data: " + data + "nStatus: " + status);
+        });
+        // like++;
+        // $(".like span").text(like);
+    });
+
+});
+</script>
+
 {% endblock content%}
+
+

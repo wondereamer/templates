@@ -1,52 +1,42 @@
-/* Wrapper for page content to push down footer */
-/* line 6, ../sass/main.scss */
-.wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto 0;
-  /* Pad bottom by footer height */
-  padding: 0 0 1em;
+body {
+    padding-top: 50px;
+    /*font-family: arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;*/
 }
 
-/* Set the fixed height of the footer here */
-/* line 16, ../sass/main.scss */
+/*页脚*/
+.footer a,.footer span,.footer li{
+  color: #666;
+}
+.footer-guide{
+  padding: 10px 0;
+}
+.footer-guide li{
+  width: 50px;
+  float: left;
+  text-align: center;
+}
+.footer-guide li a{
+  font-size: 12px;
+}
+.footer-guide li img{
+  width: 60px;
+  padding-bottom: 6px;
+}
+.footer-guide li span{
+  width:10px;
+  height:10px;
+  border-radius:10px;
+  display:inline-block;
+  background-color:#8BCAE8;
+}
 .footer {
   height: auto;
   background-color: #f5f5f5;
 }
 
-body {
-    font-family: "MicroSoft YaHei";
-}
-
-.pad-bottom-1em {
-    padding-bottom: 1em;
-}
-
-.pad-top-1em {
-    padding-top: 1em;
-}
-
-.well-font-size {
-    font-size: 1.2em;
-}
-
-.font-size-3em {
-    font-size: 3em;
-}
-
-.font-size-2em {
-    font-size: 2em;
-}
-
-.font-size-1_2em {
-    font-size: 1.2em;
-}
-
-.front-color-lightgray {
-    color: lightgray;
-}
+/*h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+    font-family: arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+}*/
 /*链接样式初始化*/
 a{
 	color: #333;
@@ -58,26 +48,15 @@ a{
 	text-decoration: none;
 }
 a:hover{
-	color: #f36;
+	color: #00A0E8;
 	text-decoration: none;
 }
 
-/*去除浏览器按钮，超链接默认边框*/
-/*button[type=submit],input[type=button],input[type=submit]{outline:none;}*//*//IE*/
-/*button[type=submit]:focus,input[type=button]:focus,input[type=submit]:focus{outline:none;}*//*//IE*/
-/*input[type=button]::-moz-focus-inner{outline:0;}*//*//火狐*/
-a{outline:none;}/*//IE文字链接*/
-a:focus{outline: none;}
-/*全局P标签样式*/
-p{
-	color: #999;
-	font-size: 12px;
-}
-/*适应创意商品展示在大屏的三列布局*/
-@media (min-width: 992px){
-	.idea-item{
-		width:33.3%;
-	}
+@media (min-width: 1200px){
+  .col-lg-8{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 /*商品详情图片TAB切换*/
@@ -86,66 +65,22 @@ ul.pic-show{
 	padding: 0;
 	margin: 0;
 }
+ul.pic-show li{
+  display: none;
+}
 ul.pic-show li img{
   width: 100%;
 }
-ul.pic-list li.default{
+ul.pic-list li{
   width: 15%;
 	opacity: 0.5;
 	border: 1px solid #fff;
 	float: left;
 	margin: 0 5px;
 }
-ul.pic-list li.img-hover{
+ul.pic-list li.mouse-over{
 	opacity: 1;
 	border: 1px solid #f36;
-}
-
-
-/*提交创意动画效果*/
-#submit-idea-form{ position:relative; min-height:800px; overflow:hidden; padding:30px; }
-
-#submit-idea-views.ng-enter,#submit-idea-views.ng-leave{
-	position:absolute; left:30px; right:30px;
-    transition:0.5s all ease;
-    -moz-transition:0.5s all ease;
-    -webkit-transition:0.5s all ease;
-}
-#submit-idea-views.ng-enter{
-    -webkit-animation:slideInRight 0.5s both ease;
-    -moz-animation:slideInRight 0.5s both ease;
-    animation:slideInRight 0.5s both ease;
-}
-#submit-idea-views.ng-leave{
-    -webkit-animation:slideOutLeft 0.5s both ease;
-    -moz-animation:slideOutLeft 0.5s both ease;
-    animation:slideOutLeft 0.5s both ease;
-}
-
-/**/
-/* slide out to the left */
-@keyframes slideOutLeft {
-    to         { transform: translateX(-200%); }
-}
-@-moz-keyframes slideOutLeft {
-    to         { -moz-transform: translateX(-200%); }
-}
-@-webkit-keyframes slideOutLeft {
-    to         { -webkit-transform: translatex(-200%); }
-}
-
-/* slide in from the right */
-@keyframes slideInRight {
-    from     { transform:translateX(200%); }
-    to         { transform: translateX(0); }
-}
-@-moz-keyframes slideInRight {
-    from     { -moz-transform:translateX(200%); }
-    to         { -moz-transform: translateX(0); }
-}
-@-webkit-keyframes slideInRight {
-    from     { -webkit-transform:translateX(200%); }
-    to         { -webkit-transform: translateX(0); }
 }
 
 
@@ -222,9 +157,216 @@ ul.pic-list li.img-hover{
 }
 
 /*给分页框的内容区加边距和边框*/
-.tab-content.tab-bordered {
+/*.tab-content.tab-bordered {
   border: 1px solid #ccc;
   border-top: none;
   padding: 15px;
   border-radius: 0 0 4px 4px;
+}*/
+
+
+/*从这里开始*/
+
+/*Logo*/
+.navbar-brand{
+  padding: 10px 15px 10px;
+}
+.navbar-brand img{
+  width: auto;
+  height: 30px;
+}
+
+/*导航菜单*/
+nav.navbar{
+  border: 0;
+}
+div.navbar-collapse ul.navbar-nav{
+
+}
+.navbar-menu-hover{
+  border-bottom: 3px solid #03b5fd;
+}
+
+.glyphicon-search{
+  color: #999;
+}
+
+/*发现创意*/
+.fever-detail-menu-select{
+  color: #34A3DD;
+}
+/*分类*/
+ul.shop-type li{
+  float: left;
+  margin-right: 24px;
+}
+ul.shop-type li a{
+  display: block;
+  padding: 6px 15px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+ul.shop-type li.green a:hover{
+  color: #fff;
+  background-color: #BCD416;
+}
+ul.shop-type li.blue a:hover{
+  color: #fff;
+  background-color: #31AAE2;
+}
+.type-active-green{
+  color: #fff;
+  background-color: #BCD416;
+}
+.type-active-blue{
+  color: #fff;
+  background-color: #31AAE2;
+}
+
+/*商店*/
+.shop-detail-menu-select{
+  color: #BCD416;
+}
+
+
+/*论坛*/
+
+/*导航栏*/
+div.bbs-nav-bg{
+  width: 100%;
+  height: 58px;
+  border-radius: 5px;
+  padding-left: 30px;
+  background-color: #7EC16D;
+}
+ul.bbs-nav-menu{
+  padding: 12px 0;
+}
+ul.bbs-nav-menu li{
+  float: left;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 6px 25px;
+  border-radius:36px;
+  cursor: pointer;
+}
+ul.bbs-nav-menu li:hover{
+  background-color: #4A9437;
+}
+ul.bbs-nav-menu li.active{
+  background-color: #4A9437;
+}
+
+/*左边菜单开始*/
+div.bbs-content{
+  padding: 45px 0 0 30px;
+}
+ul.bbs-left-menu{
+
+}
+ul.bbs-left-menu li{
+  color: #5F605F;
+  font-size: 14px;
+  padding: 24px 36px;
+  border-bottom: 1px dashed #CBCBCB;
+  background: url(img/bbs-menu-icon.png) 0 50% no-repeat;
+}
+
+/*论坛状态*/
+ul.bbs-state{
+  height: 180px;
+  padding-top: 45px;
+}
+ul.bbs-state h4{
+  color: #7EC16D;
+}
+ul.bbs-state span{
+  color: #5F605F;
+}
+ul.bbs-state li{
+  width: 50%;
+  float: left;
+  border: 1px dashed transparent;
+}
+ul.bbs-state li.first{
+  border-bottom: 1px dashed #CBCBCB;
+  border-right: 1px dashed #CBCBCB;
+}
+ul.bbs-state li.last{
+  border-top: 1px dashed #CBCBCB;
+  border-left: 1px dashed #CBCBCB;
+}
+
+/*论坛公告*/
+div.bbs-notice{
+  padding-top: 45px;
+}
+/*论坛左边菜单结束*/
+
+/*论坛右边内容开始*/
+/*热门板块菜单*/
+ul.bbs-right-top{
+  height: 30px;
+  padding: 28px 0 0 30px;
+}
+ul.bbs-right-top li{
+  float: left;
+  color: #5F605F;
+  font-size: 16px;
+  margin-right: 24px;
+}
+
+div.bbs-right-mid{
+  height: 70px;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px dashed #CBCBCB;
+}
+div.bbs-right-mid h4{
+  color: #5F605F;
+  padding: 6px 25px;
+  border-radius: 24px;
+  float: left;
+  cursor: pointer;
+  margin-right: 24px;
+}
+div.bbs-right-mid h4.active{
+  background-color: #D5E7C8;
+}
+div.bbs-right-mid h4.bbs-new-topic{
+  color: #fff;
+  border-radius: 0;
+  background-color: #7EC16D;
+}
+div.bbs-right-mid h4 span{
+  color: #7EC16D;
+  padding-left: 10px;
+}
+div.bbs-right-mid h4.bbs-new-topic{
+  float: right;
+}
+
+
+/*论坛右边内容开始*/
+div.bbs-posts{
+  height: 150px;
+  padding: 26px 0 30px 30px;
+}
+div.bbs-posts .media-heading span{
+  padding-left: 20px;
+  color: #A8A8A7;
+}
+div.bbs-posts .media-body>a{
+  display: inline-block;
+  width: 500px;
+}
+div.bbs-posts .media-body>h4{
+  color: #7EC16D;
+}
+div.bbs-posts .media-body {
+  color: #322C2B;
+  font-size: 16px;
 }

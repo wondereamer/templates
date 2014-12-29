@@ -79,6 +79,7 @@
                         state = 'pending';
                         return $http({
                             url: file.deleteUrl,
+                            xsrfCookieName: 'csrftoken',
                             method: file.deleteType
                         }).then(
                             function () {
